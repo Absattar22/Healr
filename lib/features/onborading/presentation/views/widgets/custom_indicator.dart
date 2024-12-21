@@ -16,20 +16,15 @@ class CustomIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 50.h,
-      left: 0,
-      right: 0,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SvgPicture.asset(
-            indicatorPath,
-            height: 48.h,
-            width: 48.w,
-          ),
-        ],
-      ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SvgPicture.asset(
+          indicatorPath,
+          height: 48.h,
+          width: 48.w,
+        ),
+      ],
     );
   }
 }
