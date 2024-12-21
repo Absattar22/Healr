@@ -11,16 +11,16 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> pages = [
       {
-        'imagePath': 'assets/images/female.png',
+        'imagePath': 'assets/images/doctors.png',
         'indicatorPath': 'assets/images/indicator 1.svg',
         'text1': 'Welcome to ',
         'text2': 'healr.\n',
         'text3': 'Your health partner, anytime,\nanywhere',
-        'bottom': 290.h,
+        'bottom': 225.h,
         'left': 0.w,
         'right': 0.w,
-        'height': 250.h,
-        'width': 250.w,
+        'height': 341.h,
+        'width': 351.w,
         'textColor': const Color(0xFF3A95D2),
         'styles': const TextStyle(
           color: Color(0xFF3A95D2),
@@ -28,7 +28,7 @@ class OnboardingView extends StatelessWidget {
         ),
       },
       {
-        'imagePath': 'assets/images/female_doc.png',
+        'imagePath': 'assets/images/female.png',
         'indicatorPath': 'assets/images/indicator 2.svg',
         'text1': 'Need an appointment?\n',
         'text2': 'Choose a doctor, check',
@@ -61,10 +61,12 @@ class OnboardingView extends StatelessWidget {
       },
     ];
 
-    return Scaffold(
-      body: OnboardingViewBody(
-        pages: pages,
-        onLastPageTap: () => GoRouter.of(context).push(AppRouter.kLoginView),
+    return SafeArea(
+      child: Scaffold(
+        body: OnboardingViewBody(
+          pages: pages,
+          onLastPageTap: () => GoRouter.of(context).push(AppRouter.kLoginView),
+        ),
       ),
     );
   }
