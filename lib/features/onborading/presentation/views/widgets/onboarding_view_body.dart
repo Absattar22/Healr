@@ -52,28 +52,49 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                     GoRouter.of(context).push(AppRouter.kLoginView);
                   },
                 ),
-                CustomPositionedImage(
-                  bottom: page['bottom'],
-                  left: 0.w,
-                  right: 0.w,
-                  height: page['height'],
-                  width: page['width'],
-                  imagePath: page['imagePath'],
-                ),
-                CustomPositionedImage(
-                  bottom: 0.h,
-                  left: 0.h,
-                  right: 0.h,
-                  height: 320.h,
-                  width: 393.w,
-                  imagePath: 'assets/images/Vector.png',
-                ),
-                CustomOnboardingText(
-                  styles: page['styles'],
-                  text1: page['text1'],
-                  text2: page['text2'],
-                  text3: page['text3'],
-                  textColor: page['textColor'],
+                Stack(
+                  children: [
+                    if (index == 0)
+                      CustomPositionedImage(
+                        bottom: 360.h,
+                        left: 0.h,
+                        right: 0.h,
+                        height: 269.h,
+                        width: 282.w,
+                        imagePath: 'assets/images/circles.png',
+                      ),
+                    CustomPositionedImage(
+                      bottom: page['bottom'],
+                      left: 0.w,
+                      right: 0.w,
+                      height: page['height'],
+                      width: page['width'],
+                      imagePath: page['imagePath'],
+                    ),
+                    CustomPositionedImage(
+                      bottom: page['bottom'],
+                      left: 0.w,
+                      right: 0.w,
+                      height: page['height'],
+                      width: page['width'],
+                      imagePath: page['imagePath'],
+                    ),
+                    CustomPositionedImage(
+                      bottom: 0.h,
+                      left: 0.h,
+                      right: 0.h,
+                      height: 320.h,
+                      width: 393.w,
+                      imagePath: 'assets/images/Vector.png',
+                    ),
+                    CustomOnboardingText(
+                      styles: page['styles'],
+                      text1: page['text1'],
+                      text2: page['text2'],
+                      text3: page['text3'],
+                      textColor: page['textColor'],
+                    ),
+                  ],
                 ),
               ],
             );
