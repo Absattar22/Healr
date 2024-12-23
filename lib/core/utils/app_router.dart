@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/onborading/presentation/views/onboarding_view.dart';
+import 'package:healr/features/sign_up/presentation/views/sign_up_view.dart';
 
 abstract class AppRouter {
   static const kLoginView = '/LoginView';
+  static const kSignUpView = '/SignUpView';
   static const kOnboarding = '/';
   static final router = GoRouter(
     routes: [
@@ -16,7 +18,7 @@ abstract class AppRouter {
         path: kLoginView,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
-          child: const LoginView(), 
+          child: const LoginView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(1.0, 0.0);
             const end = Offset.zero;
@@ -33,6 +35,10 @@ abstract class AppRouter {
             );
           },
         ),
+      ),
+      GoRoute(
+        path: kSignUpView,
+        builder: (context, state) => const SignUpView(),
       ),
     ],
   );
