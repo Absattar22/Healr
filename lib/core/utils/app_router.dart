@@ -38,7 +38,25 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kSignUpView,
-        builder: (context, state) => const SignUpView(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const SignUpView(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0);
+            const end = Offset.zero;
+            const curve = Curves.easeOut;
+
+            final tween = Tween(begin: begin, end: end).chain(
+              CurveTween(curve: curve),
+            );
+            final offsetAnimation = animation.drive(tween);
+
+            return SlideTransition(
+              position: offsetAnimation,
+              child: child,
+            );
+          },
+        ),
       ),
     ],
   );

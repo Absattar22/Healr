@@ -19,6 +19,7 @@ class Healr extends StatelessWidget {
         return MaterialApp.router(
           routerConfig: AppRouter.router,
           theme: ThemeData.light().copyWith(
+            scaffoldBackgroundColor: Colors.white,
             textTheme: ThemeData.light().textTheme.apply(
                   fontFamily: 'Aspekta',
                 ),
