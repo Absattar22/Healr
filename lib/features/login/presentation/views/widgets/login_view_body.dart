@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/features/login/presentation/views/widgets/custom_sign_in_with_email_button.dart';
@@ -57,9 +59,14 @@ class LoginViewBody extends StatelessWidget {
                   onTap: () {},
                 ),
                 SizedBox(height: 16.h),
-                const Center(
+                Center(
                   child: CustomTextRich(
-                      text1: 'New Here?', text2: '  Create an Account'),
+                    text1: 'New Here?',
+                    text2: '  Create an Account',
+                    onTapText2: () {
+                      GoRouter.of(context).push(AppRouter.kSignUpView);
+                    },
+                  ),
                 ),
               ],
             ),
