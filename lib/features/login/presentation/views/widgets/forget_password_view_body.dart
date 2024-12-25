@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/core/widgets/custom_text_field.dart';
@@ -39,7 +41,11 @@ class ForgetPasswordViewBody extends StatelessWidget {
                   labelText: "Email address",
                   obscureText: false),
               SizedBox(height: 24.h),
-              CustomButton(text: "Next", onPressed: () {}),
+              CustomButton(
+                  text: "Next",
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRouter.kVerificationCodeView);
+                  }),
             ],
           ),
         ),
