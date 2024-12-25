@@ -43,7 +43,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 ),
                 SizedBox(height: 16.h),
                 CustomTextField(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kForgetPasswordView);
+                  },
                   showForgotPass: true,
                   labelText: 'Password',
                   hintText: '•••••••••••••••',

@@ -11,7 +11,6 @@ abstract class Styles {
     fontSize: 12.sp,
     fontWeight: FontWeight.normal,
     fontFamily: 'Aspekta',
-    
   );
   static TextStyle textStyle14 = TextStyle(
     fontSize: 14.sp,
@@ -26,7 +25,6 @@ abstract class Styles {
     fontSize: 18.sp,
     fontWeight: FontWeight.normal,
     fontFamily: 'Aspekta',
-    
   );
   static TextStyle textStyle20 = TextStyle(
     fontSize: 20.sp,
@@ -43,7 +41,7 @@ abstract class Styles {
     fontWeight: FontWeight.normal,
     fontFamily: 'Aspekta',
   );
-   static TextStyle textStyle30 = TextStyle(
+  static TextStyle textStyle30 = TextStyle(
     fontSize: 30.sp,
     fontWeight: FontWeight.normal,
     fontFamily: 'Aspekta',
@@ -54,5 +52,4 @@ abstract class Styles {
     fontWeight: FontWeight.normal,
     fontFamily: 'Aspekta',
   );
-
 }
