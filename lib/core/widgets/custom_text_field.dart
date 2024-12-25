@@ -11,12 +11,16 @@ class CustomTextField extends StatefulWidget {
     required this.labelText,
     this.onChanged,
     required this.obscureText,
+    this.showForgotPass = false,
+    this.onTap,
   });
 
   final String hintText, labelText;
   final Function(String)? onChanged;
   bool showPassword = true;
   final bool obscureText;
+  final bool showForgotPass;
+  final void Function()? onTap;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -31,6 +35,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
     widget.showPassword = widget.obscureText;
   }
 
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,50 +46,76 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.labelText,
-            style: Styles.textStyle18.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          widget.showForgotPass
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.labelText,
+                      style: Styles.textStyle18.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 8.h),
+                      child: GestureDetector(
+                        onTap: widget.onTap,
+                        child: Text(
+                          'Forgot Password?',
+                          style: Styles.textStyle14
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : Text(
+                  widget.labelText,
+                  style: Styles.textStyle18.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
           Padding(
             padding: EdgeInsets.symmetric(
               vertical: 8.h,
             ),
-            child: TextField(
-              textAlignVertical: TextAlignVertical.center,
-              keyboardType: widget.labelText == 'National number' ||
-                      widget.labelText == 'Phone number'
-                  ? TextInputType.number
-                  : TextInputType.text,
-              obscureText: widget.showPassword,
-              controller: controller,
-              onChanged: widget.onChanged,
-              cursorColor: kSecondaryColor.withOpacity(0.8),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8.w,
-                  vertical: 0.h,
-                ),
-                suffixIcon: widget.labelText == 'Password' ||
-                        widget.labelText == 'Confirm password'
-                    ? customPasswordIcon()
-                    : null,
-                hintText: widget.hintText,
-                hintStyle: Styles.textStyle12.copyWith(
-                  color: kHintColor.withOpacity(0.6),
-                ),
-                border: outlineInputBorder(
-                  width: 1.w,
-                  color: kHintColor.withOpacity(0.6),
-                ),
-                focusedBorder: outlineInputBorder(
-                  width: 2.w,
-                  color: kSecondaryColor.withOpacity(0.8),
-                ),
-                errorBorder: outlineInputBorder(
-                  width: 2.w,
-                  color: kErrorColor.withOpacity(0.8),
+            child: Form(
+              key: formKey,
+              child: TextField(
+                textAlignVertical: TextAlignVertical.center,
+                keyboardType: widget.labelText == 'National number' ||
+                        widget.labelText == 'Phone number'
+                    ? TextInputType.number
+                    : TextInputType.text,
+                obscureText: widget.showPassword,
+                controller: controller,
+                onChanged: widget.onChanged,
+                cursorColor: kSecondaryColor.withOpacity(0.8),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 8.w,
+                    vertical: 0.h,
+                  ),
+                  suffixIcon: widget.labelText == 'Password' ||
+                          widget.labelText == 'Confirm password'
+                      ? customPasswordIcon()
+                      : null,
+                  hintText: widget.hintText,
+                  hintStyle: Styles.textStyle12.copyWith(
+                    color: kHintColor.withOpacity(0.6),
+                  ),
+                  border: outlineInputBorder(
+                    width: 1.w,
+                    color: kHintColor.withOpacity(0.6),
+                  ),
+                  focusedBorder: outlineInputBorder(
+                    width: 2.w,
+                    color: kSecondaryColor.withOpacity(0.8),
+                  ),
+                  errorBorder: outlineInputBorder(
+                    width: 2.w,
+                    color: kErrorColor.withOpacity(0.8),
+                  ),
                 ),
               ),
             ),

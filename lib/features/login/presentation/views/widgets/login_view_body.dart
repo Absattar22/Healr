@@ -9,9 +9,14 @@ import 'package:healr/features/login/presentation/views/widgets/custom_sign_in_w
 import 'package:healr/core/widgets/custom_text_field.dart';
 import 'package:healr/core/widgets/custom_text_rich.dart';
 
-class LoginViewBody extends StatelessWidget {
+class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
 
+  @override
+  State<LoginViewBody> createState() => _LoginViewBodyState();
+}
+
+class _LoginViewBodyState extends State<LoginViewBody> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,6 +43,8 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 CustomTextField(
+                  onTap: () {},
+                  showForgotPass: true,
                   labelText: 'Password',
                   hintText: '•••••••••••••••',
                   onChanged: (value) {},
