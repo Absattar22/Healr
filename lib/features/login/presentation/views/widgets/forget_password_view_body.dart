@@ -15,38 +15,41 @@ class ForgetPasswordViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.only(top: 32.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const CustomBackButton(),
-              SizedBox(height: 32.h),
-              Text(
-                'Forgot your password?',
-                textAlign: TextAlign.center,
-                style: Styles.textStyle30.copyWith(
-                  fontWeight: FontWeight.w500,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(top: 32.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const CustomBackButton(),
+                SizedBox(height: 32.h),
+                Text(
+                  'Forgot your password?',
+                  textAlign: TextAlign.center,
+                  style: Styles.textStyle30.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                "Enter your Email account to reset your password",
-                textAlign: TextAlign.center,
-                style: Styles.textStyle14,
-              ),
-              SizedBox(height: 32.h),
-              CustomTextField(
-                  hintText: "enter your Email",
-                  labelText: "Email address",
-                  obscureText: false),
-              SizedBox(height: 24.h),
-              CustomButton(
-                  text: "Next",
-                  onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kVerificationCodeView);
-                  }),
-            ],
+                SizedBox(height: 8.h),
+                Text(
+                  "Enter your Email account to reset your password",
+                  textAlign: TextAlign.center,
+                  style: Styles.textStyle14,
+                ),
+                SizedBox(height: 32.h),
+                CustomTextField(
+                    hintText: "enter your Email",
+                    labelText: "Email address",
+                    obscureText: false),
+                SizedBox(height: 24.h),
+                CustomButton(
+                    text: "Next",
+                    onPressed: () {
+                      GoRouter.of(context)
+                          .push(AppRouter.kVerificationCodeView);
+                    }),
+              ],
+            ),
           ),
         ),
       ),
