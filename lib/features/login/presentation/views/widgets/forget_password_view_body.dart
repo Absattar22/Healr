@@ -5,7 +5,6 @@ import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/core/widgets/custom_text_field.dart';
-
 import 'package:healr/features/login/presentation/views/widgets/custom_back_button.dart';
 
 class ForgetPasswordViewBody extends StatelessWidget {
@@ -38,7 +37,7 @@ class ForgetPasswordViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 32.h),
                 CustomTextField(
-                    hintText: "enter your Email",
+                    hintText: "Enter your Email",
                     labelText: "Email address",
                     obscureText: false),
                 SizedBox(height: 24.h),

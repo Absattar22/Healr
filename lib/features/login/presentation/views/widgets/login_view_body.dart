@@ -5,9 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
-import 'package:healr/features/login/presentation/views/widgets/custom_sign_in_with_email_button.dart';
 import 'package:healr/core/widgets/custom_text_field.dart';
 import 'package:healr/core/widgets/custom_text_rich.dart';
+import 'package:healr/features/login/presentation/views/widgets/custom_sign_in_with_email_button.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});

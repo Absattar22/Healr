@@ -41,7 +41,7 @@ class SignUpViewBody extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               CustomTextField(
-                hintText: "enter your email",
+                hintText: "Enter your Email",
                 labelText: "Email address",
                 obscureText: false,
               ),
