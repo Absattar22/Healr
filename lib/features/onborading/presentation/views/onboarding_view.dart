@@ -40,7 +40,7 @@ class OnboardingView extends StatelessWidget {
         'width': 249.w,
         'textColor': const Color(0xFF000000),
         'styles': const TextStyle(
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         ),
       },
       {
@@ -56,7 +56,7 @@ class OnboardingView extends StatelessWidget {
         'width': 393.w,
         'textColor': const Color(0xFF000000),
         'styles': const TextStyle(
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         ),
       },
     ];

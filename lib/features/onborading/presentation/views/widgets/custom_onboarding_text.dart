@@ -21,15 +21,15 @@ class CustomOnboardingText extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          bottom: 165.h,
+          bottom: 170.h,
           left: 10.w,
           right: 0.w,
           child: Text.rich(
             TextSpan(
               text: text1,
-              style: Styles.textStyle24.copyWith(
+              style: Styles.textStyle22.copyWith(
                 color: const Color(0xFF000000),
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
               children: [
                 TextSpan(

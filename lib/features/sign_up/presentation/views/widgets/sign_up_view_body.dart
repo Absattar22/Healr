@@ -29,30 +29,35 @@ class SignUpViewBody extends StatelessWidget {
               ),
               SizedBox(height: 32.h),
               CustomTextField(
+                controller: TextEditingController(),
                 hintText: "Enter your 14-digit national number.",
                 labelText: "National number",
                 obscureText: false,
               ),
               SizedBox(height: 16.h),
               CustomTextField(
+                controller: TextEditingController(),
                 hintText: "eg. 0122222222",
                 labelText: "Phone number",
                 obscureText: false,
               ),
               SizedBox(height: 16.h),
               CustomTextField(
-                hintText: "enter your email",
+                controller: TextEditingController(),
+                hintText: "Enter your email",
                 labelText: "Email address",
                 obscureText: false,
               ),
               SizedBox(height: 16.h),
               CustomTextField(
+                controller: TextEditingController(),
                 hintText: "•••••••••••••••",
                 labelText: "Password",
                 obscureText: true,
               ),
               SizedBox(height: 16.h),
               CustomTextField(
+                controller: TextEditingController(),
                 hintText: "•••••••••••••••",
                 labelText: "Confirm password",
                 obscureText: true,
@@ -62,7 +67,7 @@ class SignUpViewBody extends StatelessWidget {
                 text: "Sign up",
                 onPressed: () {},
               ),
-              SizedBox(height: 4.h),
+              SizedBox(height: 16.h),
               Center(
                 child: CustomTextRich(
                   text1: "Already have an account? ",

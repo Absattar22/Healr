@@ -109,7 +109,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
               if (currentPage < widget.pages.length - 1) {
                 controller.animateToPage(
                   currentPage + 1,
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOut,
                 );
               } else {

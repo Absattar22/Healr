@@ -38,6 +38,7 @@ class ForgetPasswordViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 32.h),
                 CustomTextField(
+                  controller: TextEditingController(),
                     hintText: "enter your Email",
                     labelText: "Email address",
                     obscureText: false),
