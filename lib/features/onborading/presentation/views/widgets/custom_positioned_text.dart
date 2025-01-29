@@ -21,9 +21,9 @@ class CustomPositionedText extends StatelessWidget {
       right: right,
       child: Text(
         text,
-        style: Styles.textStyle24.copyWith(
+        style: Styles.textStyle22.copyWith(
           color: const Color(0xFF000000),
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         ),
         textAlign: TextAlign.center,
       ),
