@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
@@ -35,6 +34,7 @@ class NewPasswordViewBody extends StatelessWidget {
               height: 40.h,
             ),
             CustomTextField(
+              controller: TextEditingController(),
                 hintText: "•••••••••••••••",
                 labelText: "Password",
                 obscureText: true),
@@ -55,6 +55,7 @@ class NewPasswordViewBody extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
             CustomTextField(
+              controller: TextEditingController(),
                 hintText: "•••••••••••••••",
                 labelText: "Confirm password",
                 obscureText: true),
