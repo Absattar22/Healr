@@ -31,6 +31,11 @@ abstract class Styles {
     fontWeight: FontWeight.normal,
     fontFamily: 'Aspekta',
   );
+   static TextStyle textStyle22 = TextStyle(
+    fontSize: 22.sp,
+    fontWeight: FontWeight.normal,
+    fontFamily: 'Aspekta',
+  );
   static TextStyle textStyle24 = TextStyle(
     fontSize: 24.sp,
     fontWeight: FontWeight.normal,
