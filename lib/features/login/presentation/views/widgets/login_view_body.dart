@@ -72,7 +72,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           body: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
               if (state is LoginSuccess) {
-                GoRouter.of(context).pushReplacement(AppRouter.kSignUpView);
+                GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Login successful ✅'),
