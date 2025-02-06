@@ -1,26 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:healr/features/home/presentation/views/home_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';
 import 'package:healr/features/login/presentation/views/password_changed_view.dart';
 import 'package:healr/features/login/presentation/views/verification_code_view.dart';
 import 'package:healr/features/onborading/presentation/views/onboarding_view.dart';
+import 'package:healr/features/onborading/splash_view.dart';
 import 'package:healr/features/sign_up/presentation/views/sign_up_view.dart';
 
 abstract class AppRouter {
-  static const kOnboarding = '/';
+  static const kSplashView = '/';
+  static const kOnboardingView = '/OnboardingView';
   static const kLoginView = '/LoginView';
   static const kSignUpView = '/SignUpView';
+  static const kHomeView = '/HomeView';
   static const kForgetPasswordView = '/ForgetPasswordView';
   static const kVerificationCodeView = '/VerificationCodeView';
   static const kNewPasswordView = '/NewPasswordView';
   static const kPasswordChangedView = '/PasswordChangedView';
   static final router = GoRouter(
+    initialLocation: kSplashView,
     routes: [
       GoRoute(
-        path: kOnboarding,
-        builder: (context, state) => const OnboardingView(),
+        path: kSplashView,
+        builder: (context, state) => const SplashView(),
+      ),
+      GoRoute(
+        path: kOnboardingView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const OnboardingView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kHomeView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const HomeView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
       ),
       GoRoute(
         path: kLoginView,

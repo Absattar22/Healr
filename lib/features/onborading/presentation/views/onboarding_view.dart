@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/core/utils/app_router.dart';
+import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/features/onborading/presentation/views/widgets/onboarding_view_body.dart';
 
-class OnboardingView extends StatelessWidget {
+class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
+
+  @override
+  State<OnboardingView> createState() => _OnboardingViewState();
+}
+
+class _OnboardingViewState extends State<OnboardingView> {
+  Future<void> completeOnboarding(BuildContext context) async {
+    await SharedPrefCache.saveCache(
+        key: 'onboardingStatus', value: 'completed');
+    GoRouter.of(context).go(AppRouter.kLoginView);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +76,11 @@ class OnboardingView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: OnboardingViewBody(
-          pages: pages,
-          onLastPageTap: () => GoRouter.of(context).push(AppRouter.kLoginView),
-        ),
+            pages: pages,
+            onLastPageTap: () {
+              GoRouter.of(context).push(AppRouter.kLoginView);
+              completeOnboarding(context);
+            }),
       ),
     );
   }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/service_locator.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
   runApp(const Healr());
 }
@@ -21,7 +23,7 @@ class Healr extends StatelessWidget {
         return MaterialApp.router(
           routerConfig: AppRouter.router,
           theme: ThemeData.light().copyWith(
-            scaffoldBackgroundColor: Colors.white,
+            scaffoldBackgroundColor: kPrimaryColor,
             textTheme: ThemeData.light().textTheme.apply(
                   fontFamily: 'Aspekta',
                 ),
