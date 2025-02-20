@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:healr/core/utils/api_service.dart';
-import 'package:healr/features/auth/sign_up/data/repos/auth_repo.dart';
+import 'package:healr/features/sign_up/data/repos/signup_repo.dart';
 
-class AuthRepoImplement implements AuthRepo {
+class SignUpRepoImplement implements SignUpRepo {
   final baseUrl = 'healer-theta.vercel.app/api/v1/';
   final ApiService _apiService;
-  AuthRepoImplement(this._apiService);
+  SignUpRepoImplement(this._apiService);
   @override
-  Future<Either<String, Map<String, dynamic>>> creatAnAccount(
+  Future<Either<String, Map<String, dynamic>>> signUp(
       {required Map<String, dynamic> data}) async {
     try {
       var response = await _apiService.post('${baseUrl}signUp', data);
