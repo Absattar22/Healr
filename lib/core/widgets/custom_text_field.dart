@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
+
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
@@ -24,7 +25,7 @@ class CustomTextField extends StatefulWidget {
   final bool showForgotPass;
   final void Function()? onTap;
   final String? Function(String?)? validator;
-  final String? errorText; 
+  final String? errorText;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -72,7 +73,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           TextFormField(
             controller: widget.controller,
             obscureText: showPassword,
-            keyboardType: widget.labelText == 'National number'
+            keyboardType: widget.labelText == 'National number' ||
+                    widget.labelText == 'Phone number'
                 ? TextInputType.number
                 : TextInputType.text,
             onChanged: widget.onChanged,
@@ -137,5 +139,3 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 }
-
-

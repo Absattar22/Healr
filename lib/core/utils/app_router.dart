@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:healr/features/home/presentation/views/home_view.dart';
+// import 'package:healr/features/home/presentation/views/home_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';
@@ -9,6 +9,7 @@ import 'package:healr/features/login/presentation/views/verification_code_view.d
 import 'package:healr/features/onborading/presentation/views/onboarding_view.dart';
 import 'package:healr/features/onborading/splash_view.dart';
 import 'package:healr/features/sign_up/presentation/views/sign_up_view.dart';
+import 'package:healr/home.dart';
 
 abstract class AppRouter {
   static const kSplashView = '/';
@@ -39,7 +40,7 @@ abstract class AppRouter {
         path: kHomeView,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
-          child: const HomeView(),
+          child: const Home(),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),
