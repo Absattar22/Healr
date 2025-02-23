@@ -191,7 +191,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                         labelText: "Password",
                         obscureText: true,
                         validator: validatePassword,
-                        errorText: errorMessage,
                       ),
                       SizedBox(height: 16.h),
                       CustomTextField(
@@ -199,6 +198,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                         hintText: "•••••••••••••••",
                         labelText: "Confirm password",
                         obscureText: true,
+                        errorText: errorMessage,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Confirm password is required';
