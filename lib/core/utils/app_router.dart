@@ -25,7 +25,11 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: kSplashView,
-        builder: (context, state) => const SplashView(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const SplashView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
       ),
       GoRoute(
         path: kOnboardingView,
@@ -84,12 +88,13 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-          path: kPasswordChangedView,
-          pageBuilder: (context, state) => CustomTransitionPage(
-                key: state.pageKey,
-                child: const PasswordChangedView(),
-                transitionsBuilder: customNavigateAnimation,
-              )),
+        path: kPasswordChangedView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const PasswordChangedView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
     ],
   );
 }

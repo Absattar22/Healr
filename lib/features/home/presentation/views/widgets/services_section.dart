@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healr/features/home/presentation/views/widgets/custom_card.dart';
+
+class ServicesSection extends StatelessWidget {
+  const ServicesSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Expanded(
+              child: CustomCard(
+                imgUrl: 'assets/images/component1.svg',
+                title: 'Book appointment',
+                subtitle: 'Just a few taps to book your next appointment.',
+              ),
+            ),
+            SizedBox(width: 8.w),
+            const Expanded(
+              child: CustomCard(
+                imgUrl: 'assets/images/component2.svg',
+                title: 'Test/scans results',
+                subtitle: 'View your test results and scans instantly.',
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 12.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Expanded(
+              child: CustomCard(
+                imgUrl: 'assets/images/component3.svg',
+                title: 'My approvals',
+                subtitle: 'Medication and tests approvals from insurance',
+              ),
+            ),
+            SizedBox(width: 8.w),
+            const Expanded(
+              child: CustomCard(
+                imgUrl: 'assets/images/component4.svg',
+                title: 'Our doctors',
+                subtitle:
+                    'Find doctors in various fields and book with just a few taps.',
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
