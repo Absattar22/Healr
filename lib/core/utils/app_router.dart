@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:healr/features/chatbot/presentation/views/chatbot_view.dart';
 // import 'package:healr/features/home/presentation/views/home_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
@@ -21,6 +22,7 @@ abstract class AppRouter {
   static const kVerificationCodeView = '/VerificationCodeView';
   static const kNewPasswordView = '/NewPasswordView';
   static const kPasswordChangedView = '/PasswordChangedView';
+  static const kChatbotView = '/ChatbotView';
   static final router = GoRouter(
     initialLocation: kSplashView,
     routes: [
@@ -91,6 +93,12 @@ abstract class AppRouter {
                 child: const PasswordChangedView(),
                 transitionsBuilder: customNavigateAnimation,
               )),
+      GoRoute(
+          path: kChatbotView,
+          pageBuilder: (context, state) => CustomTransitionPage(
+              key: state.pageKey,
+              child: const ChatbotView(),
+              transitionsBuilder: customNavigateAnimation)),
     ],
   );
 }

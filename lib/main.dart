@@ -4,7 +4,7 @@ import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/service_locator.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
   runApp(const Healr());
@@ -24,6 +24,11 @@ class Healr extends StatelessWidget {
           routerConfig: AppRouter.router,
           theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: kPrimaryColor,
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: kSecondaryColor,
+              selectionHandleColor: kSecondaryColor,
+              selectionColor: kSecondaryColor.withAlpha(100),
+            ),
             textTheme: ThemeData.light().textTheme.apply(
                   fontFamily: 'Aspekta',
                 ),
