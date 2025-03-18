@@ -12,7 +12,7 @@ class LoginRepoImp implements LoginRepo {
   LoginRepoImp(this.apiService);
 
   @override
-  Future<Either<Failure, UserModel>> loginUser (
+  Future<Either<Failure, UserModel>> loginUser(
       String nationalID, String password) async {
     try {
       final response = await apiService.post(
@@ -21,7 +21,6 @@ class LoginRepoImp implements LoginRepo {
           'nationalID': nationalID,
           'password': password,
         },
-
       );
 
       if (response.containsKey('status') && response['status'] == 'error') {
@@ -39,7 +38,4 @@ class LoginRepoImp implements LoginRepo {
       return Left(ServerFailure('⚠️ Unexpected error occurred: $e'));
     }
   }
-  
-  
 }
-
