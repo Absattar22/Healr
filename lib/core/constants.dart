@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:healr/features/home/presentation/views/home_view.dart';
-import 'package:healr/features/home/presentation/views/home_view_body.dart';
-import 'package:healr/features/login/presentation/views/forget_password_view.dart';
-import 'package:healr/features/login/presentation/views/login_view.dart';
-import 'package:healr/features/login/presentation/views/new_password_view.dart';
 
 Color kPrimaryColor = const Color(0xffFCFCFF);
 Color kSecondaryColor = const Color(0xFF2673A6);

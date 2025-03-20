@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/features/chatbot/presentation/views/widgets/empty_chatbot.dart';
 import 'package:healr/features/chatbot/presentation/views/widgets/send_message.dart';
-import 'package:healr/features/chatbot/presentation/views/widgets/unempty_chatbot.dart';
-
 class ChatbotViewBody extends StatelessWidget {
   const ChatbotViewBody({super.key});
 

@@ -11,9 +11,9 @@ PersistentTabConfig chatBotTab() {
       activeForegroundColor: const Color(0xff3A95D2),
       inactiveForegroundColor: kHintColor,
       icon: SvgPicture.asset(
-        "assets/images/bot.svg",
-        width: 46,
-        height: 46,
+        "assets/images/chat-bot2.svg",
+        width: 36,
+        height: 36,
       ),
       textStyle: const TextStyle(
         fontSize: 12,
