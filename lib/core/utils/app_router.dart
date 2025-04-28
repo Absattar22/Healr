@@ -9,8 +9,13 @@ import 'package:healr/features/login/presentation/views/password_changed_view.da
 import 'package:healr/features/login/presentation/views/verification_code_view.dart';
 import 'package:healr/features/onborading/presentation/views/onboarding_view.dart';
 import 'package:healr/features/onborading/splash_view.dart';
+import 'package:healr/features/profile/presentation/views/health_insurance_view.dart';
+import 'package:healr/features/profile/presentation/views/help_center_view.dart';
+import 'package:healr/features/profile/presentation/views/medical_history_view.dart';
+import 'package:healr/features/profile/presentation/views/privacy_policy_view.dart';
+import 'package:healr/features/profile/presentation/views/profile_view.dart';
+import 'package:healr/features/profile/presentation/views/your_profile_view.dart';
 import 'package:healr/features/sign_up/presentation/views/sign_up_view.dart';
-
 
 abstract class AppRouter {
   static const kSplashView = '/';
@@ -23,6 +28,14 @@ abstract class AppRouter {
   static const kNewPasswordView = '/NewPasswordView';
   static const kPasswordChangedView = '/PasswordChangedView';
   static const kChatbotView = '/ChatbotView';
+  static const kProfileView = '/ProfileView';
+  static const kYourProfileView = '/YourProfileView';
+  static const kPrivacyPolicyView = '/PrivacyPolicyView';
+  static const kHelpCenterView = '/HelpCenterView';
+  static const kHealthInsuranceView = '/HealthInsuranceView';
+  static const kMedicalHistoryView = '/MedicalHistoryView';
+  static const notificationView = '/NotificationView';
+
   static final router = GoRouter(
     initialLocation: kSplashView,
     routes: [
@@ -91,18 +104,69 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-          path: kPasswordChangedView,
-          pageBuilder: (context, state) => CustomTransitionPage(
-                key: state.pageKey,
-                child: const PasswordChangedView(),
-                transitionsBuilder: customNavigateAnimation,
-              )),
+        path: kPasswordChangedView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const PasswordChangedView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
       GoRoute(
-          path: kChatbotView,
-          pageBuilder: (context, state) => CustomTransitionPage(
-              key: state.pageKey,
-              child: const ChatbotView(),
-              transitionsBuilder: customNavigateAnimation)),
+        path: kChatbotView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const ChatbotView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kProfileView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const ProfileView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kYourProfileView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const YourProfileView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kPrivacyPolicyView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const PrivacyPolicyView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kHelpCenterView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const HelpCenterView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kHealthInsuranceView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const HealthInsuranceView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kMedicalHistoryView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const MedicalHistoryView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
     ],
   );
 }

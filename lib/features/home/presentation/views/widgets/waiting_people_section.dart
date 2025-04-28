@@ -20,7 +20,7 @@ class WaitingPeopleSection extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.h),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(50.r),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

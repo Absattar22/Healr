@@ -41,6 +41,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   }
 
   void signUp(BuildContext context) {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (formKey.currentState!.validate()) {
       final name = nameController.text;
       final nationalId = nationalController.text;
@@ -94,13 +95,14 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Sign Up successful ✅'),
-                  duration: Duration(milliseconds: 800),
+                  duration: Duration(milliseconds: 400),
                   backgroundColor: Color.fromARGB(255, 13, 79, 127),
                 ),
               );
             } else if (state is SignUpFailure) {
               setState(() {
                 errorMessage = state.errMessage;
+                print(state.errMessage);
               });
             }
           },
@@ -123,8 +125,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                       SizedBox(height: 32.h),
                       CustomTextField(
                         controller: nameController,
-                        hintText: "Enter your full name.",
-                        labelText: "Name",
+                        hintText: "Enter Your Full Name.",
+                        labelText: "Full Name",
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -133,11 +135,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 16.h),
                       CustomTextField(
                         controller: nationalController,
                         hintText: "Enter your 14-digit national number.",
-                        labelText: "National number",
+                        labelText: "National Number",
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -148,12 +149,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           }
                           return null;
                         },
+                        maxLength: 14,
                       ),
-                      SizedBox(height: 16.h),
                       CustomTextField(
                         controller: phoneController,
                         hintText: "eg. 0122222222",
-                        labelText: "Phone number",
+                        labelText: "Phone Number",
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -164,12 +165,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           }
                           return null;
                         },
+                        maxLength: 11,
                       ),
-                      SizedBox(height: 16.h),
                       CustomTextField(
                         controller: emailController,
-                        hintText: "Enter your email",
-                        labelText: "Email address",
+                        hintText: "Enter Your Email",
+                        labelText: "Email Address",
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -183,20 +184,20 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           }
                           return null;
                         },
+                        maxLength: 50,
                       ),
-                      SizedBox(height: 16.h),
                       CustomTextField(
                         controller: passwordController,
                         hintText: "•••••••••••••••",
                         labelText: "Password",
                         obscureText: true,
                         validator: validatePassword,
+                        maxLength: 15,
                       ),
-                      SizedBox(height: 16.h),
                       CustomTextField(
                         controller: confirmPasswordController,
                         hintText: "•••••••••••••••",
-                        labelText: "Confirm password",
+                        labelText: "Confirm Password",
                         obscureText: true,
                         errorText: errorMessage,
                         validator: (value) {
@@ -208,6 +209,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           }
                           return null;
                         },
+                        maxLength: 15,
                       ),
                       SizedBox(height: 16.h),
                       CustomButton(
@@ -226,7 +228,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           },
                         ),
                       ),
-                      SizedBox(height: 16.h),
+                      SizedBox(height: 32.h),
                     ],
                   ),
                 ),
