@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:healr/core/constants.dart';
+import 'package:healr/core/utils/styles.dart';
+import 'package:healr/features/login/presentation/views/new_password_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+
+PersistentTabConfig notificationTab() {
+  return PersistentTabConfig(
+    screen: const NewPasswordView(),
+    item: ItemConfig(
+      activeForegroundColor: const Color(0xff3A95D2),
+      inactiveForegroundColor: kHintColor,
+      icon: SvgPicture.asset(
+        "assets/images/notification-1.svg",
+        width: 32.w,
+        height: 32.h,
+      ),
+      inactiveIcon: SvgPicture.asset(
+        "assets/images/notification.svg",
+        width: 32.w,
+        height: 32.h,
+      ),
+      title: "Notification",
+      textStyle: Styles.textStyle12.copyWith(
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+  );
+}

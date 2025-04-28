@@ -8,3 +8,4 @@ Color kSignIconColor = const Color(0xff4D4D4D);
 
 String? kToken;
 String? kOnboardingStatus;
+

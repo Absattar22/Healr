@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/features/login/data/model/user_model.dart';
 import 'package:healr/features/login/data/repos/login_repo.dart';
+import 'package:healr/features/profile/data/repo/profile_repo_imp.dart';
 
 part 'login_state.dart';
 
@@ -16,11 +18,21 @@ class LoginCubit extends Cubit<LoginState> {
   var result = await loginRepo.loginUser(nationalID, password);
 
   result.fold(
+
     (failure) {
       emit(LoginFailure(failure.errMessage));
     },
-    (user) {
-      emit(LoginSuccess(user));
+    (user) async {
+      final profileResult = await getIt<ProfileRepoImp>().getProfile();
+      
+      profileResult.fold(
+        (failure) {
+          emit(LoginFailure(failure.errMessage));
+        },
+        (profile) {
+          emit(LoginSuccess(user));
+        },
+      );
     },
   );
 }

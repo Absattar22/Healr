@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/core/utils/app_router.dart';
+import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/features/onborading/presentation/views/widgets/custom_indicator.dart';
 import 'package:healr/features/onborading/presentation/views/widgets/custom_positioned_image.dart';
 import 'package:healr/features/onborading/presentation/views/widgets/custom_onboarding_text.dart';
@@ -50,6 +51,8 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                 HeaderSection(
                   onPressed: () {
                     GoRouter.of(context).push(AppRouter.kLoginView);
+                    SharedPrefCache.saveCache(
+                        key: 'onboardingStatus', value: 'completed');
                   },
                 ),
                 Stack(

@@ -44,7 +44,8 @@ class ServerFailure extends Failure {
 
   factory ServerFailure.fromResponse(int statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['message'] ?? 'Authentication error.');
+      return ServerFailure(
+          response['errors']['msg'] ?? 'Authentication error.');
     } else if (statusCode == 404) {
       return ServerFailure('Resource not found.');
     } else if (statusCode == 500) {
