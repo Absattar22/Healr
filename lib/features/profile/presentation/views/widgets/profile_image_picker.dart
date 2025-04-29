@@ -34,7 +34,13 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         String? imagePath;
-
+        if (state is ProfileImageUpdating) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: kSecondaryColor,
+            ),
+          );
+        }
         if (state is ProfileImageUpdated) {
           imagePath = state.imagePath;
         } else if (state is ProfileUpdated) {
@@ -134,8 +140,8 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         IOSUiSettings(title: 'Crop Image', aspectRatioLockEnabled: false),
         AndroidUiSettings(
           toolbarTitle: 'Crop Image',
-          toolbarColor: Colors.deepPurple,
-          toolbarWidgetColor: Colors.white,
+          toolbarColor: kSecondaryColor,
+          toolbarWidgetColor: kPrimaryColor,
           lockAspectRatio: false,
         ),
       ],
