@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:healr/features/home/presentation/views/home_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';
@@ -37,11 +36,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kHomeView,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          key: state.pageKey,
-          child: const HomeView(),
-          transitionsBuilder: customNavigateAnimation,
-        ),
+        // pageBuilder: (context, state) => CustomTransitionPage(
+        //   key: state.pageKey,
+        //   // child: const HomeView(),
+        //   transitionsBuilder: customNavigateAnimation,
+        // ),
       ),
       GoRoute(
         path: kLoginView,
