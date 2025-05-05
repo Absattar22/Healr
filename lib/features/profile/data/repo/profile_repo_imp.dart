@@ -132,7 +132,6 @@ class ProfileRepoImp implements ProfileRepo {
         endPoint: 'profile/updateImageProfile',
         formData: formData,
       );
-      print('Response: $response');
 
       if (response.containsKey('status') && response['status'] == 'error') {
         return Left(ServerFailure(response['message']));
@@ -147,10 +146,26 @@ class ProfileRepoImp implements ProfileRepo {
         image: result['image'] ?? '',
       ));
     } on DioException catch (e) {
-      print('Dio error: ${e.message}');
       return Left(ServerFailure('❌ Dio error: ${e.message}'));
     } catch (e) {
       return Left(ServerFailure('⚠️ Unexpected error: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> fetchProfileImage() async {
+    try {
+      final response = await apiService.get(endPoint: 'profile/getLastImage');
+
+      if (response.containsKey('status') && response['status'] == 'error') {
+        return Left(ServerFailure(response['message']));
+      }
+
+      final image = response['data']['image'] ?? '';
+      SharedPrefCache.saveCache(key: 'image', value: image);
+      return Right(image);
+    } catch (e) {
+      return Left(ServerFailure('⚠️ Failed to fetch image: $e'));
     }
   }
 }

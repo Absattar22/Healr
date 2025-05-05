@@ -57,6 +57,13 @@ class _YourProfileViewBodyState extends State<YourProfileViewBody> {
   void initState() {
     super.initState();
     fillFormWithCachedData();
+    final cubit = BlocProvider.of<ProfileCubit>(context);
+    if (SharedPrefCache.getCache(key: 'image ').isEmpty) {
+      cubit.getProfile();
+    } else {
+      fillFormWithCachedData();
+      cubit.fetchProfileImage();
+    }
   }
 
   void fillFormWithCachedData() {
