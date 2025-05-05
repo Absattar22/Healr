@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
-import 'package:healr/features/login/presentation/views/new_password_view.dart';
+import 'package:healr/features/notification/ui/views/notification_view.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 PersistentTabConfig notificationTab() {
   return PersistentTabConfig(
-    screen: const NewPasswordView(),
+    screen: const NotificationView(),
     item: ItemConfig(
       activeForegroundColor: const Color(0xff3A95D2),
       inactiveForegroundColor: kHintColor,

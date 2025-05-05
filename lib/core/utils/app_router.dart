@@ -7,6 +7,7 @@ import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';
 import 'package:healr/features/login/presentation/views/password_changed_view.dart';
 import 'package:healr/features/login/presentation/views/verification_code_view.dart';
+import 'package:healr/features/notification/ui/views/notification_view.dart';
 import 'package:healr/features/onborading/presentation/views/onboarding_view.dart';
 import 'package:healr/features/onborading/splash_view.dart';
 import 'package:healr/features/profile/presentation/views/health_insurance_view.dart';
@@ -34,7 +35,7 @@ abstract class AppRouter {
   static const kHelpCenterView = '/HelpCenterView';
   static const kHealthInsuranceView = '/HealthInsuranceView';
   static const kMedicalHistoryView = '/MedicalHistoryView';
-  static const notificationView = '/NotificationView';
+  static const kNotificationView = '/NotificationView';
 
   static final router = GoRouter(
     initialLocation: kSplashView,
@@ -167,6 +168,15 @@ abstract class AppRouter {
           transitionsBuilder: customNavigateAnimation,
         ),
       ),
+      GoRoute(
+        path: kNotificationView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const NotificationView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      
     ],
   );
 }
