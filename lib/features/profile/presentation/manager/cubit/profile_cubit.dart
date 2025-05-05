@@ -63,7 +63,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileImageUpdating());
 
     final result = await profileRepo.updateProfileImage(imagePath);
-
     result.fold(
       (failure) {
         emit(ProfileUpdateError(failure.errMessage));
@@ -75,4 +74,22 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     );
   }
+  Future<void> fetchProfileImage() async {
+  final result = await profileRepo.fetchProfileImage();
+
+  result.fold(
+    (failure) {
+      emit(ProfileUpdateError(failure.errMessage));
+    },
+    (image) {
+      if (cachedProfile != null) {
+        cachedProfile = cachedProfile!.copyWith(image: image);
+        emit(ProfileLoaded(profile: cachedProfile!));
+      }
+    },
+  );
 }
+
+  
+}
+

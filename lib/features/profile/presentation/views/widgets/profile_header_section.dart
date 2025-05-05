@@ -22,19 +22,22 @@ class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
   @override
   void initState() {
     super.initState();
+    final cubit = BlocProvider.of<ProfileCubit>(context);
     final cachedName = SharedPrefCache.getCache(key: 'name');
     final cachedNationalId = SharedPrefCache.getCache(key: 'nationalID');
     final cachedImage = SharedPrefCache.getCache(key: 'image');
 
-    if (cachedName != '' && cachedNationalId != '' && cachedImage != '') {
+    if (cachedName != '' && cachedNationalId != '') {
       setState(() {
         name = cachedName;
         nationalId = cachedNationalId;
         imagePath = cachedImage;
         loadedFromCache = true;
       });
+      cubit.fetchProfileImage();
     } else {
-      BlocProvider.of<ProfileCubit>(context).getProfile();
+      cubit.getProfile();
+      cubit.fetchProfileImage();
     }
   }
 
@@ -54,6 +57,11 @@ class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
             nationalId = state.updatedProfile.nationalID!;
             imagePath = state.updatedProfile.image;
           });
+        }
+        if (state is ProfileLoading) {
+          const Center(
+            child: CircularProgressIndicator(),
+          );
         }
       },
       builder: (context, state) {

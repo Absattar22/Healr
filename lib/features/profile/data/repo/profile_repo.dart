@@ -12,4 +12,5 @@ abstract class ProfileRepo {
     String? notes,
   );
   Future<Either<Failure, ProfileModel>> updateProfileImage(String imagePath);
+  Future<Either<Failure, String>> fetchProfileImage();
 }

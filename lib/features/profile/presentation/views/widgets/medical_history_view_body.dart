@@ -24,7 +24,7 @@ class MedicalHistoryViewBody extends StatelessWidget {
                     text: 'Medical History',
                   ),
                   SizedBox(height: 32.h),
-                  CustomSearchTextField(),
+                  const CustomSearchTextField(),
                   SizedBox(height: 16.h),
                   const CustomMedicalContainer(),
                   SizedBox(height: 24.h),
