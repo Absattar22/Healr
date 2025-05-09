@@ -72,7 +72,7 @@ class _VerificationCodeViewBodyState extends State<VerificationCodeViewBody> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Verification code correct ✅'),
-                  duration: Duration(milliseconds: 400),
+                  duration: Duration(seconds: 2),
                   backgroundColor: Color.fromARGB(255, 13, 79, 127),
                 ),
               );
