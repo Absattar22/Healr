@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/service_locator.dart';
+import 'package:healr/features/profile/data/repo/profile_repo_imp.dart';
+import 'package:healr/features/profile/presentation/manager/cubit/profile_cubit.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
-  runApp(const Healr());
+
+  runApp(
+    BlocProvider(
+      create: (context) => ProfileCubit(getIt.get<ProfileRepoImp>()),
+      child: const Healr(),
+    ),
+  );
 }
 
 class Healr extends StatelessWidget {
@@ -24,6 +33,11 @@ class Healr extends StatelessWidget {
           routerConfig: AppRouter.router,
           theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: kPrimaryColor,
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: kSecondaryColor,
+              selectionHandleColor: kSecondaryColor,
+              selectionColor: kSecondaryColor.withAlpha(100),
+            ),
             textTheme: ThemeData.light().textTheme.apply(
                   fontFamily: 'Aspekta',
                 ),

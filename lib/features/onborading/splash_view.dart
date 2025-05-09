@@ -27,6 +27,7 @@ class _SplashViewState extends State<SplashView> {
     if (kOnboardingStatus != 'completed') {
       GoRouter.of(context).go(AppRouter.kOnboardingView);
     } else if (kToken != null && kToken!.isNotEmpty && kToken != 'null') {
+      
       GoRouter.of(context).go(AppRouter.kHomeView);
     } else {
       GoRouter.of(context).go(AppRouter.kLoginView);

@@ -35,6 +35,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   }
 
   void login(BuildContext context) {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (formKey.currentState!.validate()) {
       final nationalId = nationalController.text;
       final password = passwordController.text;
@@ -76,7 +77,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Login successful ✅'),
-                    duration: Duration(milliseconds: 800),
+                    duration: Duration(milliseconds: 400),
                     backgroundColor: Color.fromARGB(255, 13, 79, 127),
                   ),
                 );
@@ -105,7 +106,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         SizedBox(height: 60.h),
                         CustomTextField(
                           controller: nationalController,
-                          labelText: 'National number',
+                          labelText: 'National Number',
                           hintText: 'Enter your 14-digit national number',
                           obscureText: false,
                           validator: (value) {
@@ -117,6 +118,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             }
                             return null;
                           },
+                          maxLength: 14,
                         ),
                         SizedBox(height: 16.h),
                         CustomTextField(
@@ -131,6 +133,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           obscureText: true,
                           validator: validatePassword,
                           errorText: errorMessage,
+                          maxLength: 15,
                         ),
                         SizedBox(height: 24.h),
                         CustomButton(

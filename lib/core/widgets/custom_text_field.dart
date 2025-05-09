@@ -3,29 +3,45 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
+
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
     required this.hintText,
     required this.labelText,
-    required this.controller,
-    required this.obscureText,
+    this.controller,
+    this.obscureText = false,
     this.onChanged,
     this.showForgotPass = false,
     this.onTap,
     this.validator,
     this.errorText,
+    this.padding = 16.0,
+    this.suffixIcon,
+    this.textStyle,
+    this.hintStyle,
+    this.maxLines = 1,
+    this.maxLength = 32,
+    this.readOnly = false,
+    this.focusNode,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hintText, labelText;
   final Function(String)? onChanged;
   final bool obscureText;
   final bool showForgotPass;
   final void Function()? onTap;
   final String? Function(String?)? validator;
-  final String? errorText; 
-
+  final String? errorText;
+  final double padding;
+  final Widget? suffixIcon;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
+  final int maxLines;
+  final int maxLength;
+  final bool readOnly;
+  final FocusNode? focusNode;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -42,7 +58,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.symmetric(horizontal: widget.padding.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -51,9 +67,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
             children: [
               Text(
                 widget.labelText,
-                style: Styles.textStyle18.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+                style: widget.textStyle ??
+                    Styles.textStyle18.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
               ),
               if (widget.showForgotPass)
                 GestureDetector(
@@ -70,18 +87,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           SizedBox(height: 8.h),
           TextFormField(
+            textInputAction: TextInputAction.next,
+            focusNode: widget.focusNode,
+            readOnly: widget.readOnly,
+            maxLines: widget.maxLines,
+            maxLength: widget.maxLength,
             controller: widget.controller,
             obscureText: showPassword,
-            keyboardType: widget.labelText == 'National number'
+            keyboardType: widget.labelText == 'National Number' ||
+                    widget.labelText == 'Phone Number'
                 ? TextInputType.number
                 : TextInputType.text,
             onChanged: widget.onChanged,
             validator: widget.validator,
             decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: Styles.textStyle12.copyWith(
-                color: Colors.grey[600],
-              ),
+              hintStyle: widget.hintStyle ??
+                  Styles.textStyle12.copyWith(
+                    color: Colors.grey[600],
+                  ),
               border: _outlineInputBorder(Colors.grey[600]!),
               focusedBorder: _outlineInputBorder(kSecondaryColor),
               errorBorder: _outlineInputBorder(kErrorColor),
@@ -101,7 +125,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         width: 24.w,
                       ),
                     )
-                  : null,
+                  : widget.suffixIcon,
             ),
           ),
           if (widget.errorText != null && widget.errorText!.isNotEmpty) ...[
@@ -137,5 +161,3 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 }
-
-
