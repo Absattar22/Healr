@@ -6,6 +6,7 @@ import 'package:healr/features/login/data/repos/login_repo_imp.dart';
 import 'package:healr/features/login/data/repos/newpass_repo_imp.dart';
 import 'package:healr/features/login/data/repos/verification_repo_imp.dart';
 import 'package:healr/features/profile/data/repo/profile_repo_imp.dart';
+import 'package:healr/features/search/data/repos/search_repo_imp.dart';
 import 'package:healr/features/sign_up/data/repos/sign_up_repo_imp.dart';
 
 final getIt = GetIt.instance;
@@ -40,6 +41,11 @@ void setupServiceLocator() {
   );
   getIt.registerSingleton<NewpassRepoImp>(
     NewpassRepoImp(
+      getIt.get<ApiService>(),
+    ),
+  );
+  getIt.registerSingleton<SearchRepoImp>(
+    SearchRepoImp(
       getIt.get<ApiService>(),
     ),
   );

@@ -51,16 +51,16 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
   }
 
   String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) return 'Password is required';
-    if (value.length < 8) return 'Password must be at least 8 characters';
+    if (value == null || value.isEmpty) return "";
+    if (value.length < 8) return '';
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter';
+      return '';
     }
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number';
+      return '';
     }
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character';
+      return '';
     }
     if (value.length > 15) return 'Password must be at most 15 characters';
 
@@ -120,9 +120,15 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
                         validator: validatePassword,
                         hintText: "•••••••••••••••",
                         labelText: "Password",
+                        onChanged: (p0) {
+                          setState(() {});
+                        },
                         obscureText: true),
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 12.h),
                     CustomPasswordValidtionSentence(
+                      iconColor: passwordController.text.length < 8
+                          ? Colors.red
+                          : Colors.green,
                       icon: passwordController.text.length < 8
                           ? Icons.close
                           : Icons.check,
@@ -130,6 +136,10 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
                     ),
                     SizedBox(height: 12.h),
                     CustomPasswordValidtionSentence(
+                      iconColor:
+                          !passwordController.text.contains(RegExp(r'[A-Z]'))
+                              ? Colors.red
+                              : Colors.green,
                       icon: !passwordController.text.contains(RegExp(r'[A-Z]'))
                           ? Icons.close
                           : Icons.check,
@@ -137,6 +147,12 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
                     ),
                     SizedBox(height: 12.h),
                     CustomPasswordValidtionSentence(
+                      iconColor: !passwordController.text
+                                  .contains(RegExp(r'[0-9]')) ||
+                              !passwordController.text
+                                  .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))
+                          ? Colors.red
+                          : Colors.green,
                       icon: !passwordController.text
                                   .contains(RegExp(r'[0-9]')) ||
                               !passwordController.text
@@ -150,6 +166,15 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
                         controller: TextEditingController(),
                         hintText: "•••••••••••••••",
                         labelText: "Confirm password",
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return 'Confirm password is required';
+                          }
+                          if (p0 != passwordController.text) {
+                            return 'Passwords do not match';
+                          }
+                          return null;
+                        },
                         obscureText: true),
                     SizedBox(height: 24.h),
                     CustomButton(
