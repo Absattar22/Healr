@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/core/utils/styles.dart';
+import 'package:healr/core/widgets/custom_back_button.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/core/widgets/custom_text_field.dart';
 import 'package:healr/features/login/data/repos/newpass_repo_imp.dart';
 import 'package:healr/features/login/presentation/manager/newpass_cubit/newpass_cubit.dart';
-import 'package:healr/features/login/presentation/views/widgets/custom_back_button.dart';
 import 'package:healr/features/login/presentation/views/widgets/custom_password_validation_sentence.dart';
 
 class NewPasswordViewBody extends StatefulWidget {

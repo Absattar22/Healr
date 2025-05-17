@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/features/chatbot/presentation/views/chatbot_view.dart';
+import 'package:healr/features/home/presentation/views/book_appoint_view.dart';
 import 'package:healr/features/home/presentation/views/home_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
@@ -35,6 +36,7 @@ abstract class AppRouter {
   static const kHealthInsuranceView = '/HealthInsuranceView';
   static const kMedicalHistoryView = '/MedicalHistoryView';
   static const notificationView = '/NotificationView';
+  static const kBookAppointView = '/BookAppointView';
 
   static final router = GoRouter(
     initialLocation: kSplashView,
@@ -164,6 +166,14 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const MedicalHistoryView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kBookAppointView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const BookAppointView(),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),

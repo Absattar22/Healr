@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/features/home/presentation/views/widgets/custom_card.dart';
 
 class ServicesSection extends StatelessWidget {
@@ -12,11 +14,14 @@ class ServicesSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
+            Expanded(
               child: CustomCard(
                 imgUrl: 'assets/images/component1.svg',
                 title: 'Book appointment',
                 subtitle: 'Just a few taps to book your next appointment.',
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kBookAppointView);
+                },
               ),
             ),
             SizedBox(width: 8.w),
