@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:healr/core/constants.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_back_button.dart';
 import 'package:healr/core/widgets/doctor_card.dart';
@@ -89,7 +91,12 @@ class _BookAppointViewBodyState extends State<BookAppointViewBody> {
                                 state.user.data![index].specialization,
                             doctorImg: state.user.data![index].image,
                             rating: state.user.data![index].rate,
-                            onPressed: () {},
+                            onPressed: () {
+                              GoRouter.of(context).push(
+                                AppRouter.kBookAppoint2View,
+                                extra: state.user.data,
+                              );
+                            },
                           ),
                         );
                       });
