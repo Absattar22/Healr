@@ -10,7 +10,7 @@ class BookAppoint2View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = GoRouterState.of(context).extra as List<Datum>?;
+    final data = GoRouterState.of(context).extra as Datum?;
     return BookAppoint2ViewBody(
       data: data,
     );

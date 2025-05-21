@@ -9,7 +9,7 @@ class DoctorProfileImage extends StatelessWidget {
     required this.data,
   });
 
-  final List<Datum>? data;
+  final Datum? data;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class DoctorProfileImage extends StatelessWidget {
       radius: 40.r,
       backgroundColor: const Color(0xffD5E9F6).withAlpha(70),
       backgroundImage: NetworkImage(
-        data?[0].image ?? "",
+        data?.image ?? "",
       ),
       child: Align(
         alignment: Alignment.bottomRight,

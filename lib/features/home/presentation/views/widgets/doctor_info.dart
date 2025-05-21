@@ -11,7 +11,7 @@ class DoctorInfo extends StatelessWidget {
     required this.data,
   });
 
-  final List<Datum>? data;
+  final Datum? data;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +26,12 @@ class DoctorInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                data?[0].name ?? "",
+                data?.name ?? "",
                 style: Styles.textStyle18.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Text(data?[0].specialization ?? "",
+              Text(data?.specialization ?? "",
                   style: Styles.textStyle16.copyWith(
                     fontWeight: FontWeight.w500,
                     color: const Color(0xff666666),

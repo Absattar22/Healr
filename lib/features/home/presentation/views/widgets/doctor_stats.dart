@@ -4,7 +4,7 @@ import 'package:healr/features/home/presentation/views/widgets/doctor_stat_item.
 
 class DoctorStats extends StatelessWidget {
   const DoctorStats({super.key, this.data});
-  final List<Datum>? data;
+  final Datum? data;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,12 @@ class DoctorStats extends StatelessWidget {
         ),
         DoctorStatsItem(
           icon: "assets/images/experince.svg",
-          count: data?[0].exp.toString() ?? "2",
+          count: data?.exp.toString() ?? "2",
           label: "Years Exp.",
         ),
         DoctorStatsItem(
           icon: "assets/images/rate.svg",
-          count: data?[0].rate.toString() ?? "1",
+          count: data?.rate.toString() ?? "1",
           label: "Rating",
         ),
         const DoctorStatsItem(
