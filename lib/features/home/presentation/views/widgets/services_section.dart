@@ -46,12 +46,15 @@ class ServicesSection extends StatelessWidget {
               ),
             ),
             SizedBox(width: 8.w),
-            const Expanded(
+            Expanded(
               child: CustomCard(
                 imgUrl: 'assets/images/component4.svg',
                 title: 'Our doctors',
                 subtitle:
                     'Find doctors in various fields and book with just a few taps.',
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kOurDoctorsView);
+                },
               ),
             ),
           ],

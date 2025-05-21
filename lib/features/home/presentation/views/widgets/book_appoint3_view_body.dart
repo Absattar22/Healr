@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
-import 'package:healr/features/home/presentation/managers/selected_day/selected_day_cubit.dart';
-import 'package:healr/features/home/presentation/views/widgets/appoint_day_item.dart';
-import 'package:healr/features/home/presentation/views/widgets/appoint_time_item.dart';
 import 'package:healr/features/home/presentation/views/widgets/book2_header.dart';
 import 'package:healr/features/home/presentation/views/widgets/choose_appoint_day.dart';
 import 'package:healr/features/home/presentation/views/widgets/choose_appoint_time.dart';
@@ -24,7 +22,10 @@ class BookAppoint3ViewBody extends StatelessWidget {
         padding: EdgeInsets.all(16.r),
         child: CustomButton(
           text: "Book appointment",
-          onPressed: () {},
+          onPressed: () {
+            GoRouter.of(context)
+                .push(AppRouter.kBookingSummaryView, extra: data);
+          },
           padding: 0,
         ),
       ),

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/features/profile/presentation/views/widgets/custom_app_bar.dart';
 import 'package:healr/features/profile/presentation/views/widgets/custom_medical_container.dart';
 import 'package:healr/features/profile/presentation/views/widgets/custom_search_text_field.dart';
-import 'package:healr/features/profile/presentation/views/widgets/health_insurance_text_field.dart';
 
 class MedicalHistoryViewBody extends StatelessWidget {
   const MedicalHistoryViewBody({super.key});
@@ -24,7 +23,7 @@ class MedicalHistoryViewBody extends StatelessWidget {
                     text: 'Medical History',
                   ),
                   SizedBox(height: 32.h),
-                  CustomSearchTextField(),
+                  const CustomSearchTextField(),
                   SizedBox(height: 16.h),
                   const CustomMedicalContainer(),
                   SizedBox(height: 24.h),

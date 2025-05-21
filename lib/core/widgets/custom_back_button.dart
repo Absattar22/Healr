@@ -6,9 +6,11 @@ import 'package:healr/core/constants.dart';
 
 class CustomBackButton extends StatelessWidget {
   final double? marginLeft;
+  final void Function()? onTap;
   const CustomBackButton({
     super.key,
     this.marginLeft = 20,
+    this.onTap,
   });
 
   @override
@@ -17,7 +19,11 @@ class CustomBackButton extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            GoRouter.of(context).pop();
+            if (onTap != null) {
+              onTap!();
+            } else {
+              GoRouter.of(context).pop();
+            }
           },
           child: Container(
             margin: EdgeInsets.only(left: marginLeft!.w),
@@ -25,7 +31,7 @@ class CustomBackButton extends StatelessWidget {
             width: 35.w,
             height: 35.h,
             decoration: BoxDecoration(
-              color: const Color(0xffF2F2F2).withAlpha(100),
+              color: const Color(0xffF2F2F2).withAlpha(200),
               borderRadius: BorderRadius.circular(100.r),
             ),
             child: SvgPicture.asset(

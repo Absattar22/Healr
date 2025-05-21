@@ -7,8 +7,9 @@ class CustomBookButton extends StatelessWidget {
   const CustomBookButton({
     super.key,
     required this.onPressed,
+    required this.label,
   });
-
+  final String label;
   final void Function()? onPressed;
 
   @override
@@ -21,10 +22,10 @@ class CustomBookButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.r),
         ),
-        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 24.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
       ),
       child: Text(
-        "Book Now",
+        label,
         style: Styles.textStyle14.copyWith(
           fontWeight: FontWeight.w700,
           color: Colors.white,

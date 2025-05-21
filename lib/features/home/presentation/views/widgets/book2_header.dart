@@ -11,16 +11,21 @@ class Book2Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Stack(
+      alignment: Alignment.center,
       children: [
-        const CustomBackButton(
-          marginLeft: 0,
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: CustomBackButton(
+            marginLeft: 0,
+          ),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.15),
-        Text(
-          title,
-          style: Styles.textStyle20.copyWith(
-            fontWeight: FontWeight.w600,
+        Center(
+          child: Text(
+            title,
+            style: Styles.textStyle20.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],

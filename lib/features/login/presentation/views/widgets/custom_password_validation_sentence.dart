@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
 
 class CustomPasswordValidtionSentence extends StatelessWidget {
