@@ -8,11 +8,13 @@ class CustomPinPut extends StatelessWidget {
   const CustomPinPut({
     super.key,
     required TextEditingController pinController,
-    required this.formKey,
+    this.errorText,
+    this.validator,
   }) : _pinController = pinController;
-
+  final String? errorText;
   final TextEditingController _pinController;
-  final GlobalKey<FormState> formKey;
+
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,8 @@ class CustomPinPut extends StatelessWidget {
       controller: _pinController,
       useNativeKeyboard: true,
       keyboardType: TextInputType.number,
+
+      errorText: errorText,
       // textInputAction: TextInputAction.done,
       closeKeyboardWhenCompleted: true,
       errorTextStyle: Styles.textStyle14
@@ -67,14 +71,7 @@ class CustomPinPut extends StatelessWidget {
           border: Border.all(width: 1, color: const Color(0xffEE584A)),
         ),
       ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Please enter the verification code";
-        }
-        return null;
-      },
-      onSubmitted: (value) {},
-      onChanged: (value) {},
+      validator: validator,
     );
   }
 }

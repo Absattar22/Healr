@@ -95,7 +95,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Sign Up successful ✅'),
-                  duration: Duration(milliseconds: 400),
+                  duration: Duration(seconds: 2),
                   backgroundColor: Color.fromARGB(255, 13, 79, 127),
                 ),
               );

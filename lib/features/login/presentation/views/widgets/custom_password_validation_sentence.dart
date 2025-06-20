@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
 
 class CustomPasswordValidtionSentence extends StatelessWidget {
   final String text;
   final IconData icon;
+  final Color? iconColor;
   const CustomPasswordValidtionSentence({
     super.key,
     required this.text,
     required this.icon,
+    this.iconColor,
   });
 
   @override
@@ -20,7 +21,7 @@ class CustomPasswordValidtionSentence extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: kSignIconColor,
+            color: iconColor,
             size: 22.sp,
           ),
           SizedBox(

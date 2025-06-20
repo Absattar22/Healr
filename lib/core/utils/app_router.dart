@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/features/chatbot/presentation/views/chatbot_view.dart';
+import 'package:healr/features/home/presentation/views/appoint_details_view.dart';
+import 'package:healr/features/home/presentation/views/book_appoint2_view.dart';
+import 'package:healr/features/home/presentation/views/book_appoint3_view.dart';
+import 'package:healr/features/home/presentation/views/book_appoint_view.dart';
+import 'package:healr/features/home/presentation/views/booking_confirmation_view.dart';
+import 'package:healr/features/home/presentation/views/booking_summary_view.dart';
+import 'package:healr/features/home/presentation/views/doctor_profile_view.dart';
 import 'package:healr/features/home/presentation/views/home_view.dart';
+import 'package:healr/features/home/presentation/views/our_doctors_view.dart';
+import 'package:healr/features/home/presentation/views/test_results_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';
@@ -35,8 +44,16 @@ abstract class AppRouter {
   static const kHelpCenterView = '/HelpCenterView';
   static const kHealthInsuranceView = '/HealthInsuranceView';
   static const kMedicalHistoryView = '/MedicalHistoryView';
-  static const kNotificationView = '/NotificationView';
-
+  static const notificationView = '/NotificationView';
+  static const kBookAppointView = '/BookAppointView';
+  static const kBookAppoint2View = '/BookAppoint2View';
+  static const kBookAppoint3View = '/BookAppoint3View';
+  static const kBookingSummaryView = '/BookingSummaryView';
+  static const kBookingConfirmationView = '/BookingConfirmationView';
+  static const kAppointDetailsView = '/AppointDetailsView';
+  static const kOurDoctorsView = '/OurDoctorsView';
+  static const kDoctorProfileView = "/DoctorProfileView";
+  static const kTestResultsView = '/TestResultsView';
   static final router = GoRouter(
     initialLocation: kSplashView,
     routes: [
@@ -169,14 +186,78 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-        path: kNotificationView,
+        path: kBookAppointView,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
-          child: const NotificationView(),
+          child: const BookAppointView(),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),
-      
+      GoRoute(
+        path: kBookAppoint2View,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const BookAppoint2View(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kBookAppoint3View,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const BookAppoint3View(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kBookingSummaryView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const BookingSummaryView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kBookingConfirmationView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const BookingConfirmationView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kAppointDetailsView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const AppointDetailsView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kOurDoctorsView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const OurDoctorsView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kDoctorProfileView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const DoctorProfileView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kTestResultsView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const TestResultsView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+     
     ],
   );
 }

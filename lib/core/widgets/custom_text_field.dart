@@ -87,6 +87,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           SizedBox(height: 8.h),
           TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             textInputAction: TextInputAction.next,
             focusNode: widget.focusNode,
             readOnly: widget.readOnly,

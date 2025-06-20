@@ -8,7 +8,7 @@ import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/features/login/data/repos/login_repo_imp.dart';
-import 'package:healr/features/login/presentation/manager/cubit/login_cubit.dart';
+import 'package:healr/features/login/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:healr/core/widgets/custom_text_field.dart';
 import 'package:healr/core/widgets/custom_text_rich.dart';
 import 'package:healr/features/login/presentation/views/widgets/custom_sign_in_with_email_button.dart';
@@ -77,7 +77,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Login successful ✅'),
-                    duration: Duration(milliseconds: 400),
+                    duration: Duration(seconds: 2),
                     backgroundColor: Color.fromARGB(255, 13, 79, 127),
                   ),
                 );

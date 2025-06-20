@@ -23,9 +23,7 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
       setState(() {
         name = cachedName;
       });
-      print('Loaded cached profile data: name=$name');
     } else {
-      print('No cached profile data, fetching from API...');
       context.read<ProfileCubit>().getProfile();
     }
   }
