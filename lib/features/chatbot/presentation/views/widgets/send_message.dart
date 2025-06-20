@@ -23,7 +23,7 @@ class SendMessage extends StatelessWidget {
         suffixIcon: InkWell(
           onTap: () {},
           child: Padding(
-            padding: EdgeInsets.all(8.r),
+            padding: EdgeInsets.all(5.r),
             child: SvgPicture.asset(
               "assets/images/send message.svg",
             ),
