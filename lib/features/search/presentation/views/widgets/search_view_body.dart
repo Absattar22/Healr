@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:healr/core/constants.dart';
+import 'package:healr/core/utils/app_router.dart';
+import 'package:healr/core/utils/search_to_home_datum.dart';
 import 'package:healr/core/utils/styles.dart';
+import 'package:healr/core/widgets/doctor_card.dart';
+import 'package:healr/features/search/data/models/doctor_name_model/datum.dart';
 import 'package:healr/features/search/presentation/managers/search_cubit/search_cubit.dart';
 import 'package:healr/features/search/presentation/views/widgets/search_by_specialties.dart';
 import 'package:healr/features/search/presentation/views/widgets/search_field.dart';
@@ -42,7 +47,7 @@ class SearchViewBody extends StatelessWidget {
                   return Column(
                     children: [
                       SizedBox(height: 270.h),
-                      Text("No doctors found with that name.",
+                      Text("No doctors found with that name or specialty.",
                           style: Styles.textStyle16.copyWith(
                             fontWeight: FontWeight.w500,
                             color: Colors.black,
@@ -55,9 +60,22 @@ class SearchViewBody extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: state.name.data!.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(state.name.data![index].name!),
-                        subtitle: Text(state.name.data![index].name ?? ""),
+                      return DoctorCard(
+                        doctorName: state.name.data![index].name!,
+                        label: "View Doctor",
+                        doctorImg: state.name.data![index].image ?? "",
+                        doctorSpecialty:
+                            state.name.data![index].specialization ?? "",
+                        rating: state.name.data![index].rate ?? 0.0,
+                        onPressed: () {
+                          final homeDatum = convertSearchDatumToHomeDatum(
+                            state.name.data![index],
+                          );
+                          GoRouter.of(context).push(
+                            AppRouter.kDoctorProfileView,
+                            extra: homeDatum,
+                          );
+                        },
                       );
                     },
                   );
@@ -67,11 +85,25 @@ class SearchViewBody extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: state.specialization.data!.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(state.specialization.data![index].name!),
-                        subtitle: Text(
+                      return DoctorCard(
+                        doctorName: state.specialization.data![index].name!,
+                        label: "View Doctor",
+                        doctorImg:
+                            state.specialization.data![index].image ?? "",
+                        doctorSpecialty:
                             state.specialization.data![index].specialization ??
-                                ""),
+                                "",
+                        rating: state.specialization.data![index].rate ?? 0.0,
+                        onPressed: () {
+                          final homeDatum =
+                              convertSpecializationDatumToHomeDatum(
+                            state.specialization.data![index],
+                          );
+                          GoRouter.of(context).push(
+                            AppRouter.kDoctorProfileView,
+                            extra: homeDatum,
+                          );
+                        },
                       );
                     },
                   );

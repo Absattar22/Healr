@@ -13,9 +13,9 @@ class VerificationRepoImp implements VerificationRepo {
   Future<Either<Failure, ForgetPassModel>> verification(String code) async {
     try {
       final response = await apiService.post(
-        endPoint: 'resetPassword',
+        endPoint: 'verifycode',
         body: {
-          'verificationCode': code,
+          'resetCode': code,
         },
       );
 

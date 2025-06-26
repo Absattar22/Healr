@@ -30,7 +30,6 @@ class _BookAppointViewBodyState extends State<BookAppointViewBody> {
         body: Padding(
           padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 30.h),
           child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
                 child: Row(

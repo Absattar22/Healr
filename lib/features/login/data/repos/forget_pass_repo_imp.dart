@@ -13,9 +13,9 @@ class ForgetPassRepoImp implements ForgetPassRepo {
   Future<Either<Failure, ForgetPassModel>> forgetpass(String email) async {
     try {
       final response = await apiService.post(
-        endPoint: 'forgotPassword',
+        endPoint: 'forgetpass',
         body: {
-          'email': email,
+          'Email': email,
         },
       );
 
