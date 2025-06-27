@@ -163,7 +163,7 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
                     ),
                     SizedBox(height: 24.h),
                     CustomTextField(
-                        controller: TextEditingController(),
+                        controller: confirmPasswordController,
                         hintText: "•••••••••••••••",
                         labelText: "Confirm password",
                         validator: (p0) {

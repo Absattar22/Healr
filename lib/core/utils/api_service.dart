@@ -26,13 +26,16 @@ class ApiService {
 
   Future<Map<String, dynamic>> post({
     required String endPoint,
+    String token = '',
     Map<String, dynamic>? body,
   }) async {
     try {
       var response = await dio.post(
         '$baseUrl$endPoint',
         data: body,
-        options: Options(headers: {"Content-Type": "application/json"}),
+        options: Options(
+          headers: {"Content-Type": "application/json", 'Authorization': token},
+        ),
       );
 
       if (response.data is Map<String, dynamic>) {
@@ -98,6 +101,36 @@ class ApiService {
             "Content-Type": "multipart/form-data",
             "Authorization": "Bearer $token",
           },
+        ),
+      );
+
+      if (response.data is Map<String, dynamic>) {
+        if (response.statusCode! >= 200 && response.statusCode! < 300) {
+          return response.data;
+        } else {
+          throw ServerFailure.fromResponse(response.statusCode!, response.data);
+        }
+      } else {
+        throw ServerFailure('⚠️ Invalid response format from the server.');
+      }
+    } on DioException catch (e) {
+      throw ServerFailure.fromDioException(e);
+    } catch (e) {
+      throw ServerFailure(' $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> put({
+    required String endPoint,
+    String token = '',
+    Map<String, dynamic>? body,
+  }) async {
+    try {
+      var response = await dio.put(
+        '$baseUrl$endPoint',
+        data: body,
+        options: Options(
+          headers: {"Content-Type": "application/json", 'Authorization': token},
         ),
       );
 
