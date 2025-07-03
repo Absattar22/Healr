@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/features/chatbot/data/chatbot_repo_imp.dart';
-import 'package:healr/features/chatbot/models/chat_bot_response/chat_bot_response.dart';
+import 'package:healr/features/chatbot/models/chat_bot_response.dart';
 import 'package:healr/features/chatbot/presentation/manager/chat_bot_message/chat_bot_message_cubit.dart';
 import 'package:healr/features/chatbot/presentation/views/widgets/chat_bubble.dart';
 import 'package:healr/features/chatbot/presentation/views/widgets/empty_chatbot.dart';
@@ -50,8 +50,7 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
                       if (state is ChatBotMessageSuccess) {
                         messageList = state.messages;
                         if (messageList.isNotEmpty) {
-                          finalMessage =
-                              messageList.last.choices![0].message!.content;
+                          finalMessage = messageList.last.response![0];
                           isFound = true;
                         } else {
                           isFound = false;
@@ -97,19 +96,16 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
                           reverse: false,
                           itemBuilder: (context, index) {
                             final message = messageList[index];
-                            if (message.choices == null ||
-                                message.choices!.isEmpty) {
+                            if (message.response == null ||
+                                message.response!.isEmpty) {
                               return const SizedBox(); // or show an error widget
                             }
                             final isUser = message.id == "user";
                             return isUser
                                 ? ChatBubble(
-                                    message:
-                                        message.choices![0].message!.content!,
+                                    message: message.response!,
                                   )
-                                : CHatBubbleOthers(
-                                    message:
-                                        message.choices![0].message!.content!);
+                                : CHatBubbleOthers(message: message.response!);
                           },
                         );
                       }

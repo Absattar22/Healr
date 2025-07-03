@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:healr/features/chatbot/data/chatbot_repo.dart';
-import 'package:healr/features/chatbot/models/chat_bot_response/chat_bot_response.dart';
-import 'package:healr/features/chatbot/models/chat_bot_response/choice.dart';
-import 'package:healr/features/chatbot/models/chat_bot_response/message.dart';
+import 'package:healr/features/chatbot/models/chat_bot_response.dart';
 
 part 'chat_bot_message_state.dart';
 
@@ -14,8 +12,8 @@ class ChatBotMessageCubit extends Cubit<ChatBotMessageState> {
   Future<void> sendMessage(String message) async {
     messages.add(ChatBotResponse(
         id: "user",
-        choices: [Choice(message: Message(content: message))],
-        sentAt: DateTime.now().toIso8601String()));
+        response: message,
+        sendAt: DateTime.now().toIso8601String()));
     emit(ChatBotMessageLoading());
 
     var result = await chatbotRepo.sendSymptoms(message);
@@ -26,15 +24,9 @@ class ChatBotMessageCubit extends Cubit<ChatBotMessageState> {
       (user) {
         messages.add(ChatBotResponse(
             id: "bot",
-            choices: [
-              Choice(
-                message: Message(
-                  content: user.choices![0].message!.content!,
-                ),
-              ),
-            ],
-            sentAt: DateTime.now().toIso8601String()));
-        messages.sort((a, b) => a.sentAt!.compareTo(b.sentAt!));
+            response: user.response,
+            sendAt: DateTime.now().toIso8601String()));
+        messages.sort((a, b) => a.sendAt!.compareTo(b.sendAt!));
 
         emit(ChatBotMessageSuccess(messages));
       },
