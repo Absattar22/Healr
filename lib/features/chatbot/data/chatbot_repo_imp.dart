@@ -14,7 +14,7 @@ class ChatbotRepoImp implements ChatbotRepo {
   @override
   Future<Either<Failure, ChatBotResponse>> sendSymptoms(String symptoms) async {
     final url =
-        Uri.parse('https://chatbot-production-bfef.up.railway.app/chatbot');
+        Uri.parse('https://web-production-00c71.up.railway.app/chatbot');
     final headers = {
       'Content-Type': 'application/json',
     };
