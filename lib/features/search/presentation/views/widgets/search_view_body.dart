@@ -60,22 +60,25 @@ class SearchViewBody extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: state.name.data!.length,
                     itemBuilder: (context, index) {
-                      return DoctorCard(
-                        doctorName: state.name.data![index].name!,
-                        label: "View Doctor",
-                        doctorImg: state.name.data![index].image ?? "",
-                        doctorSpecialty:
-                            state.name.data![index].specialization ?? "",
-                        rating: state.name.data![index].rate ?? 0.0,
-                        onPressed: () {
-                          final homeDatum = convertSearchDatumToHomeDatum(
-                            state.name.data![index],
-                          );
-                          GoRouter.of(context).push(
-                            AppRouter.kDoctorProfileView,
-                            extra: homeDatum,
-                          );
-                        },
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 16.h),
+                        child: DoctorCard(
+                          doctorName: state.name.data![index].name!,
+                          label: "View Doctor",
+                          doctorImg: state.name.data![index].image ?? "",
+                          doctorSpecialty:
+                              state.name.data![index].specialization ?? "",
+                          rating: state.name.data![index].rate ?? 0.0,
+                          onPressed: () {
+                            final homeDatum = convertSearchDatumToHomeDatum(
+                              state.name.data![index],
+                            );
+                            GoRouter.of(context).push(
+                              AppRouter.kDoctorProfileView,
+                              extra: homeDatum,
+                            );
+                          },
+                        ),
                       );
                     },
                   );
@@ -85,25 +88,28 @@ class SearchViewBody extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: state.specialization.data!.length,
                     itemBuilder: (context, index) {
-                      return DoctorCard(
-                        doctorName: state.specialization.data![index].name!,
-                        label: "View Doctor",
-                        doctorImg:
-                            state.specialization.data![index].image ?? "",
-                        doctorSpecialty:
-                            state.specialization.data![index].specialization ??
-                                "",
-                        rating: state.specialization.data![index].rate ?? 0.0,
-                        onPressed: () {
-                          final homeDatum =
-                              convertSpecializationDatumToHomeDatum(
-                            state.specialization.data![index],
-                          );
-                          GoRouter.of(context).push(
-                            AppRouter.kDoctorProfileView,
-                            extra: homeDatum,
-                          );
-                        },
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 16.h),
+                        child: DoctorCard(
+                          doctorName: state.specialization.data![index].name!,
+                          label: "View Doctor",
+                          doctorImg:
+                              state.specialization.data![index].image ?? "",
+                          doctorSpecialty: state
+                                  .specialization.data![index].specialization ??
+                              "",
+                          rating: state.specialization.data![index].rate ?? 0.0,
+                          onPressed: () {
+                            final homeDatum =
+                                convertSpecializationDatumToHomeDatum(
+                              state.specialization.data![index],
+                            );
+                            GoRouter.of(context).push(
+                              AppRouter.kDoctorProfileView,
+                              extra: homeDatum,
+                            );
+                          },
+                        ),
                       );
                     },
                   );
