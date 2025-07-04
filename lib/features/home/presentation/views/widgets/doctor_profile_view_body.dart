@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
 import 'package:healr/features/home/data/models/get_all_reviews_model/user_review.dart';
@@ -9,7 +7,6 @@ import 'package:healr/features/home/presentation/views/widgets/book2_header.dart
 import 'package:healr/features/home/presentation/views/widgets/doctor_info.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_reviews.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_stats.dart';
-import 'package:healr/features/home/presentation/views/widgets/review_bottom_sheet.dart';
 import 'package:healr/features/home/presentation/views/widgets/working_hours.dart';
 import 'package:healr/features/home/presentation/views/widgets/write_review_button.dart';
 
@@ -71,7 +68,7 @@ class _DoctorProfileViewBodyState extends State<DoctorProfileViewBody> {
                 DoctorReviews(
                   review: widget.review,
                 ),
-                const writeReviewButton(),
+                const WriteReviewButton(),
                 SizedBox(
                   height: 24.h,
                 ),

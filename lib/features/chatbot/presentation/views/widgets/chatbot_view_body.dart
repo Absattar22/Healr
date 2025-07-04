@@ -86,8 +86,8 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
                         );
                       } else if (state is ChatBotMessageInitial ||
                           (messageList.isEmpty && !isFound)) {
-                        return SingleChildScrollView(
-                            child: const EmptyChatBot());
+                        return const SingleChildScrollView(
+                            child: EmptyChatBot());
                       } else {
                         return ListView.builder(
                           controller: scrollController,

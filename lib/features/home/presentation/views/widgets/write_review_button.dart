@@ -6,8 +6,8 @@ import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/home/presentation/managers/reviews_cubit/reviews_cubit.dart';
 import 'package:healr/features/home/presentation/views/widgets/review_bottom_sheet.dart';
 
-class writeReviewButton extends StatelessWidget {
-  const writeReviewButton({
+class WriteReviewButton extends StatelessWidget {
+  const WriteReviewButton({
     super.key,
   });
 

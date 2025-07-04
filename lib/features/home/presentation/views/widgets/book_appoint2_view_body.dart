@@ -11,7 +11,6 @@ import 'package:healr/features/home/presentation/views/widgets/doctor_info.dart'
 import 'package:healr/features/home/presentation/views/widgets/doctor_reviews.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_stats.dart';
 import 'package:healr/features/home/presentation/views/widgets/working_hours.dart';
-import 'package:healr/features/home/presentation/views/widgets/write_review_button.dart';
 
 class BookAppoint2ViewBody extends StatelessWidget {
   const BookAppoint2ViewBody({super.key, this.data, this.review});
