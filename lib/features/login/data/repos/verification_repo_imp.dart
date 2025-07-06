@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:healr/core/errors/failure.dart';
 import 'package:healr/core/utils/api_service.dart';
 import 'package:healr/features/login/data/model/forget_pass_model.dart';
 import 'package:healr/features/login/data/repos/verification_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VerificationRepoImp implements VerificationRepo {
   final ApiService apiService;
@@ -12,11 +14,14 @@ class VerificationRepoImp implements VerificationRepo {
   @override
   Future<Either<Failure, ForgetPassModel>> verification(String code) async {
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('Resettoken') ?? '';
       final response = await apiService.post(
-        endPoint: 'resetPassword',
+        endPoint: 'verifycode',
         body: {
-          'verificationCode': code,
+          'resetCode': code,
         },
+        token: token, // or your saved token if needed
       );
 
       if (response.containsKey('status') && response['status'] == 'error') {

@@ -14,7 +14,7 @@ class WorkingHours extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Working hours:",
+          "Working hours",
           style: Styles.textStyle20.copyWith(
             fontWeight: FontWeight.w600,
           ),

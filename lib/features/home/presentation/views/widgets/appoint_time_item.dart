@@ -42,15 +42,20 @@ class AppointTimeItem extends StatelessWidget {
                         ),
             ),
             child: Center(
-              child: Text(text ?? "",
-                  style: Styles.textStyle14.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color:
-                        context.watch<SelectedTimeCubit>().selectedIndexTime ==
-                                index
-                            ? const Color(0xffF8F8F8)
-                            : Colors.black,
-                  )),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(text ?? "",
+                    overflow: TextOverflow.ellipsis,
+                    style: Styles.textStyle14.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: context
+                                  .watch<SelectedTimeCubit>()
+                                  .selectedIndexTime ==
+                              index
+                          ? const Color(0xffF8F8F8)
+                          : Colors.black,
+                    )),
+              ),
             ),
           ),
         );

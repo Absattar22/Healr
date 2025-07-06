@@ -29,7 +29,7 @@ class AppointDayItem extends StatelessWidget {
           child: Container(
             width: 92.w,
             height: 60.h,
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24.r),
               color: context.watch<SelectedDayCubit>().selectedIndexDay == index
@@ -46,17 +46,26 @@ class AppointDayItem extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  text1 ?? "",
-                  style: Styles.textStyle14.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: context.watch<SelectedDayCubit>().selectedIndexDay ==
-                            index
-                        ? const Color(0xffF2F2F2)
-                        : const Color(0xffB3B3B3),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    text1 ?? "",
+                    overflow: TextOverflow.ellipsis,
+                    style: Styles.textStyle14.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color:
+                          context.watch<SelectedDayCubit>().selectedIndexDay ==
+                                  index
+                              ? const Color(0xffF2F2F2)
+                              : const Color(0xffB3B3B3),
+                    ),
                   ),
                 ),
-                Text(text2 ?? "",
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    text2 ?? "",
+                    overflow: TextOverflow.ellipsis,
                     style: Styles.textStyle16.copyWith(
                       fontWeight: FontWeight.w500,
                       color:
@@ -64,7 +73,9 @@ class AppointDayItem extends StatelessWidget {
                                   index
                               ? const Color(0xffF8F8F8)
                               : Colors.black,
-                    )),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

@@ -21,59 +21,83 @@ class SearchBySpecialties extends StatelessWidget {
             )),
         SizedBox(height: 16.h),
         SpecialtiesItem(
-          title: "Otolaryngology (ENT) (Ear, Nose & Throat)",
+          title: "Otolaryngology",
           imagePath: "assets/images/brain.svg",
+          onTap: () {
+            BlocProvider.of<SearchCubit>(context)
+                .specialtiesSearch("Otolaryngology");
+          },
+        ),
+        SizedBox(height: 16.h),
+        SpecialtiesItem(
+          title: "Dental Care",
+          imagePath: "assets/images/tooth.svg",
           onTap: () {
             BlocProvider.of<SearchCubit>(context).specialtiesSearch("dental");
           },
         ),
         SizedBox(height: 16.h),
         SpecialtiesItem(
-          title: "Dental Care (General Dentistry)",
-          imagePath: "assets/images/tooth.svg",
-          onTap: () {},
-        ),
-        SizedBox(height: 16.h),
-        SpecialtiesItem(
-          title: "Gastroenterology (Digestive System)",
+          title: "Gastroenterology",
           imagePath: "assets/images/stomach.svg",
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<SearchCubit>(context)
+                .specialtiesSearch("Gastroenterology");
+          },
         ),
         SizedBox(height: 16.h),
         SpecialtiesItem(
-          title: "Ophthalmology (Eyes)",
+          title: "Ophthalmology",
           imagePath: "assets/images/eye.svg",
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<SearchCubit>(context)
+                .specialtiesSearch("Ophthalmology");
+          },
         ),
         SizedBox(height: 16.h),
         SpecialtiesItem(
-          title: "Dermatology (Skin, Hair & Nails)",
+          title: "Dermatology",
           imagePath: "assets/images/woman.svg",
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<SearchCubit>(context)
+                .specialtiesSearch("Dermatology");
+          },
         ),
         SizedBox(height: 16.h),
         SpecialtiesItem(
-          title: "Pulmonology (Lungs & Respiratory System)",
+          title: "Pulmonology",
           imagePath: "assets/images/lungs.svg",
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<SearchCubit>(context)
+                .specialtiesSearch("Pulmonology");
+          },
         ),
         SizedBox(height: 16.h),
         SpecialtiesItem(
-          title: "Psychiatry (Mental Health)",
+          title: "Psychiatry",
           imagePath: "assets/images/brain 2.svg",
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<SearchCubit>(context)
+                .specialtiesSearch("Psychiatry");
+          },
         ),
         SizedBox(height: 16.h),
         SpecialtiesItem(
-          title: "Nephrology (Kidneys)",
+          title: "Nephrology",
           imagePath: "assets/images/kidney.svg",
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<SearchCubit>(context)
+                .specialtiesSearch("Nephrology");
+          },
         ),
         SizedBox(height: 16.h),
         SpecialtiesItem(
-          title: "Orthopedics (Bones & Joints)",
+          title: "Orthopedics",
           imagePath: "assets/images/bone.svg",
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<SearchCubit>(context)
+                .specialtiesSearch("Orthopedics");
+          },
         ),
         SizedBox(height: 16.h),
       ],

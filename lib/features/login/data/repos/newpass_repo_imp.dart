@@ -3,6 +3,7 @@ import 'package:healr/core/errors/failure.dart';
 import 'package:healr/core/utils/api_service.dart';
 import 'package:healr/features/login/data/model/forget_pass_model.dart';
 import 'package:healr/features/login/data/repos/newpass_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NewpassRepoImp implements NewpassRepo {
   final ApiService apiService;
@@ -13,12 +14,15 @@ class NewpassRepoImp implements NewpassRepo {
   Future<Either<Failure, ForgetPassModel>> newpass(
       String password, String confirmPassword) async {
     try {
-      final response = await apiService.post(
-        endPoint: 'resetPassword',
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('Resettoken') ?? '';
+      final response = await apiService.put(
+        endPoint: 'resetpassword',
         body: {
-          'password': password,
-          'confirmPassword': confirmPassword,
+          'newPassword': password,
+          'passwordConfirm': confirmPassword,
         },
+        token: token,
       );
 
       if (response.containsKey('status') && response['status'] == 'error') {

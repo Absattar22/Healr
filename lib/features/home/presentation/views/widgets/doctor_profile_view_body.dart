@@ -2,14 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
+import 'package:healr/features/home/data/models/get_all_reviews_model/user_review.dart';
 import 'package:healr/features/home/presentation/views/widgets/book2_header.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_info.dart';
+import 'package:healr/features/home/presentation/views/widgets/doctor_reviews.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_stats.dart';
 import 'package:healr/features/home/presentation/views/widgets/working_hours.dart';
+import 'package:healr/features/home/presentation/views/widgets/write_review_button.dart';
 
-class DoctorProfileViewBody extends StatelessWidget {
-  const DoctorProfileViewBody({super.key, this.data});
+class DoctorProfileViewBody extends StatefulWidget {
+  const DoctorProfileViewBody({super.key, this.data, this.review});
+  final UserReview? review;
   final Datum? data;
+
+  @override
+  State<DoctorProfileViewBody> createState() => _DoctorProfileViewBodyState();
+}
+
+class _DoctorProfileViewBodyState extends State<DoctorProfileViewBody> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +34,7 @@ class DoctorProfileViewBody extends StatelessWidget {
                   title: "Our Doctors",
                 ),
                 SizedBox(height: 24.h),
-                DoctorInfo(data: data),
+                DoctorInfo(data: widget.data),
                 SizedBox(
                   height: 28.h,
                 ),
@@ -34,11 +44,11 @@ class DoctorProfileViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 DoctorStats(
-                  data: data,
+                  data: widget.data,
                 ),
                 SizedBox(height: 16.h),
                 Text(
-                  "About Doctor:",
+                  "About Doctor",
                   style: Styles.textStyle20.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -54,6 +64,14 @@ class DoctorProfileViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 const WorkingHours(),
+                SizedBox(height: 16.h),
+                DoctorReviews(
+                  review: widget.review,
+                ),
+                const WriteReviewButton(),
+                SizedBox(
+                  height: 24.h,
+                ),
               ],
             ),
           ),

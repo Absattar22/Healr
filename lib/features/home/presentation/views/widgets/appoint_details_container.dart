@@ -32,11 +32,15 @@ class AppointDetailsContainer extends StatelessWidget {
           ),
           Align(
             alignment: const Alignment(-0.79, 0),
-            child: Text("#502",
-                style: Styles.textStyle14.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff666666),
-                )),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text("#502",
+                  overflow: TextOverflow.ellipsis,
+                  style: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xff666666),
+                  )),
+            ),
           ),
           SizedBox(
             height: 8.h,
@@ -47,11 +51,15 @@ class AppointDetailsContainer extends StatelessWidget {
           ),
           Align(
             alignment: const Alignment(-0.7, 0),
-            child: Text("July 1, at 1:00 PM.",
-                style: Styles.textStyle14.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff666666),
-                )),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text("July 1, at 1:00 PM.",
+                  overflow: TextOverflow.ellipsis,
+                  style: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xff666666),
+                  )),
+            ),
           ),
           SizedBox(
             height: 8.h,
@@ -63,11 +71,15 @@ class AppointDetailsContainer extends StatelessWidget {
           ),
           Align(
             alignment: const Alignment(-0.6, 0),
-            child: Text("Ismailia Medical Complex",
-                style: Styles.textStyle14.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff666666),
-                )),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text("Ismailia Medical Complex",
+                  overflow: TextOverflow.ellipsis,
+                  style: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xff666666),
+                  )),
+            ),
           ),
         ],
       ),
