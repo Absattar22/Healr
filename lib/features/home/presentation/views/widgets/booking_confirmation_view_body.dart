@@ -36,7 +36,7 @@ class BookingConfirmationViewBody extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-        ),
+        ),  
         body: Padding(
           padding: EdgeInsets.only(top: 30.h, left: 16.w, right: 16.w),
           child: Column(

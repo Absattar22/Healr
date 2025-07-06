@@ -8,7 +8,7 @@ import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/core/widgets/custom_dialog.dart';
 import 'package:healr/core/widgets/custom_text_field.dart';
 import 'package:healr/features/profile/data/model/profile_model.dart';
-import 'package:healr/features/profile/presentation/manager/cubit/profile_cubit.dart';
+import 'package:healr/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:healr/features/profile/presentation/views/widgets/custom_dropdown_button.dart';
 import 'package:healr/features/profile/presentation/views/widgets/date_text_field.dart';
 import 'package:healr/features/profile/presentation/views/widgets/profile_image_picker.dart';
@@ -287,15 +287,6 @@ class _YourProfileViewBodyState extends State<YourProfileViewBody> {
                         padding: 0,
                         hintText: 'Enter Your National Number',
                         labelText: 'National Number',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter your national number';
-                          }
-                          if (value.length != 14) {
-                            return 'Your national number must be 14 digits';
-                          }
-                          return null;
-                        },
                         obscureText: false,
                         readOnly: true,
                         maxLength: 14,

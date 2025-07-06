@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/features/profile/data/model/profile_model.dart';
-import 'package:healr/features/profile/data/repo/profile_repo.dart';
+import 'package:healr/features/profile/data/repo/profile_repo/profile_repo.dart';
 
 part 'profile_state.dart';
 

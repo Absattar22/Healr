@@ -4,7 +4,7 @@ import 'package:healr/core/errors/failure.dart';
 import 'package:healr/core/utils/api_service.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/features/profile/data/model/profile_model.dart';
-import 'package:healr/features/profile/data/repo/profile_repo.dart';
+import 'package:healr/features/profile/data/repo/profile_repo/profile_repo.dart';
 
 class ProfileRepoImp implements ProfileRepo {
   final ApiService apiService;

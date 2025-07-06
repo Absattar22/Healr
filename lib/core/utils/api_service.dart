@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:healr/core/constants.dart';
 import 'package:healr/core/errors/failure.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -32,7 +33,10 @@ class ApiService {
       var response = await dio.post(
         '$baseUrl$endPoint',
         data: body,
-        options: Options(headers: {"Content-Type": "application/json"}),
+        options: Options(headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $kToken",
+        }),
       );
 
       if (response.data is Map<String, dynamic>) {
@@ -96,6 +100,39 @@ class ApiService {
         options: Options(
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      if (response.data is Map<String, dynamic>) {
+        if (response.statusCode! >= 200 && response.statusCode! < 300) {
+          return response.data;
+        } else {
+          throw ServerFailure.fromResponse(response.statusCode!, response.data);
+        }
+      } else {
+        throw ServerFailure('⚠️ Invalid response format from the server.');
+      }
+    } on DioException catch (e) {
+      throw ServerFailure.fromDioException(e);
+    } catch (e) {
+      throw ServerFailure(' $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> delete({
+    required String endPoint,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    try {
+      final token = SharedPrefCache.getCache(key: 'token');
+      final response = await dio.delete(
+        '$baseUrl$endPoint',
+        queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            "Content-Type": "application/json",
             "Authorization": "Bearer $token",
           },
         ),

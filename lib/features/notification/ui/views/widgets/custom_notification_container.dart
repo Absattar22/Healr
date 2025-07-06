@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:healr/core/constants.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
-import 'package:healr/features/notification/ui/views/widgets/custom_medicine_button.dart';
+import 'package:healr/features/notification/data/models/medicine_model.dart';
+import 'package:healr/features/notification/ui/manager/notificationActionCubit/notification_actions_cubit.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class CustomNotificationContainer extends StatefulWidget {
-  const CustomNotificationContainer(
-      {super.key,
-      required this.img,
-      required this.notificationTitle,
-      required this.notificationDescription,
-      required this.time,
-      this.isMedicine = false});
+  const CustomNotificationContainer({
+    super.key,
+    required this.img,
+    required this.notificationTitle,
+    required this.notificationDescription,
+    required this.time,
+    this.isButtonClicked = false,
+    this.ispopCLicked = false,
+    required this.id,
+    required this.medicinesList,
+    this.isRead = false,
+  });
   final String img;
   final String notificationTitle;
   final String notificationDescription;
   final String time;
-  final bool isMedicine;
+  final bool ispopCLicked;
+  final bool isButtonClicked;
+  final String? id;
+  final List<MedicineModel> medicinesList;
+  final bool isRead;
 
   @override
   State<CustomNotificationContainer> createState() =>
@@ -30,43 +43,75 @@ class _CustomNotificationContainerState
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<NotificationActionsCubit>();
+    final isSelectMode = cubit.state is SelectingNotification;
+    final isSelected = cubit.selectedIds.contains(widget.id);
+
     return GestureDetector(
       onTap: () {
-        setState(() {
-          isClicked = !isClicked;
-        });
+        final cubit = context.read<NotificationActionsCubit>();
+        final isSelectMode = cubit.state is SelectingNotification;
+
+        if (isSelectMode) {
+          setState(() {
+            cubit.toggleSelection(widget.id!);
+            isClicked = false;
+          });
+        } else {
+          setState(() {
+            cubit.markAllAsRead(context);
+            isClicked = !isClicked;
+            GoRouter.of(context)
+                .push(AppRouter.kMedicineView, extra: widget.medicinesList);
+          });
+        }
       },
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xffE7F3FF),
-          boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 25, 25, 236).withOpacity(0.1),
-              blurRadius: 4,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromARGB(255, 216, 216, 216),
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: Offset(0, 1),
+              ),
+            ],
+            color: widget.isRead
+                ? kPrimaryColor
+                : const Color.fromARGB(255, 228, 236, 255)),
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
+                horizontal: 8.w,
                 vertical: 16.h,
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if (isSelectMode)
+                    Padding(
+                      padding: EdgeInsets.only(top: 4.h, right: 4.w),
+                      child: Icon(
+                        isSelected
+                            ? HugeIcons.strokeRoundedCheckmarkCircle02
+                            : HugeIcons.strokeRoundedCircle,
+                        size: 28.r,
+                        color:
+                            isSelected ? const Color(0xff3A95D2) : Colors.grey,
+                      ),
+                    ),
                   CircleAvatar(
                     radius: 20.r,
-                    child: SvgPicture.asset(
-                      widget.img,
-                      width: 40.w,
-                      height: 40.h,
-                    ),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.r),
+                        child: Image.asset(
+                          widget.img,
+                          fit: BoxFit.cover,
+                        )),
                   ),
                   SizedBox(width: 16.w),
-                  Expanded(
+                  Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -74,7 +119,7 @@ class _CustomNotificationContainerState
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
+                            Flexible(
                               child: Text(
                                 widget.notificationTitle,
                                 style: Styles.textStyle18.copyWith(
@@ -84,11 +129,14 @@ class _CustomNotificationContainerState
                               ),
                             ),
                             SizedBox(width: 8.w),
-                            Text(
-                              widget.time,
-                              style: Styles.textStyle12.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff666666),
+                            Padding(
+                              padding: EdgeInsets.only(top: 4.h),
+                              child: Text(
+                                widget.time,
+                                style: Styles.textStyle12.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff666666),
+                                ),
                               ),
                             ),
                           ],
@@ -102,52 +150,8 @@ class _CustomNotificationContainerState
                           ),
                         ),
                         SizedBox(
-                          height: 16.h,
+                          height: 4.h,
                         ),
-                        if (isClicked && widget.isMedicine)
-                          Row(
-                            children: [
-                              CustomMedicineButton(
-                                buttonStyle: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff3A95D2),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.r),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                color: const Color(0xffF8F8F8),
-                                icon: HugeIcons.strokeRoundedTick01,
-                                text: 'Taken',
-                                textStyle: Styles.textStyle16.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: const Color(0xffF8F8F8),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              CustomMedicineButton(
-                                buttonStyle: ElevatedButton.styleFrom(
-                                  elevation: 0,
-                                  backgroundColor: const Color(0xffF8F8F8),
-                                  shape: RoundedRectangleBorder(
-                                    side: const BorderSide(
-                                      color: Color(0xff3A95D2),
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.r),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                color: const Color(0xff3A95D2),
-                                icon: HugeIcons.strokeRoundedCancel01,
-                                text: 'Skipped',
-                                textStyle: Styles.textStyle16.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: const Color(0xff3A95D2),
-                                ),
-                              ),
-                            ],
-                          ),
                       ],
                     ),
                   ),

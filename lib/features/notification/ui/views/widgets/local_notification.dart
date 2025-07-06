@@ -81,15 +81,16 @@ class LocalNotification {
 
     // جدولة الإشعار التحضيري
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      id + 1000, // معرف فريد للإشعار التحضيري
-      prepTitle,
-      prepBody,
-      prepScheduledDate,
-      notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      matchDateTimeComponents: DateTimeComponents.time,
-      payload: prepPayload,
-    );
+  id,
+  title,
+  body,
+  scheduledDate,
+  notificationDetails,
+  androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+  matchDateTimeComponents: DateTimeComponents.time,
+  payload: 'medicineId:${id.toString()}|$payload',
+);
+
 
     // جدولة إشعار الدواء الرئيسي
     await flutterLocalNotificationsPlugin.zonedSchedule(
@@ -202,8 +203,7 @@ static Future<void> scheduleIntervalNotification({
         await flutterLocalNotificationsPlugin.pendingNotificationRequests();
     debugPrint("📋 عدد الإشعارات المجدولة: ${requests.length}");
     for (var request in requests) {
-      debugPrint(
-          "➡️ [ID: ${request.id}] العنوان: ${request.title}, المحتوى: ${request.payload}");
+      debugPrint("➡️ [ID: ${request.id}] العنوان: ${request.title}, المحتوى: ${request.payload}");
     }
   }
 
@@ -220,4 +220,32 @@ static Future<void> scheduleIntervalNotification({
       }
     }
   }
+
+  static Future<void> showInstantNotification({
+  required int id,
+  required String title,
+  required String body,
+  String payload = "instant_notification",
+}) async {
+  const androidDetails = AndroidNotificationDetails(
+    'instant_channel_id',
+    'Instant Notifications',
+    channelDescription: 'Triggered when medicine is added or an event occurs',
+    importance: Importance.max,
+    priority: Priority.high,
+  );
+
+  const notificationDetails = NotificationDetails(android: androidDetails);
+
+  await flutterLocalNotificationsPlugin.show(
+    id,
+    title,
+    body,
+    notificationDetails,
+    payload: payload,
+  );
+
+  debugPrint("📢 Instant notification shown: $title");
+}
+
 }

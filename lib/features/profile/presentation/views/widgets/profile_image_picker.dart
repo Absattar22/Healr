@@ -9,7 +9,7 @@ import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:healr/features/profile/presentation/manager/cubit/profile_cubit.dart';
+import 'package:healr/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
 
 class ProfileImagePicker extends StatefulWidget {
   const ProfileImagePicker({

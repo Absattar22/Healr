@@ -16,12 +16,17 @@ import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';
 import 'package:healr/features/login/presentation/views/password_changed_view.dart';
 import 'package:healr/features/login/presentation/views/verification_code_view.dart';
-import 'package:healr/features/notification/ui/views/notification_view.dart';
+import 'package:healr/features/notification/data/models/medicine_model.dart';
+import 'package:healr/features/notification/ui/views/medicine_details_view.dart';
+import 'package:healr/features/notification/ui/views/medicine_view.dart';
 import 'package:healr/features/onborading/presentation/views/onboarding_view.dart';
 import 'package:healr/features/onborading/splash_view.dart';
+import 'package:healr/features/profile/presentation/views/health_insurance_form_done_view.dart';
+import 'package:healr/features/profile/presentation/views/health_insurance_form_view.dart';
 import 'package:healr/features/profile/presentation/views/health_insurance_view.dart';
 import 'package:healr/features/profile/presentation/views/help_center_view.dart';
 import 'package:healr/features/profile/presentation/views/medical_history_view.dart';
+import 'package:healr/features/profile/presentation/views/no_health_insurance_view.dart';
 import 'package:healr/features/profile/presentation/views/privacy_policy_view.dart';
 import 'package:healr/features/profile/presentation/views/profile_view.dart';
 import 'package:healr/features/profile/presentation/views/your_profile_view.dart';
@@ -54,6 +59,11 @@ abstract class AppRouter {
   static const kOurDoctorsView = '/OurDoctorsView';
   static const kDoctorProfileView = "/DoctorProfileView";
   static const kTestResultsView = '/TestResultsView';
+  static const kMedicineView = '/MedicineView';
+  static const kMedicineDetailsView = '/MedicineDetailsView';
+  static const kNoHealthInsuranceView = '/NoHealthInsuranceView';
+  static const kHealthInsuranceFormView = '/HealthInsuranceFormView';
+  static const kHealthInsuranceFormDoneView = '/HealthInsuranceFormDoneView';
   static final router = GoRouter(
     initialLocation: kSplashView,
     routes: [
@@ -257,7 +267,54 @@ abstract class AppRouter {
           transitionsBuilder: customNavigateAnimation,
         ),
       ),
-     
+      GoRoute(
+        path: kMedicineView,
+        pageBuilder: (context, state) {
+          final meds = state.extra as List<MedicineModel>;
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: MedicineView(med: meds),
+            transitionsBuilder: customNavigateAnimation,
+          );
+        },
+      ),
+      GoRoute(
+        path: kMedicineDetailsView,
+        pageBuilder: (context, state) {
+          final meds = state.extra as List<MedicineModel>;
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: MedicineDetailsView(
+              meds: meds,
+            ),
+            transitionsBuilder: customNavigateAnimation,
+          );
+        },
+      ),
+      GoRoute(
+        path: kNoHealthInsuranceView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const NoHealthInsuranceView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kHealthInsuranceFormView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const HealthInsuranceFormView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kHealthInsuranceFormDoneView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const HealthInsuranceFormDoneView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
     ],
   );
 }
