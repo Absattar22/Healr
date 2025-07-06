@@ -36,8 +36,7 @@ class AppointDetailsContainer extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                  appointDetails?.data?.appointment?.appointmentId.toString() ??
-                      "#502",
+                  appointDetails?.data?.appointment?.id.toString() ?? "#502",
                   overflow: TextOverflow.ellipsis,
                   style: Styles.textStyle14.copyWith(
                     fontWeight: FontWeight.w600,

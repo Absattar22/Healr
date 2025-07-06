@@ -49,7 +49,7 @@ class AppointDetailsViewBody extends StatelessWidget {
             SizedBox(height: 16.h),
             DetailsStatement(
                 label: "Appointment ID",
-                detail: "${appointDetails!.data!.appointment!.appointmentId}"),
+                detail: "${appointDetails!.data!.appointment!.id}"),
             SizedBox(height: 16.h),
             DetailsStatement(
                 label: "Date & hour",
