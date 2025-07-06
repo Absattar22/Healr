@@ -5,7 +5,6 @@ import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
-import 'package:healr/features/home/data/models/get_all_reviews_model/user_review.dart';
 import 'package:healr/features/home/presentation/views/widgets/book2_header.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_info.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_reviews.dart';
@@ -13,8 +12,10 @@ import 'package:healr/features/home/presentation/views/widgets/doctor_stats.dart
 import 'package:healr/features/home/presentation/views/widgets/working_hours.dart';
 
 class BookAppoint2ViewBody extends StatelessWidget {
-  const BookAppoint2ViewBody({super.key, this.data, this.review});
-  final UserReview? review;
+  const BookAppoint2ViewBody({
+    super.key,
+    this.data,
+  });
 
   final Datum? data;
   @override
@@ -74,7 +75,8 @@ class BookAppoint2ViewBody extends StatelessWidget {
                 const WorkingHours(),
                 SizedBox(height: 16.h),
                 DoctorReviews(
-                  review: review,
+                  review: data?.reviews,
+                  doctorId: data?.id,
                 ),
               ],
             ),

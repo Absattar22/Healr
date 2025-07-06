@@ -94,7 +94,8 @@ class _BookAppointViewBodyState extends State<BookAppointViewBody> {
                               lcoationIcon: "assets/images/location-06.svg",
                               locationText: "Ismailia, SCU Hospital",
                               dollarIcon: "assets/images/dollar-circle.svg",
-                              dollarText: "Appointment price: 300 L.E.",
+                              dollarText:
+                                  "Appointment price: ${state.user.data![index].price ?? "300"}",
                               onPressed: () {
                                 GoRouter.of(context).push(
                                   AppRouter.kBookAppoint2View,

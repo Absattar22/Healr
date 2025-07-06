@@ -29,38 +29,34 @@ class WorkingHours extends StatelessWidget {
         SizedBox(height: 4.h),
         const DetailsStatement(
           label: "Saturday",
-          detail: "09:18PM - 06:09PM",
+          detail: "09:00AM - 03:00PM",
         ),
         SizedBox(height: 8.h),
         const DetailsStatement(
           label: "Sunday",
-          detail: "09:18PM - 06:09PM",
+          detail: "09:00AM - 03:00PM",
         ),
         SizedBox(height: 8.h),
         const DetailsStatement(
           label: "Monday",
-          detail: "09:18PM - 06:09PM",
+          detail: "09:00AM - 03:00PM",
         ),
         SizedBox(height: 8.h),
         const DetailsStatement(
           label: "Tuesday",
-          detail: "09:18PM - 06:09PM",
+          detail: "09:00AM - 03:00PM",
         ),
         SizedBox(height: 8.h),
         const DetailsStatement(
           label: "Wednesday",
-          detail: "09:18PM - 06:09PM",
+          detail: "09:00AM - 03:00PM",
         ),
         SizedBox(height: 8.h),
         const DetailsStatement(
           label: "Thursday",
-          detail: "09:18PM - 06:09PM",
+          detail: "09:00AM - 03:00PM",
         ),
         SizedBox(height: 8.h),
-        const DetailsStatement(
-          label: "Friday",
-          detail: "09:18PM - 06:09PM",
-        ),
       ],
     );
   }

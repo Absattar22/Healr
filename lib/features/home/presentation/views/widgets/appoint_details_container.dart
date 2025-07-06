@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/utils/styles.dart';
+import 'package:healr/features/home/data/models/appoint_details_model/appoint_details_model.dart';
 import 'package:healr/features/home/presentation/views/widgets/icon_statement.dart';
 
 class AppointDetailsContainer extends StatelessWidget {
   const AppointDetailsContainer({
     super.key,
+    this.appointDetails,
   });
-
+  final AppointDetailsModel? appointDetails;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
-      height: 191.h,
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -34,7 +35,9 @@ class AppointDetailsContainer extends StatelessWidget {
             alignment: const Alignment(-0.79, 0),
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text("#502",
+              child: Text(
+                  appointDetails?.data?.appointment?.appointmentId.toString() ??
+                      "#502",
                   overflow: TextOverflow.ellipsis,
                   style: Styles.textStyle14.copyWith(
                     fontWeight: FontWeight.w600,
@@ -53,7 +56,8 @@ class AppointDetailsContainer extends StatelessWidget {
             alignment: const Alignment(-0.7, 0),
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text("July 1, at 1:00 PM.",
+              child: Text(
+                  "${appointDetails!.data!.appointment!.day}, ${appointDetails!.data!.appointment!.time}.",
                   overflow: TextOverflow.ellipsis,
                   style: Styles.textStyle14.copyWith(
                     fontWeight: FontWeight.w600,

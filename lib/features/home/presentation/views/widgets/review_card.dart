@@ -3,10 +3,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:healr/core/utils/styles.dart';
-import 'package:healr/features/home/data/models/get_all_reviews_model/user_review.dart';
+import 'package:healr/features/home/data/models/all_doctors_model/review.dart';
 
 class ReviewCard extends StatelessWidget {
-  final UserReview? review;
+  final Review? review;
   const ReviewCard({
     super.key,
     required this.review,
@@ -45,7 +45,7 @@ class ReviewCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          review?.rating.toString() ?? "",
+                          review?.rating?.toString() ?? "0",
                           style: Styles.textStyle12,
                         ),
                         SizedBox(width: 0.5.w),
@@ -73,7 +73,7 @@ class ReviewCard extends StatelessWidget {
                   Text(
                     review?.createdAt != null
                         ? DateFormat('yyyy-MM-dd').format(review!.createdAt!)
-                        : "Unknown date",
+                        : "2025-7-2",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: Styles.textStyle12.copyWith(
@@ -84,7 +84,7 @@ class ReviewCard extends StatelessWidget {
                   Text(
                     review?.createdAt != null
                         ? DateFormat('HH:mm').format(review!.createdAt!)
-                        : "Unknown time",
+                        : "10:44",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: Styles.textStyle12.copyWith(
@@ -99,7 +99,9 @@ class ReviewCard extends StatelessWidget {
             height: 8.h,
           ),
           Text(
-            review?.reviewText ?? "",
+            review?.reviewText == null || review?.reviewText == ''
+                ? ""
+                : review?.reviewText ?? "",
             style: Styles.textStyle14.copyWith(
               color: const Color(0xff1a1a1a),
               fontWeight: FontWeight.w500,

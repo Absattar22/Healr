@@ -3,27 +3,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
+import 'package:healr/features/home/presentation/managers/get_doctors/get_doctors_cubit.dart';
 import 'package:healr/features/home/presentation/managers/reviews_cubit/reviews_cubit.dart';
 import 'package:healr/features/home/presentation/views/widgets/review_bottom_sheet.dart';
 
 class WriteReviewButton extends StatelessWidget {
   const WriteReviewButton({
     super.key,
+    this.doctorId,
   });
-
+  final String? doctorId;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         final reviewsCubit = BlocProvider.of<ReviewsCubit>(context);
-
+        final getDoctorsCubit = BlocProvider.of<GetDoctorsCubit>(context);
         showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             builder: (modalContext) {
               return ReviewBottomSheet(
+                doctorId: doctorId,
                 reviewsCubit: reviewsCubit,
+                getDoctorsCubit: getDoctorsCubit,
               );
             });
       },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
-import 'package:healr/features/home/data/models/get_all_reviews_model/user_review.dart';
 import 'package:healr/features/home/presentation/views/widgets/book2_header.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_info.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_reviews.dart';
@@ -11,9 +10,13 @@ import 'package:healr/features/home/presentation/views/widgets/working_hours.dar
 import 'package:healr/features/home/presentation/views/widgets/write_review_button.dart';
 
 class DoctorProfileViewBody extends StatefulWidget {
-  const DoctorProfileViewBody({super.key, this.data, this.review});
-  final UserReview? review;
+  const DoctorProfileViewBody({
+    super.key,
+    this.data,
+    this.showReviews = true,
+  });
   final Datum? data;
+  final bool showReviews;
 
   @override
   State<DoctorProfileViewBody> createState() => _DoctorProfileViewBodyState();
@@ -65,10 +68,15 @@ class _DoctorProfileViewBodyState extends State<DoctorProfileViewBody> {
                 SizedBox(height: 16.h),
                 const WorkingHours(),
                 SizedBox(height: 16.h),
-                DoctorReviews(
-                  review: widget.review,
-                ),
-                const WriteReviewButton(),
+                if (widget.showReviews) ...[
+                  DoctorReviews(
+                    review: widget.data?.reviews,
+                    doctorId: widget.data?.id,
+                  ),
+                  WriteReviewButton(
+                    doctorId: widget.data?.id,
+                  ),
+                ],
                 SizedBox(
                   height: 24.h,
                 ),

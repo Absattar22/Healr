@@ -1,8 +1,8 @@
-class UserReview {
-  String? userImage;
+class Review {
   String? id;
   String? userId;
   String? userName;
+  String? userImage;
   String? doctorId;
   String? reviewText;
   int? rating;
@@ -10,11 +10,11 @@ class UserReview {
   DateTime? updatedAt;
   int? v;
 
-  UserReview({
-    this.userImage,
+  Review({
     this.id,
     this.userId,
     this.userName,
+    this.userImage,
     this.doctorId,
     this.reviewText,
     this.rating,
@@ -23,11 +23,11 @@ class UserReview {
     this.v,
   });
 
-  factory UserReview.fromJson(Map<String, dynamic> json) => UserReview(
-        userImage: json['userImage'] as String?,
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
         id: json['_id'] as String?,
         userId: json['userId'] as String?,
         userName: json['userName'] as String?,
+        userImage: json['userImage'] as String?,
         doctorId: json['doctorId'] as String?,
         reviewText: json['reviewText'] as String?,
         rating: (json['rating'] as num?)?.toInt(),
@@ -41,10 +41,10 @@ class UserReview {
       );
 
   Map<String, dynamic> toJson() => {
-        'userImage': userImage,
         '_id': id,
         'userId': userId,
         'userName': userName,
+        'userImage': userImage,
         'doctorId': doctorId,
         'reviewText': reviewText,
         'rating': rating,
