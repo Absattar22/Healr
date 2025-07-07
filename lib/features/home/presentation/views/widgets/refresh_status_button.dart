@@ -18,7 +18,7 @@ class RefreshStatusButton extends StatelessWidget {
         height: 40.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: const Color(0xffF8F8F8),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
             color: const Color(0xffB3B3B3),
