@@ -38,11 +38,14 @@ class ServicesSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
+            Expanded(
               child: CustomCard(
                 imgUrl: 'assets/images/component3.svg',
                 title: 'My approvals',
                 subtitle: 'Medication and tests approvals from insurance',
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kApprovalsView);
+                },
               ),
             ),
             SizedBox(width: 8.w),
