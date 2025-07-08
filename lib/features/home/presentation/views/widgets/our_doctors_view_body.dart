@@ -9,6 +9,7 @@ import 'package:healr/core/widgets/custom_back_button.dart';
 import 'package:healr/core/widgets/doctor_card.dart';
 import 'package:healr/features/home/presentation/managers/get_doctors/get_doctors_cubit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:healr/features/search/presentation/views/widgets/search_skeletonizer.dart';
 
 class OurDoctorsViewBody extends StatefulWidget {
   const OurDoctorsViewBody({super.key});

@@ -37,18 +37,15 @@ class ServicesSection extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 12.h),
+        SizedBox(height: 8.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: CustomCard(
-                imgUrl: 'assets/images/component3.svg',
-                title: 'My approvals',
-                subtitle: 'Medication and tests approvals from insurance',
-                onTap: () {
-                  GoRouter.of(context).push(AppRouter.kApprovalsView);
-                },
+                imgUrl: 'assets/images/map.svg',
+                title: 'Find a clinic',
+                subtitle: 'Find clinics near you and book an appointment.',
               ),
             ),
             SizedBox(width: 8.w),

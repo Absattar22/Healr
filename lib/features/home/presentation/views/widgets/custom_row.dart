@@ -7,37 +7,60 @@ class CustomRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Expanded(
-          child: CustomContainer(
-            imgUrl: 'assets/images/video.svg',
-            title: 'Video Visit',
-          ),
-        ),
-        SizedBox(width: 8.w),
-        const Expanded(
-          child: CustomContainer(
-            imgUrl: 'assets/images/robot.svg',
-            title: 'Ent Care',
-          ),
-        ),
-        SizedBox(width: 8.w),
-        const Expanded(
-          child: CustomContainer(
-            imgUrl: 'assets/images/blood.svg',
-            title: 'Blood Donation',
-          ),
-        ),
-        SizedBox(width: 8.w),
-        const Expanded(
-          child: CustomContainer(
-            imgUrl: 'assets/images/dental.svg',
-            title: 'Dental Care',
-          ),
-        ),
-      ],
+    final List<Map<String, dynamic>> data = [
+      {
+        'img': 'assets/images/ent.svg',
+        'title': 'ENT Care',
+        'onTap': () {
+          // دا هيكون فيه Navigation لصفحة ال ENT Care
+        },
+      },
+      {
+        'img': 'assets/images/Pulmonology.svg',
+        'title': 'Pulmonology',
+        'onTap': () {},
+      },
+      {
+        'img': 'assets/images/Dermatology.svg',
+        'title': 'Dermatology',
+        'onTap': () {},
+      },
+      {
+        'img': 'assets/images/dental.svg',
+        'title': 'Dental Care',
+        'onTap': () {},
+      },
+      {
+        'img': 'assets/images/mental.svg',
+        'title': 'Mental Health',
+        'onTap': () {},
+      },
+      {
+        'img': 'assets/images/eye.svg',
+        'title': 'Eye Care',
+        'onTap': () {},
+      },
+    ];
+
+    return GridView.builder(
+      padding: EdgeInsets.only(top: 8.h),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 16.h,
+        crossAxisSpacing: 12.w,
+        childAspectRatio: 1.4,
+      ),
+      itemCount: data.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        final item = data[index];
+        return CustomContainer(
+          imgUrl: item['img'],
+          title: item['title'],
+          onTap: item['onTap'],
+        );
+      },
     );
   }
 }

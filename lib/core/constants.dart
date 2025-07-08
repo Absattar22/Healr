@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 Color kPrimaryColor = const Color(0xffFCFCFF);
 Color kSecondaryColor = const Color(0xFF2673A6);
@@ -8,4 +9,6 @@ Color kSignIconColor = const Color(0xff4D4D4D);
 
 String? kToken;
 String? kOnboardingStatus;
+final PersistentTabController persistentController = PersistentTabController(initialIndex: 0);
+
 
