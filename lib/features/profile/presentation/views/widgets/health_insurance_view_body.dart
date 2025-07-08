@@ -29,6 +29,10 @@ class HealthInsuranceViewBody extends StatelessWidget {
 
           if (state is HealthInsuranceLoading) {
             return Skeletonizer(
+              effect: ShimmerEffect(
+        baseColor: Colors.grey.shade300,
+        highlightColor: Colors.grey.shade100,
+      ),
               enabled: true,
               containersColor: kPrimaryColor,
               child: buildInsuranceCardPlaceHolder(),
