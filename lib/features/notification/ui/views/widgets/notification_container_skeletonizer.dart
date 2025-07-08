@@ -9,6 +9,10 @@ class NotificationContainerSkeletonizer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Skeletonizer(
+      effect: ShimmerEffect(
+        baseColor: Colors.grey.shade300,
+        highlightColor: Colors.grey.shade100,
+      ),
       enabled: true,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),

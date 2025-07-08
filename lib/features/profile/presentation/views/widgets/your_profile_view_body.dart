@@ -236,6 +236,10 @@ class _YourProfileViewBodyState extends State<YourProfileViewBody> {
         builder: (context, state) {
           if (state is ProfileLoading) {
             return Skeletonizer(
+              effect: ShimmerEffect(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade100,
+              ),
               child: buildYourProfile(),
             );
           }
