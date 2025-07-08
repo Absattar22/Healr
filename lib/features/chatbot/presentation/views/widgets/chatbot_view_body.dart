@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/features/chatbot/data/chatbot_repo_imp.dart';
 import 'package:healr/features/chatbot/models/chat_bot_response.dart';
@@ -9,7 +8,6 @@ import 'package:healr/features/chatbot/presentation/manager/chat_bot_message/cha
 import 'package:healr/features/chatbot/presentation/views/widgets/chat_bubble.dart';
 import 'package:healr/features/chatbot/presentation/views/widgets/empty_chatbot.dart';
 import 'package:healr/features/chatbot/presentation/views/widgets/send_message.dart';
-import 'package:healr/features/login/data/model/user_model.dart';
 
 class ChatbotViewBody extends StatefulWidget {
   const ChatbotViewBody({super.key});
@@ -24,7 +22,6 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
   ScrollController scrollController = ScrollController();
 
   List<ChatBotResponse> messageList = [];
-  UserModel? userModel;
   String? finalMessage;
 
   bool isFound = false;
@@ -50,7 +47,7 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
                       if (state is ChatBotMessageSuccess) {
                         messageList = state.messages;
                         if (messageList.isNotEmpty) {
-                          finalMessage = messageList.last.response![0];
+                          finalMessage = messageList.last.response!;
                           isFound = true;
                         } else {
                           isFound = false;
@@ -71,13 +68,7 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
                       }
                     },
                     builder: (context, state) {
-                      if (state is ChatBotMessageLoading) {
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: kSecondaryColor,
-                          ),
-                        );
-                      } else if (state is ChatBotMessageFailure) {
+                      if (state is ChatBotMessageFailure) {
                         return Center(
                           child: Text(
                             state.errMessage,
@@ -89,12 +80,25 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
                         return const SingleChildScrollView(
                             child: EmptyChatBot());
                       } else {
+                        // For loading state, show messages with loading bubble at the end
+                        final isLoading = state is ChatBotMessageLoading;
+                        final totalItems =
+                            messageList.length + (isLoading ? 1 : 0);
+
                         return ListView.builder(
                           controller: scrollController,
                           physics: const BouncingScrollPhysics(),
-                          itemCount: messageList.length,
+                          itemCount: totalItems,
                           reverse: false,
                           itemBuilder: (context, index) {
+                            // If it's the last item and we're loading, show loading bubble
+                            if (isLoading && index == messageList.length) {
+                              return const CHatBubbleOthers(
+                                message: "",
+                                isLoading: true,
+                              );
+                            }
+
                             final message = messageList[index];
                             if (message.response == null ||
                                 message.response!.isEmpty) {
@@ -105,7 +109,10 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
                                 ? ChatBubble(
                                     message: message.response!,
                                   )
-                                : CHatBubbleOthers(message: message.response!);
+                                : CHatBubbleOthers(
+                                    message: message.response!,
+                                    isLoading: false,
+                                  );
                           },
                         );
                       }
