@@ -21,6 +21,14 @@ class SearchViewBody extends StatefulWidget {
 }
 
 class _SearchViewBodyState extends State<SearchViewBody> {
+  final TextEditingController searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +39,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
 
   void _checkPendingSearch() {
     if (pendingSearchQuery != null && pendingSearchQuery!.isNotEmpty) {
+      searchController.clear();
       if (mounted) {
         BlocProvider.of<SearchCubit>(context)
             .specialtiesSearch(pendingSearchQuery!);
@@ -48,112 +57,117 @@ class _SearchViewBodyState extends State<SearchViewBody> {
 
       _checkPendingSearch();
     });
-    return Scaffold(
-        body: LiquidPullToRefresh(
-      onRefresh: () async {
-        BlocProvider.of<SearchCubit>(context).reset();
-      },
-      height: 100.h,
-      color: kSecondaryColor,
-      backgroundColor: Colors.white,
-      animSpeedFactor: 5,
-      showChildOpacityTransition: false,
-      child: Padding(
-        padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 32.h),
-        child: ListView(
-          children: [
-            Text("Search for a doctor",
-                style:
-                    Styles.textStyle24.copyWith(fontWeight: FontWeight.w600)),
-            SizedBox(height: 16.h),
-            const SearchField(),
-            SizedBox(height: 16.h),
-            BlocBuilder<SearchCubit, SearchState>(
-              builder: (context, state) {
-                if (state is SearchInitial) {
-                  return const SearchBySpecialties();
-                } else if (state is SearchLoading) {
-                  return const SearchSkeletonizer();
-                } else if (state is SearchFailure) {
-                  return Column(
-                    children: [
-                      SizedBox(height: 270.h),
-                      Text("No doctors found with that name or specialty.",
-                          style: Styles.textStyle16.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          )),
-                    ],
-                  );
-                } else if (state is SearchSuccessName) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.name.data!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 16.h),
-                        child: DoctorCard(
-                          doctorName: state.name.data![index].name!,
-                          label: "View Doctor",
-                          doctorImg: state.name.data![index].image ?? "",
-                          doctorSpecialty:
-                              state.name.data![index].specialization ?? "",
-                          rating: state.name.data![index].rate ?? 0.0,
-                          onPressed: () {
-                            final homeDatum = convertSearchDatumToHomeDatum(
-                              state.name.data![index],
-                            );
-                            GoRouter.of(context).push(
-                              AppRouter.kDoctorProfileView,
-                              extra: homeDatum,
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  );
-                } else if (state is SearchSuccessSpecial) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.specialization.data!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 16.h),
-                        child: DoctorCard(
-                          doctorName: state.specialization.data![index].name!,
-                          label: "View Doctor",
-                          doctorImg:
-                              state.specialization.data![index].image ?? "",
-                          doctorSpecialty: state
-                                  .specialization.data![index].specialization ??
-                              "",
-                          rating: state.specialization.data![index].rate ?? 0.0,
-                          onPressed: () {
-                            final homeDatum =
-                                convertSpecializationDatumToHomeDatum(
-                              state.specialization.data![index],
-                            );
-                            GoRouter.of(context).push(
-                              AppRouter.kDoctorProfileView,
-                              extra: homeDatum,
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
-            // Add some bottom padding to ensure scrollability
-            SizedBox(height: 8.h),
-          ],
+    return SafeArea(
+      child: Scaffold(
+          body: LiquidPullToRefresh(
+        onRefresh: () async {
+          searchController.clear();
+
+          BlocProvider.of<SearchCubit>(context).reset();
+        },
+        height: 100.h,
+        color: kSecondaryColor,
+        backgroundColor: Colors.white,
+        animSpeedFactor: 5,
+        showChildOpacityTransition: false,
+        child: Padding(
+          padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 32.h),
+          child: ListView(
+            children: [
+              Text("Search for a doctor",
+                  style:
+                      Styles.textStyle24.copyWith(fontWeight: FontWeight.w600)),
+              SizedBox(height: 16.h),
+              SearchField(controller: searchController),
+              SizedBox(height: 16.h),
+              BlocBuilder<SearchCubit, SearchState>(
+                builder: (context, state) {
+                  if (state is SearchInitial) {
+                    return const SearchBySpecialties();
+                  } else if (state is SearchLoading) {
+                    return const SearchSkeletonizer();
+                  } else if (state is SearchFailure) {
+                    return Column(
+                      children: [
+                        SizedBox(height: 270.h),
+                        Text("No doctors found with that name or specialty.",
+                            style: Styles.textStyle16.copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            )),
+                      ],
+                    );
+                  } else if (state is SearchSuccessName) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.name.data!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 16.h),
+                          child: DoctorCard(
+                            doctorName: state.name.data![index].name!,
+                            label: "View Doctor",
+                            doctorImg: state.name.data![index].image ?? "",
+                            doctorSpecialty:
+                                state.name.data![index].specialization ?? "",
+                            rating: state.name.data![index].rate ?? 0.0,
+                            onPressed: () {
+                              final homeDatum = convertSearchDatumToHomeDatum(
+                                state.name.data![index],
+                              );
+                              GoRouter.of(context).push(
+                                AppRouter.kDoctorProfileView,
+                                extra: homeDatum,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  } else if (state is SearchSuccessSpecial) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.specialization.data!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 16.h),
+                          child: DoctorCard(
+                            doctorName: state.specialization.data![index].name!,
+                            label: "View Doctor",
+                            doctorImg:
+                                state.specialization.data![index].image ?? "",
+                            doctorSpecialty: state.specialization.data![index]
+                                    .specialization ??
+                                "",
+                            rating:
+                                state.specialization.data![index].rate ?? 0.0,
+                            onPressed: () {
+                              final homeDatum =
+                                  convertSpecializationDatumToHomeDatum(
+                                state.specialization.data![index],
+                              );
+                              GoRouter.of(context).push(
+                                AppRouter.kDoctorProfileView,
+                                extra: homeDatum,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+              // Add some bottom padding to ensure scrollability
+              SizedBox(height: 8.h),
+            ],
+          ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 }

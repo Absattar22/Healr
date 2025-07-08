@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:healr/core/constants.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/home/presentation/views/widgets/custom_row.dart';
 import 'package:healr/features/home/presentation/views/widgets/health_insurance_section.dart';
@@ -130,7 +132,7 @@ PersistentTabConfig homeTab() {
 Widget viewMore(BuildContext context) {
   return GestureDetector(
     onTap: () {
-      // وديها لصفحة السيرش
+      GoRouter.of(context).push(AppRouter.kSearchview);
     },
     child: Row(
       mainAxisAlignment: MainAxisAlignment.end,

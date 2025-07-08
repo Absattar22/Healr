@@ -87,7 +87,6 @@ class _ChatbotViewBodyState extends State<ChatbotViewBody> {
 
                         return ListView.builder(
                           controller: scrollController,
-                          physics: const BouncingScrollPhysics(),
                           itemCount: totalItems,
                           reverse: false,
                           itemBuilder: (context, index) {

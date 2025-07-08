@@ -94,7 +94,7 @@ class _BookAppointViewBodyState extends State<BookAppointViewBody> {
                                 doctorImg: state.user.data![index].image,
                                 rating: state.user.data![index].rate,
                                 lcoationIcon: "assets/images/location-06.svg",
-                                locationText: "Ismailia, SCU Hospital",
+                                locationText: "Ismailia Medical Complex",
                                 dollarIcon: "assets/images/dollar-circle.svg",
                                 dollarText:
                                     "Appointment price: ${state.user.data![index].price ?? "300"}",

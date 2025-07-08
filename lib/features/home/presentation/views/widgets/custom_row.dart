@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:healr/core/constants.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/features/home/presentation/views/widgets/custom_container.dart';
 
 class CustomRow extends StatelessWidget {
@@ -15,8 +17,8 @@ class CustomRow extends StatelessWidget {
         'onTap': () {
           // Set the search query in constants
           pendingSearchQuery = "Orthopedics";
-          // Jump to search tab
-          persistentController.jumpToTab(1);
+          // Navigate directly to search view
+          GoRouter.of(context).push(AppRouter.kSearchview);
         },
       },
       {
@@ -24,7 +26,7 @@ class CustomRow extends StatelessWidget {
         'title': 'Pulmonology',
         'onTap': () {
           pendingSearchQuery = "Pulmonology";
-          persistentController.jumpToTab(1);
+          GoRouter.of(context).push(AppRouter.kSearchview);
         },
       },
       {
@@ -32,7 +34,7 @@ class CustomRow extends StatelessWidget {
         'title': 'Dermatology',
         'onTap': () {
           pendingSearchQuery = "Dermatology";
-          persistentController.jumpToTab(1);
+          GoRouter.of(context).push(AppRouter.kSearchview);
         },
       },
       {
@@ -40,7 +42,7 @@ class CustomRow extends StatelessWidget {
         'title': 'Dental Care',
         'onTap': () {
           pendingSearchQuery = "dental";
-          persistentController.jumpToTab(1);
+          GoRouter.of(context).push(AppRouter.kSearchview);
         },
       },
       {
@@ -48,7 +50,7 @@ class CustomRow extends StatelessWidget {
         'title': 'Mental Health',
         'onTap': () {
           pendingSearchQuery = "Psychiatry";
-          persistentController.jumpToTab(1);
+          GoRouter.of(context).push(AppRouter.kSearchview);
         },
       },
       {
@@ -56,7 +58,7 @@ class CustomRow extends StatelessWidget {
         'title': 'Eye Care',
         'onTap': () {
           pendingSearchQuery = "Ophthalmology";
-          persistentController.jumpToTab(1);
+          GoRouter.of(context).push(AppRouter.kSearchview);
         },
       },
     ];
