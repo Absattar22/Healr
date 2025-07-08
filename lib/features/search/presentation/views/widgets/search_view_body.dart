@@ -11,18 +11,56 @@ import 'package:healr/features/search/presentation/managers/search_cubit/search_
 import 'package:healr/features/search/presentation/views/widgets/search_by_specialties.dart';
 import 'package:healr/features/search/presentation/views/widgets/search_field.dart';
 import 'package:healr/features/search/presentation/views/widgets/search_skeletonizer.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
-class SearchViewBody extends StatelessWidget {
+class SearchViewBody extends StatefulWidget {
   const SearchViewBody({super.key});
 
   @override
+  State<SearchViewBody> createState() => _SearchViewBodyState();
+}
+
+class _SearchViewBodyState extends State<SearchViewBody> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkPendingSearch();
+    });
+  }
+
+  void _checkPendingSearch() {
+    if (pendingSearchQuery != null && pendingSearchQuery!.isNotEmpty) {
+      if (mounted) {
+        BlocProvider.of<SearchCubit>(context)
+            .specialtiesSearch(pendingSearchQuery!);
+
+        pendingSearchQuery = null;
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Check for pending search every time the widget builds
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {});
+
+      _checkPendingSearch();
+    });
     return Scaffold(
-        body: Padding(
-      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 32.h),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: LiquidPullToRefresh(
+      onRefresh: () async {
+        BlocProvider.of<SearchCubit>(context).reset();
+      },
+      height: 100.h,
+      color: kSecondaryColor,
+      backgroundColor: Colors.white,
+      animSpeedFactor: 5,
+      showChildOpacityTransition: false,
+      child: Padding(
+        padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 32.h),
+        child: ListView(
           children: [
             Text("Search for a doctor",
                 style:
@@ -110,7 +148,9 @@ class SearchViewBody extends StatelessWidget {
                   return const SizedBox();
                 }
               },
-            )
+            ),
+            // Add some bottom padding to ensure scrollability
+            SizedBox(height: 8.h),
           ],
         ),
       ),

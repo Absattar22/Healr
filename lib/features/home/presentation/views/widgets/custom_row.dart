@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healr/core/constants.dart';
 import 'package:healr/features/home/presentation/views/widgets/custom_container.dart';
 
 class CustomRow extends StatelessWidget {
@@ -9,36 +10,54 @@ class CustomRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> data = [
       {
-        'img': 'assets/images/ent.svg',
-        'title': 'ENT Care',
+        'img': 'assets/images/bone.svg',
+        'title': 'Orthopedics',
         'onTap': () {
-          // دا هيكون فيه Navigation لصفحة ال ENT Care
+          // Set the search query in constants
+          pendingSearchQuery = "Orthopedics";
+          // Jump to search tab
+          persistentController.jumpToTab(1);
         },
       },
       {
         'img': 'assets/images/Pulmonology.svg',
         'title': 'Pulmonology',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "Pulmonology";
+          persistentController.jumpToTab(1);
+        },
       },
       {
         'img': 'assets/images/Dermatology.svg',
         'title': 'Dermatology',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "Dermatology";
+          persistentController.jumpToTab(1);
+        },
       },
       {
         'img': 'assets/images/dental.svg',
         'title': 'Dental Care',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "dental";
+          persistentController.jumpToTab(1);
+        },
       },
       {
         'img': 'assets/images/mental.svg',
         'title': 'Mental Health',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "Psychiatry";
+          persistentController.jumpToTab(1);
+        },
       },
       {
         'img': 'assets/images/eye.svg',
         'title': 'Eye Care',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "Ophthalmology";
+          persistentController.jumpToTab(1);
+        },
       },
     ];
 

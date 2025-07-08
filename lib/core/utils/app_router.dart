@@ -31,6 +31,7 @@ import 'package:healr/features/profile/presentation/views/no_health_insurance_vi
 import 'package:healr/features/profile/presentation/views/privacy_policy_view.dart';
 import 'package:healr/features/profile/presentation/views/profile_view.dart';
 import 'package:healr/features/profile/presentation/views/your_profile_view.dart';
+import 'package:healr/features/search/presentation/views/search_view.dart';
 import 'package:healr/features/sign_up/presentation/views/sign_up_view.dart';
 
 abstract class AppRouter {
@@ -66,6 +67,7 @@ abstract class AppRouter {
   static const kHealthInsuranceFormView = '/HealthInsuranceFormView';
   static const kHealthInsuranceFormDoneView = '/HealthInsuranceFormDoneView';
   static const kApprovalsView = '/ApprovalsView';
+  static const kSearchview = '/SearchView';
   static final router = GoRouter(
     initialLocation: kSplashView,
     routes: [
@@ -322,6 +324,14 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const ApprovalsView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kSearchview,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const SearchView(),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),

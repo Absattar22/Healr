@@ -9,6 +9,6 @@ Color kSignIconColor = const Color(0xff4D4D4D);
 
 String? kToken;
 String? kOnboardingStatus;
-final PersistentTabController persistentController = PersistentTabController(initialIndex: 0);
-
-
+String? pendingSearchQuery; // Variable to store pending search queries
+final PersistentTabController persistentController =
+    PersistentTabController(initialIndex: 0);
