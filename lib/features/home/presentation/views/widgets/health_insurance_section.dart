@@ -17,7 +17,7 @@ class HealthInsuranceSection extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: const Color(0xff1C567D),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

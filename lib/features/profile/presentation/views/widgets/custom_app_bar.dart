@@ -22,7 +22,11 @@ class CustomAppBar extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.arrow_back_ios, size: 20),
+              icon: Icon(
+                Icons.arrow_back_ios,
+                size: 20.sp,
+                color: const Color(0xff1C567D),
+              ),
             ),
           ),
         ),

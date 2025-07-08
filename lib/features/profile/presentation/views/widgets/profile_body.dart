@@ -31,14 +31,6 @@ class ProfileBody extends StatelessWidget {
         SizedBox(height: 36.h),
         ProfileCustomRow(
           onTap: () {
-            GoRouter.of(context).push(AppRouter.kMedicalHistoryView);
-          },
-          icon: HugeIcons.strokeRoundedClock04,
-          text: "Medical History",
-        ),
-        SizedBox(height: 36.h),
-        ProfileCustomRow(
-          onTap: () {
             GoRouter.of(context).push(AppRouter.kHelpCenterView);
           },
           icon: HugeIcons.strokeRoundedHelpCircle,

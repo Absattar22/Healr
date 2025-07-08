@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/features/login/data/model/user_model.dart';
 import 'package:healr/features/login/data/repos/login_repo.dart';
-import 'package:healr/features/profile/data/repo/profile_repo_imp.dart';
+import 'package:healr/features/profile/data/repo/profile_repo/profile_repo_imp.dart';
 
 part 'login_state.dart';
 

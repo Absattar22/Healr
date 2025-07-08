@@ -25,8 +25,11 @@ class ServicesSection extends StatelessWidget {
               ),
             ),
             SizedBox(width: 8.w),
-            const Expanded(
+             Expanded(
               child: CustomCard(
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kTestResultsView);
+                },
                 imgUrl: 'assets/images/component2.svg',
                 title: 'Test/scans results',
                 subtitle: 'View your test results and scans instantly.',

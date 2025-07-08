@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:healr/core/constants.dart';
 import 'package:healr/core/errors/failure.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -33,9 +34,10 @@ class ApiService {
       var response = await dio.post(
         '$baseUrl$endPoint',
         data: body,
-        options: Options(
-          headers: {"Content-Type": "application/json", 'Authorization': token},
-        ),
+        options: Options(headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $kToken",
+        }),
       );
 
       if (response.data is Map<String, dynamic>) {
@@ -120,17 +122,20 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> put({
+  Future<Map<String, dynamic>> delete({
     required String endPoint,
-    String token = '',
-    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      var response = await dio.put(
+      final token = SharedPrefCache.getCache(key: 'token');
+      final response = await dio.delete(
         '$baseUrl$endPoint',
-        data: body,
+        queryParameters: queryParameters,
         options: Options(
-          headers: {"Content-Type": "application/json", 'Authorization': token},
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          },
         ),
       );
 

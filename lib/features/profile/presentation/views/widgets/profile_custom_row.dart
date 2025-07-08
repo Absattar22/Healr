@@ -26,31 +26,38 @@ class ProfileCustomRow extends StatefulWidget {
 class _ProfileCustomRowState extends State<ProfileCustomRow> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      focusColor: Colors.transparent,
       onTap: widget.onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          HugeIcon(
-            icon: widget.icon,
-            color: widget.color,
-            size: 24,
-          ),
-          SizedBox(width: 16.w),
-          Text(
-            widget.text,
-            style: Styles.textStyle18.copyWith(
-              fontWeight: FontWeight.w500,
-              color: widget.textColor,
+      child: SizedBox(
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            HugeIcon(
+              icon: widget.icon,
+              color: widget.color,
+              size: 24,
             ),
-          ),
-          const Spacer(),
-          const Icon(
-            Icons.arrow_forward_ios,
-            color: Color(0xff1C567D),
-            size: 16,
-          ),
-        ],
+            SizedBox(width: 16.w),
+            Text(
+              widget.text,
+              style: Styles.textStyle18.copyWith(
+                fontWeight: FontWeight.w500,
+                color: widget.textColor,
+              ),
+            ),
+            const Spacer(),
+            const Icon(
+              Icons.arrow_forward_ios,
+              color: Color(0xff1C567D),
+              size: 16,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -9,7 +9,9 @@ import 'package:healr/features/login/data/repos/forget_pass_repo_imp.dart';
 import 'package:healr/features/login/data/repos/login_repo_imp.dart';
 import 'package:healr/features/login/data/repos/newpass_repo_imp.dart';
 import 'package:healr/features/login/data/repos/verification_repo_imp.dart';
-import 'package:healr/features/profile/data/repo/profile_repo_imp.dart';
+import 'package:healr/features/notification/data/repo/medicine_repo_imp.dart';
+import 'package:healr/features/profile/data/repo/health_insurance_repo/health_insurance_repo_imp.dart';
+import 'package:healr/features/profile/data/repo/profile_repo/profile_repo_imp.dart';
 import 'package:healr/features/search/data/repos/search_repo_imp.dart';
 import 'package:healr/features/sign_up/data/repos/sign_up_repo_imp.dart';
 
@@ -58,13 +60,13 @@ void setupServiceLocator() {
       getIt.get<ApiService>(),
     ),
   );
-  getIt.registerSingleton<ChatbotRepoImp>(
-    ChatbotRepoImp(
+  getIt.registerSingleton<MedicineRepoImp>(
+    MedicineRepoImp(
       getIt.get<ApiService>(),
     ),
   );
-  getIt.registerSingleton<ReviewsRepoImp>(
-    ReviewsRepoImp(
+  getIt.registerSingleton<HealthInsuranceRepoImp>(
+    HealthInsuranceRepoImp(
       getIt.get<ApiService>(),
     ),
   );
