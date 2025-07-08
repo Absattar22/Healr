@@ -7,10 +7,10 @@ import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/search_to_home_datum.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/doctor_card.dart';
-import 'package:healr/features/search/data/models/doctor_name_model/datum.dart';
 import 'package:healr/features/search/presentation/managers/search_cubit/search_cubit.dart';
 import 'package:healr/features/search/presentation/views/widgets/search_by_specialties.dart';
 import 'package:healr/features/search/presentation/views/widgets/search_field.dart';
+import 'package:healr/features/search/presentation/views/widgets/search_skeletonizer.dart';
 
 class SearchViewBody extends StatelessWidget {
   const SearchViewBody({super.key});
@@ -35,14 +35,7 @@ class SearchViewBody extends StatelessWidget {
                 if (state is SearchInitial) {
                   return const SearchBySpecialties();
                 } else if (state is SearchLoading) {
-                  return Column(
-                    children: [
-                      SizedBox(height: 270.h),
-                      CircularProgressIndicator(
-                        color: kSecondaryColor,
-                      ),
-                    ],
-                  );
+                  return const SearchSkeletonizer();
                 } else if (state is SearchFailure) {
                   return Column(
                     children: [

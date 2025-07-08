@@ -9,6 +9,7 @@ import 'package:healr/features/notification/ui/manager/notificationActionCubit/n
 import 'package:healr/features/notification/ui/views/no_notification_view.dart';
 import 'package:healr/features/notification/ui/views/widgets/custom_notification_app_bar.dart';
 import 'package:healr/features/notification/ui/views/widgets/custom_notification_container.dart';
+import 'package:healr/features/notification/ui/views/widgets/notification_container_skeletonizer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class NotificationViewBody extends StatefulWidget {
@@ -110,21 +111,19 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
 
                     if (state is MedicineLoading) {
                       if (isRefreshing) {
-                        return SizedBox(
-                          child: Center(
-                            child: Text(
-                              "Refreshing...",
-                              style: Styles.textStyle22.copyWith(
-                                color: kSecondaryColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
+                        return ListView.builder(
+                          itemCount: 4,
+                          itemBuilder: (context, index) {
+                            return const NotificationContainerSkeletonizer();
+                          },
                         );
                       }
-                      return Center(
-                          child: CircularProgressIndicator(
-                              color: kSecondaryColor));
+                      return ListView.builder(
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return const NotificationContainerSkeletonizer();
+                        },
+                      );
                     }
 
                     if (state is MedicineFailure) {

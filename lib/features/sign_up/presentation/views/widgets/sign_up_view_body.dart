@@ -92,17 +92,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           listener: (context, state) {
             if (state is SignUpSuccess) {
               GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Sign Up successful ✅'),
-                  duration: Duration(seconds: 2),
-                  backgroundColor: Color.fromARGB(255, 13, 79, 127),
-                ),
-              );
+            
             } else if (state is SignUpFailure) {
               setState(() {
                 errorMessage = state.errMessage;
-                print(state.errMessage);
               });
             }
           },

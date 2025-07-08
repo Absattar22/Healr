@@ -4,7 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:healr/core/utils/styles.dart';
 
 class CustomContainer extends StatelessWidget {
-  const CustomContainer({super.key, required this.imgUrl, required this.title, this.onTap});
+  const CustomContainer(
+      {super.key, required this.imgUrl, required this.title, this.onTap});
 
   final String imgUrl, title;
   final void Function()? onTap;
@@ -14,10 +15,9 @@ class CustomContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 83.h,
-        width: 78.w,
+        height: 20.h,
         decoration: BoxDecoration(
-          color: const Color(0xffF8F8F8),
+          color: const Color(0xfff8F8F8),
           borderRadius: BorderRadius.circular(16),
           boxShadow: const [
             BoxShadow(

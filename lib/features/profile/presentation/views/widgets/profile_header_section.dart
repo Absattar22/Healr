@@ -34,7 +34,9 @@ class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
         imagePath = cachedImage;
         loadedFromCache = true;
       });
-      cubit.fetchProfileImage();
+      setState(() {
+        cubit.fetchProfileImage();
+      });
     } else {
       cubit.getProfile();
       cubit.fetchProfileImage();

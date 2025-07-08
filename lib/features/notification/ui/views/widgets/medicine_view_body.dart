@@ -150,7 +150,9 @@ class MedicineViewBody extends StatelessWidget {
                 ),
                 child: CustomButton(
                   text: 'Save',
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
                 ),
               ),
             ),

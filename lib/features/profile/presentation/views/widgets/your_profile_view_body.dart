@@ -14,6 +14,7 @@ import 'package:healr/features/profile/presentation/views/widgets/date_text_fiel
 import 'package:healr/features/profile/presentation/views/widgets/profile_image_picker.dart';
 import 'package:healr/features/profile/presentation/views/widgets/custom_app_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class YourProfileViewBody extends StatefulWidget {
   const YourProfileViewBody({super.key});
@@ -234,208 +235,212 @@ class _YourProfileViewBodyState extends State<YourProfileViewBody> {
         },
         builder: (context, state) {
           if (state is ProfileLoading) {
-            return Center(
-              child: CircularProgressIndicator(color: kSecondaryColor),
+            return Skeletonizer(
+              child: buildYourProfile(),
             );
           }
           if (state is ProfileError) {
             return Center(child: Text('Error: ${state.message}'));
           }
 
-          return SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      const CustomAppBar(text: 'Your Profile'),
-                      SizedBox(height: 32.h),
-                      ProfileImagePicker(
-                        radius: 70.0,
-                        height: 36.h,
-                        width: 36.w,
-                        imagePath: imagePath,
-                      ),
-                      SizedBox(height: 24.h),
-                      CustomTextField(
-                        controller: nameController,
-                        hintStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: kSignIconColor,
-                        ),
-                        textStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        padding: 0,
-                        hintText: 'Enter Your Name',
-                        labelText: 'Full Name',
-                        obscureText: false,
-                        readOnly: true,
-                        maxLength: 32,
-                      ),
-                      CustomTextField(
-                        controller: nationalIDController,
-                        hintStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: kSignIconColor,
-                        ),
-                        textStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        padding: 0,
-                        hintText: 'Enter Your National Number',
-                        labelText: 'National Number',
-                        obscureText: false,
-                        readOnly: true,
-                        maxLength: 14,
-                      ),
-                      CustomTextField(
-                        controller: emailController,
-                        hintStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: kSignIconColor,
-                        ),
-                        textStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        padding: 0,
-                        hintText: 'Enter Your Email Address',
-                        labelText: 'Email Address',
-                        obscureText: false,
-                        maxLength: 36,
-                        readOnly: true,
-                      ),
-                      CustomTextField(
-                        focusNode: focusNode,
-                        validator: (phone) {
-                          if (phone == null || phone.isEmpty) {
-                            return 'Please Enter your phone number';
-                          }
-                          if (phone.length != 11) {
-                            return 'Your phone number must be 11 digits';
-                          }
-                          return null;
-                        },
-                        hintStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: kSignIconColor,
-                        ),
-                        textStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        padding: 0,
-                        hintText: 'Enter Your Phone Number',
-                        labelText: 'Phone Number',
-                        controller: phoneController,
-                        obscureText: false,
-                        maxLength: 11,
-                        readOnly: !isPhoneEditable,
-                        suffixIcon: isPhoneEditable
-                            ? TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isPhoneEditable = false;
-                                    hasPhoneBeenEdited = true;
-                                  });
-                                  focusNode.unfocus();
-                                },
-                                child: Text(
-                                  'Done',
-                                  style: TextStyle(
-                                    color: kSecondaryColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              )
-                            : TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isPhoneEditable = true;
-                                    hasPhoneBeenEdited = false;
-                                  });
-                                  Future.delayed(
-                                      const Duration(milliseconds: 100), () {
-                                    focusNode.requestFocus();
-                                  });
-                                },
-                                child: Text(
-                                  'Change',
-                                  style: TextStyle(
-                                    color: kSecondaryColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                      ),
-                      DateTextField(
-                        controller: dateController,
-                        onDateSelected: (date) {
-                          setState(() {
-                            selectedDate = date;
-                            dateController.text = date != null
-                                ? DateFormat('dd/MM/yyyy').format(date)
-                                : '';
-                          });
-                        },
-                      ),
-                      SizedBox(height: 24.h),
-                      CustomDropdownButton(
-                        selectedValue: selectedGender,
-                        items: gender,
-                        onChanged: (String? value) {
-                          setState(() {
-                            selectedGender = value;
-                          });
-                        },
-                        hintText: 'Select Your Gender',
-                        labelText: 'Gender',
-                      ),
-                      SizedBox(height: 24.h),
-                      CustomDropdownButton(
-                        selectedValue: selectedBloodType,
-                        items: bloodType,
-                        onChanged: (String? value) {
-                          setState(() {
-                            selectedBloodType = value;
-                          });
-                        },
-                        hintText: 'Select Your Blood Type',
-                        labelText: 'Blood Type',
-                      ),
-                      SizedBox(height: 16.h),
-                      CustomTextField(
-                        maxLength: 200,
-                        maxLines: 6,
-                        hintStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: kSignIconColor,
-                        ),
-                        textStyle: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        padding: 0,
-                        hintText: 'Enter any additional notes',
-                        labelText: 'Additional Notes',
-                        controller: notesController,
-                        obscureText: false,
-                      ),
-                      SizedBox(height: 16.h),
-                      CustomButton(
-                        padding: 0,
-                        text: 'Update',
-                        onPressed: saveData,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
+          return buildYourProfile();
         },
+      ),
+    );
+  }
+
+  Widget buildYourProfile() {
+    return SingleChildScrollView(
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                const CustomAppBar(text: 'Your Profile'),
+                SizedBox(height: 32.h),
+                ProfileImagePicker(
+                  radius: 70.0,
+                  height: 36.h,
+                  width: 36.w,
+                  imagePath: imagePath,
+                ),
+                SizedBox(height: 24.h),
+                CustomTextField(
+                  controller: nameController,
+                  hintStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: kSignIconColor,
+                  ),
+                  textStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  padding: 0,
+                  hintText: 'Enter Your Name',
+                  labelText: 'Full Name',
+                  obscureText: false,
+                  readOnly: true,
+                  maxLength: 32,
+                ),
+                CustomTextField(
+                  controller: nationalIDController,
+                  hintStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: kSignIconColor,
+                  ),
+                  textStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  padding: 0,
+                  hintText: 'Enter Your National Number',
+                  labelText: 'National Number',
+                  obscureText: false,
+                  readOnly: true,
+                  maxLength: 14,
+                ),
+                CustomTextField(
+                  controller: emailController,
+                  hintStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: kSignIconColor,
+                  ),
+                  textStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  padding: 0,
+                  hintText: 'Enter Your Email Address',
+                  labelText: 'Email Address',
+                  obscureText: false,
+                  maxLength: 36,
+                  readOnly: true,
+                ),
+                CustomTextField(
+                  focusNode: focusNode,
+                  validator: (phone) {
+                    if (phone == null || phone.isEmpty) {
+                      return 'Please Enter your phone number';
+                    }
+                    if (phone.length != 11) {
+                      return 'Your phone number must be 11 digits';
+                    }
+                    return null;
+                  },
+                  hintStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: kSignIconColor,
+                  ),
+                  textStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  padding: 0,
+                  hintText: 'Enter Your Phone Number',
+                  labelText: 'Phone Number',
+                  controller: phoneController,
+                  obscureText: false,
+                  maxLength: 11,
+                  readOnly: !isPhoneEditable,
+                  suffixIcon: isPhoneEditable
+                      ? TextButton(
+                          onPressed: () {
+                            setState(() {
+                              isPhoneEditable = false;
+                              hasPhoneBeenEdited = true;
+                            });
+                            focusNode.unfocus();
+                          },
+                          child: Text(
+                            'Done',
+                            style: TextStyle(
+                              color: kSecondaryColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      : TextButton(
+                          onPressed: () {
+                            setState(() {
+                              isPhoneEditable = true;
+                              hasPhoneBeenEdited = false;
+                            });
+                            Future.delayed(const Duration(milliseconds: 100),
+                                () {
+                              focusNode.requestFocus();
+                            });
+                          },
+                          child: Text(
+                            'Change',
+                            style: TextStyle(
+                              color: kSecondaryColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                ),
+                DateTextField(
+                  controller: dateController,
+                  onDateSelected: (date) {
+                    setState(() {
+                      selectedDate = date;
+                      dateController.text = date != null
+                          ? DateFormat('dd/MM/yyyy').format(date)
+                          : '';
+                    });
+                  },
+                ),
+                SizedBox(height: 24.h),
+                CustomDropdownButton(
+                  selectedValue: selectedGender,
+                  items: gender,
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectedGender = value;
+                    });
+                  },
+                  hintText: 'Select Your Gender',
+                  labelText: 'Gender',
+                ),
+                SizedBox(height: 24.h),
+                CustomDropdownButton(
+                  selectedValue: selectedBloodType,
+                  items: bloodType,
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectedBloodType = value;
+                    });
+                  },
+                  hintText: 'Select Your Blood Type',
+                  labelText: 'Blood Type',
+                ),
+                SizedBox(height: 16.h),
+                CustomTextField(
+                  maxLength: 200,
+                  maxLines: 6,
+                  hintStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: kSignIconColor,
+                  ),
+                  textStyle: Styles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  padding: 0,
+                  hintText: 'Enter any additional notes',
+                  labelText: 'Additional Notes',
+                  controller: notesController,
+                  obscureText: false,
+                ),
+                SizedBox(height: 16.h),
+                CustomButton(
+                  padding: 0,
+                  text: 'Update',
+                  onPressed: saveData,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -12,23 +12,98 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 PersistentTabConfig homeTab() {
   return PersistentTabConfig(
-    screen: Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.h,
-        vertical: 24.h,
-      ),
-      child: Column(
-        children: [
-          const HomeHeaderSection(),
-          SizedBox(height: 24.h),
-          const WaitingPeopleSection(),
-          SizedBox(height: 16.h),
-          const HealthInsuranceSection(),
-          SizedBox(height: 24.h),
-          const ServicesSection(),
-          SizedBox(height: 24.h),
-          const CustomRow(),
-        ],
+    screen: SafeArea(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24.h,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: HomeHeaderSection(),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24.h,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: WaitingPeopleSection(),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 16.h,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: HealthInsuranceSection(),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 16.h,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Text(
+                "What would you like to do?",
+                style: Styles.textStyle18.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: const Color(
+                    0xff1A1A1A,
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 16.h,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: ServicesSection(),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 16.h,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Text(
+                "Explore more services",
+                style: Styles.textStyle18.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xff1A1A1A),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 8.h,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: CustomRow(),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 8.h,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Builder(
+                builder: (context) => viewMore(context),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 16.h,
+              ),
+            ),
+          ],
+        ),
       ),
     ),
     item: ItemConfig(
@@ -48,6 +123,31 @@ PersistentTabConfig homeTab() {
       textStyle: Styles.textStyle12.copyWith(
         fontWeight: FontWeight.w500,
       ),
+    ),
+  );
+}
+
+Widget viewMore(BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      // وديها لصفحة السيرش
+    },
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text(
+          "View More",
+          style: Styles.textStyle14.copyWith(
+            fontWeight: FontWeight.w600,
+            color: const Color(0xff3A95D2),
+          ),
+        ),
+        Icon(
+          Icons.arrow_forward_ios,
+          size: 20.w,
+          color: const Color(0xff3A95D2),
+        ),
+      ],
     ),
   );
 }

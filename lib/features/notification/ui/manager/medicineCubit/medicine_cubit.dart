@@ -23,7 +23,7 @@ class MedicineCubit extends Cubit<MedicineState> {
       (data) {
         _medicines = data;
         if (data.isEmpty) {
-          print("No medicines found");
+          print('No medicines found');
           emit(MedicineEmpty());
         } else {
           emit(MedicineSuccess(data));
@@ -43,19 +43,19 @@ class MedicineCubit extends Cubit<MedicineState> {
   }
 
   Future<void> deleteOneMedicine(String medicineId) async {
-  final result = await medicineRepo.deleteMedicine(medicineId);
+    final result = await medicineRepo.deleteMedicine(medicineId);
 
-  result.fold(
-    (failure) {
-      emit(MedicineFailure(failure.errMessage));
-    },
-    (_) {
-      _medicines.removeWhere((med) => med.id == medicineId);
-      emit(_medicines.isEmpty ? MedicineEmpty() : MedicineSuccess(_medicines));
-    },
-  );
-}
-
+    result.fold(
+      (failure) {
+        emit(MedicineFailure(failure.errMessage));
+      },
+      (_) {
+        _medicines.removeWhere((med) => med.id == medicineId);
+        emit(
+            _medicines.isEmpty ? MedicineEmpty() : MedicineSuccess(_medicines));
+      },
+    );
+  }
 
   void markAllAsRead() {
     _medicines = _medicines.map((medicine) {

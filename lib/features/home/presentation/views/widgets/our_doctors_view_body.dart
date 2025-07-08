@@ -8,6 +8,7 @@ import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_back_button.dart';
 import 'package:healr/core/widgets/doctor_card.dart';
 import 'package:healr/features/home/presentation/managers/get_doctors/get_doctors_cubit.dart';
+import 'package:healr/features/search/presentation/views/widgets/search_skeletonizer.dart';
 
 class OurDoctorsViewBody extends StatefulWidget {
   const OurDoctorsViewBody({super.key});
@@ -39,10 +40,12 @@ class _OurDoctorsViewBodyState extends State<OurDoctorsViewBody> {
                       marginLeft: 0,
                     ),
                     SizedBox(width: 12.w),
-                    Text("Our Doctors",
-                        style: Styles.textStyle24.copyWith(
-                          fontWeight: FontWeight.w600,
-                        )),
+                    Text(
+                      "Our Doctors",
+                      style: Styles.textStyle24.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -50,17 +53,8 @@ class _OurDoctorsViewBodyState extends State<OurDoctorsViewBody> {
               BlocBuilder<GetDoctorsCubit, GetDoctorsState>(
                 builder: (context, state) {
                   if (state is GetDoctorsLoading) {
-                    return SliverToBoxAdapter(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.3),
-                          CircularProgressIndicator(
-                            color: kSecondaryColor,
-                          ),
-                        ],
-                      ),
+                    return const SliverToBoxAdapter(
+                      child: SearchSkeletonizer(),
                     );
                   } else if (state is GetDoctorsFailure) {
                     return SliverToBoxAdapter(
