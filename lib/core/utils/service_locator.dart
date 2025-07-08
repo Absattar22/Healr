@@ -75,4 +75,14 @@ void setupServiceLocator() {
       getIt.get<ApiService>(),
     ),
   );
+  getIt.registerSingleton<ChatbotRepoImp>(
+    ChatbotRepoImp(
+      getIt.get<ApiService>(),
+    ),
+  );
+  getIt.registerSingleton<ReviewsRepoImp>(
+    ReviewsRepoImp(
+      getIt.get<ApiService>(),
+    ),
+  );
 }

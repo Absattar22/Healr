@@ -65,6 +65,7 @@ abstract class AppRouter {
   static const kNoHealthInsuranceView = '/NoHealthInsuranceView';
   static const kHealthInsuranceFormView = '/HealthInsuranceFormView';
   static const kHealthInsuranceFormDoneView = '/HealthInsuranceFormDoneView';
+  static const kApprovalsView = '/ApprovalsView';
   static final router = GoRouter(
     initialLocation: kSplashView,
     routes: [
@@ -313,6 +314,14 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const HealthInsuranceFormDoneView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kApprovalsView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const ApprovalsView(),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),

@@ -25,7 +25,7 @@ class ServicesSection extends StatelessWidget {
               ),
             ),
             SizedBox(width: 8.w),
-             Expanded(
+            Expanded(
               child: CustomCard(
                 onTap: () {
                   GoRouter.of(context).push(AppRouter.kTestResultsView);
