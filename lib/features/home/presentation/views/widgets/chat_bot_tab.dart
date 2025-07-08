@@ -9,7 +9,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 PersistentTabConfig chatBotTab() {
   return PersistentTabConfig(
-    screen: const LoginView(),
+    screen: const ChatbotView(),
     item: ItemConfig(
         activeForegroundColor: Colors.transparent,
         inactiveForegroundColor: const Color.fromARGB(255, 9, 175, 87),

@@ -19,7 +19,7 @@ class SearchSkeletonizer extends StatelessWidget {
             child: const DoctorCard(
               doctorName: "Dr. John Doe",
               doctorSpecialty: "Cardiology",
-              doctorImg: "assets/images/doctor_placeholder.png",
+              doctorImg: null, // No image for skeleton loading
               rating: 4.5,
               label: "View Doctor",
             ),

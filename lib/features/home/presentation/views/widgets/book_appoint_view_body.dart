@@ -68,19 +68,8 @@ class _BookAppointViewBodyState extends State<BookAppointViewBody> {
                 BlocBuilder<GetDoctorsCubit, GetDoctorsState>(
                   builder: (context, state) {
                     if (state is GetDoctorsLoading) {
-                      return SliverToBoxAdapter(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.3),
-                            CircularProgressIndicator(
-                              color: kSecondaryColor,
-                            ),
-                          ],
-                        ),
-                      );
+                      return const SliverToBoxAdapter(
+                          child: SearchSkeletonizer());
                     } else if (state is GetDoctorsFailure) {
                       return SliverToBoxAdapter(
                         child: Column(
