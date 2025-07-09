@@ -60,7 +60,7 @@ class _DoctorProfileViewBodyState extends State<DoctorProfileViewBody> {
                   height: 8.h,
                 ),
                 Text(
-                  "Lorem ipsum dolor sit amet consectetur. Consequat tristique diam elementum praesent nisi mollis non. Ante vitae dapibus tellus scelerisque laoreet volutpat urna diam. ",
+                  "Dr. ${widget.data!.name} is a qualified and experienced doctor who cares deeply about patients. Known for clear diagnoses and effective treatments, the doctor uses up-to-date medical knowledge to provide trusted and personal care.",
                   style: Styles.textStyle14.copyWith(
                       fontWeight: FontWeight.w400,
                       color: const Color(0xff666666)),

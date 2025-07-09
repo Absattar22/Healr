@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/review.dart';
 import 'package:healr/features/home/presentation/managers/get_doctors/get_doctors_cubit.dart';
-import 'package:healr/features/home/presentation/managers/reviews_cubit/reviews_cubit.dart';
 import 'package:healr/features/home/presentation/views/widgets/review_card.dart';
+import 'package:healr/features/home/presentation/views/widgets/reviews_skeletonizer.dart';
 
 class DoctorReviews extends StatefulWidget {
   final List<Review>? review;
@@ -51,9 +50,9 @@ class _DoctorReviewsState extends State<DoctorReviews> {
               return Center(
                 child: Column(
                   children: [
-                    SizedBox(height: 6.h),
-                    CircularProgressIndicator(color: kSecondaryColor),
-                    SizedBox(height: 12.h),
+                    ReviewsSkeletonizer(
+                      review: widget.review?.firstOrNull,
+                    )
                   ],
                 ),
               );

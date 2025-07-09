@@ -90,7 +90,8 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                     return Column(
                       children: [
                         SizedBox(height: 270.h),
-                        Text("No doctors found with that name or specialty.",
+                        Text(state.errMessage,
+                            textAlign: TextAlign.center,
                             style: Styles.textStyle16.copyWith(
                               fontWeight: FontWeight.w500,
                               color: Colors.black,

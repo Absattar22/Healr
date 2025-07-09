@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/chatbot/presentation/views/chatbot_view.dart';
-import 'package:healr/features/home/presentation/views/doctor_profile_view.dart';
-import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 PersistentTabConfig chatBotTab() {

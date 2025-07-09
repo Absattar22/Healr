@@ -25,7 +25,11 @@ class ReviewCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 25.r,
-                backgroundImage: NetworkImage(review?.userImage ?? ""),
+                backgroundImage: review?.userImage != null &&
+                        review!.userImage!.isNotEmpty
+                    ? NetworkImage(review!.userImage!)
+                    : const AssetImage('assets/images/doctor_prof_image.png')
+                        as ImageProvider,
               ),
               SizedBox(width: 4.w),
               Expanded(
@@ -80,17 +84,17 @@ class ReviewCard extends StatelessWidget {
                       color: const Color(0xff666666),
                     ),
                   ),
-                  SizedBox(height: 0.h),
-                  Text(
-                    review?.createdAt != null
-                        ? DateFormat('HH:mm').format(review!.createdAt!)
-                        : "10:44",
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: Styles.textStyle12.copyWith(
-                      color: const Color(0xff666666),
-                    ),
-                  ),
+                  // SizedBox(height: 0.h),
+                  // Text(
+                  //   review?.createdAt != null
+                  //       ? DateFormat('HH:mm').format(review!.createdAt!)
+                  //       : "10:44",
+                  //   overflow: TextOverflow.ellipsis,
+                  //   maxLines: 1,
+                  //   style: Styles.textStyle12.copyWith(
+                  //     color: const Color(0xff666666),
+                  //   ),
+                  // ),
                 ],
               ),
             ],
