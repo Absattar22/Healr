@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/features/chatbot/presentation/views/chatbot_view.dart';
+import 'package:healr/features/home/data/repos/places_repo.dart';
+import 'package:healr/features/home/presentation/managers/places_cubit/cubit/places_cubit.dart';
 import 'package:healr/features/home/presentation/views/appoint_details_view.dart';
 import 'package:healr/features/home/presentation/views/book_appoint2_view.dart';
 import 'package:healr/features/home/presentation/views/book_appoint3_view.dart';
@@ -11,6 +15,7 @@ import 'package:healr/features/home/presentation/views/doctor_profile_view.dart'
 import 'package:healr/features/home/presentation/views/home_view.dart';
 import 'package:healr/features/home/presentation/views/our_doctors_view.dart';
 import 'package:healr/features/home/presentation/views/test_results_view.dart';
+import 'package:healr/features/home/presentation/views/widgets/map_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';
@@ -64,6 +69,7 @@ abstract class AppRouter {
   static const kNoHealthInsuranceView = '/NoHealthInsuranceView';
   static const kHealthInsuranceFormView = '/HealthInsuranceFormView';
   static const kHealthInsuranceFormDoneView = '/HealthInsuranceFormDoneView';
+  static const kMapView = '/MapView';
   static final router = GoRouter(
     initialLocation: kSplashView,
     routes: [
@@ -312,6 +318,19 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const HealthInsuranceFormDoneView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kMapView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (context) =>PlacesCubit(
+              PlacesRepo(dio: Dio())..getNearbyHospitals(lat: 30.6140389, lng: 32.2937089), 
+            ),
+            child: const MapView(),
+          ),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),
