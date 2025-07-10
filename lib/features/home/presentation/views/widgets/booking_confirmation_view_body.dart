@@ -128,8 +128,8 @@ class BookingConfirmationViewBody extends StatelessWidget {
                         return ElevatedButton(
                           onPressed: state is AppointmentCancelLoading
                               ? null
-                              : () {
-                                  BlocProvider.of<BookingCubit>(context)
+                              : () async {
+                                  await BlocProvider.of<BookingCubit>(context)
                                       .cancelAppointment();
                                   String formattedAppointID =
                                       appointDetails!.data!.appointment!.id!;

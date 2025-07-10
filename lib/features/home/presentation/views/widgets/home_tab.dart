@@ -57,6 +57,7 @@ class _HomeTabContentState extends State<HomeTabContent> {
   @override
   void initState() {
     super.initState();
+    // Only call book() if not already in BookingSuccess state
     if (BlocProvider.of<BookingCubit>(context).state is BookingSuccess) {
       return;
     }
@@ -68,6 +69,7 @@ class _HomeTabContentState extends State<HomeTabContent> {
     return SafeArea(
       child: LiquidPullToRefresh(
         onRefresh: () async {
+          // Only refresh if not already in BookingSuccess state
           if (BlocProvider.of<BookingCubit>(context).state is BookingSuccess) {
             return;
           }

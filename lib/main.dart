@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/constants.dart';
+import 'package:healr/core/utils/appoint_cache.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/features/home/presentation/managers/booking/booking_cubit.dart';
@@ -13,6 +14,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotification.init();
   setupServiceLocator();
+
+  // Load booking statuses from SharedPreferences
+  await loadAllBookingStatuses();
 
   runApp(
     MultiBlocProvider(

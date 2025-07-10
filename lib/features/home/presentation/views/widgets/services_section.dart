@@ -23,7 +23,7 @@ class ServicesSection extends StatelessWidget {
                 subtitle: 'Just a few taps to book your next appointment.',
                 onTap: () {
                   bool hasActiveBooking = BlocProvider.of<BookingCubit>(context)
-                      .isAppointmentBookedForCurrentUser();
+                      .isAppointmentBookedForCurrentUserSync();
                   if (hasActiveBooking) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

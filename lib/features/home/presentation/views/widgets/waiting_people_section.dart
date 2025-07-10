@@ -71,8 +71,8 @@ class WaitingPeopleSection extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {
-                            BlocProvider.of<BookingCubit>(context)
+                          onPressed: () async {
+                            await BlocProvider.of<BookingCubit>(context)
                                 .cancelAppointment();
                           },
                           style: ElevatedButton.styleFrom(

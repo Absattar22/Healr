@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:healr/core/constants.dart';
-import 'package:healr/core/global_appoint.dart';
+import 'package:healr/core/utils/appoint_cache.dart';
 
 part 'booking_state.dart';
 
@@ -13,50 +13,51 @@ class BookingCubit extends Cubit<BookingState> {
   Future<void> book() async {
     emit(BookingLoading());
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     // Get current user's token
     String currentToken = kToken ?? "default_user";
 
-    // Check booking status for current user
-    bool currentUserBooked = getUserBookingStatus(currentToken);
-
-    print("User token: $currentToken"); // Debug print
-    print("User booking status: $currentUserBooked"); // Debug print
+    // Check booking status for current user (now async)
+    bool currentUserBooked = await getUserBookingStatus(currentToken);
 
     if (currentUserBooked == true) {
-      print("Emitting BookingSuccess"); // Debug print
       emit(BookingSuccess(waitingPeopleCount: Random().nextInt(4)));
     } else {
-      print("Emitting BookingFailure"); // Debug print
       emit(BookingFailure());
     }
   }
 
   // Method to book appointment for current user
-  void bookAppointment() {
+  Future<void> bookAppointment() async {
     String currentToken = kToken ?? "default_user";
-    setUserBookingStatus(currentToken, true);
-    book(); // Refresh the UI
+    await setUserBookingStatus(currentToken, true);
+    await book(); // Refresh the UI
   }
 
   // Method to cancel appointment for current user
-  void cancelAppointment() {
+  Future<void> cancelAppointment() async {
     String currentToken = kToken ?? "default_user";
-    setUserBookingStatus(currentToken, false);
-    book(); // Refresh the UI
+    await setUserBookingStatus(currentToken, false);
+    await book(); // Refresh the UI
   }
 
   // Method to check if current user has an active booking
-  bool isAppointmentBookedForCurrentUser() {
+  Future<bool> isAppointmentBookedForCurrentUser() async {
     String currentToken = kToken ?? "default_user";
-    return getUserBookingStatus(currentToken);
+    return await getUserBookingStatus(currentToken);
   }
 
-  void clearAllBookingState() {
+  // Synchronous method for immediate UI checks (uses cached data)
+  bool isAppointmentBookedForCurrentUserSync() {
     String currentToken = kToken ?? "default_user";
-    clearUserBookingStatus(currentToken);
+    return getUserBookingStatusSync(currentToken);
+  }
+
+  Future<void> clearUserBookingState() async {
+    String currentToken = kToken ?? "default_user";
+    await clearUserBookingStatus(currentToken);
     emit(BookingInitial()); // Reset to initial state
-    book();
+    await book();
   }
 }

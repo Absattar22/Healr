@@ -1,7 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/custom_text_span.dart';
 import 'package:healr/core/utils/styles.dart';

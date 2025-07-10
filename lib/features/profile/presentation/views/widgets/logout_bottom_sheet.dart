@@ -73,7 +73,7 @@ void showLogoutSheet(
                     right: 36.w,
                   ),
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       SharedPrefCache.removeCache(key: 'token');
                       SharedPrefCache.removeCache(key: 'name');
                       SharedPrefCache.removeCache(key: 'nationalID');
@@ -84,9 +84,11 @@ void showLogoutSheet(
                       SharedPrefCache.removeCache(key: 'date');
                       SharedPrefCache.removeCache(key: 'blood');
                       SharedPrefCache.removeCache(key: 'notes');
-                      BlocProvider.of<BookingCubit>(context)
-                          .clearAllBookingState();
-                      print('Logout successful');
+
+                      // Clear ALL booking data on logout
+                      await BlocProvider.of<BookingCubit>(context)
+                          .clearUserBookingState();
+                      print('Logout successful - All booking data cleared');
 
                       GoRouter.of(context).pushReplacement(
                         AppRouter.kLoginView,
