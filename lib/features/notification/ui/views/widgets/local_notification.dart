@@ -193,29 +193,6 @@ static Future<void> scheduleIntervalNotification({
   debugPrint(
       "تم جدولة إشعار تحضيري: ID ${id + 1000} في ${prepNotificationTime.hour}:${prepNotificationTime.minute}");
 }
-  /// إظهار الإشعارات المجدولة
-  static Future<void> getPendingNotifications() async {
-    final List<PendingNotificationRequest> requests =
-        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-    debugPrint("📋 عدد الإشعارات المجدولة: ${requests.length}");
-    for (var request in requests) {
-      debugPrint("➡️ [ID: ${request.id}] العنوان: ${request.title}, المحتوى: ${request.payload}");
-    }
-  }
-
-  /// إظهار الإشعارات النشطة
-  static Future<void> getActiveNotifications() async {
-    final androidImpl =
-        flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
-    final active = await androidImpl?.getActiveNotifications();
-    debugPrint("🟢 عدد الإشعارات النشطة: ${active?.length ?? 0}");
-    if (active != null) {
-      for (var notification in active) {
-        debugPrint("🔔 نشط: ${notification.id} - ${notification.title}");
-      }
-    }
-  }
 
   static Future<void> showInstantNotification({
   required int id,

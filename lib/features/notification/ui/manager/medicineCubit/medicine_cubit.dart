@@ -10,7 +10,6 @@ part 'medicine_state.dart';
 class MedicineCubit extends Cubit<MedicineState> {
   final MedicineRepo medicineRepo;
   List<MedicineModel> _medicines = [];
-  Timer? timer;
   MedicineCubit(this.medicineRepo) : super(MedicineInitial());
   List<MedicineModel> get medicines => _medicines;
   Future<void> fetchMedicines() async {
@@ -23,7 +22,6 @@ class MedicineCubit extends Cubit<MedicineState> {
       (data) {
         _medicines = data;
         if (data.isEmpty) {
-          print('No medicines found');
           emit(MedicineEmpty());
         } else {
           emit(MedicineSuccess(data));
@@ -34,12 +32,6 @@ class MedicineCubit extends Cubit<MedicineState> {
 
   void startPolling() {
     fetchMedicines();
-  }
-
-  @override
-  Future<void> close() {
-    timer?.cancel();
-    return super.close();
   }
 
   Future<void> deleteOneMedicine(String medicineId) async {
@@ -55,13 +47,5 @@ class MedicineCubit extends Cubit<MedicineState> {
             _medicines.isEmpty ? MedicineEmpty() : MedicineSuccess(_medicines));
       },
     );
-  }
-
-  void markAllAsRead() {
-    _medicines = _medicines.map((medicine) {
-      return medicine.copyWith(isRead: true);
-    }).toList();
-
-    emit(MedicineSuccess(_medicines));
   }
 }

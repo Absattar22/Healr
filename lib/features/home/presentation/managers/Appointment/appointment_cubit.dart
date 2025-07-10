@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:healr/features/home/data/models/appoint_details_model/appoint_details_model.dart';
 import 'package:healr/features/home/data/repos/appoint_repo.dart';
+import 'package:healr/features/notification/ui/views/widgets/local_notification.dart';
 
 part 'appointment_state.dart';
 
@@ -13,6 +14,10 @@ class AppointmentCubit extends Cubit<AppointmentState> {
       String doctorID, String day, String time) async {
     emit(AppointmentLoading());
     var result = await appointRepo.createAppointment(doctorID, day, time);
+    LocalNotification.showInstantNotification(
+        id: 1,
+        title: 'Appointment Created',
+        body: 'Your appointment has been successfully created.');
     result.fold(
       (failure) => emit(AppointmentFailure(failure.errMessage)),
       (success) {
