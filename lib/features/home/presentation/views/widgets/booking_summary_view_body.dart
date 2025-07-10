@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:healr/core/global.dart';
+import 'package:healr/core/global_appoint.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
 import 'package:healr/features/home/data/models/appoint_details_model/appointment.dart';
 import 'package:healr/features/home/presentation/managers/Appointment/appointment_cubit.dart';
+import 'package:healr/features/home/presentation/managers/booking/booking_cubit.dart';
 import 'package:healr/features/home/presentation/views/widgets/book2_header.dart';
 import 'package:healr/features/home/presentation/views/widgets/details_statement.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_info.dart';
@@ -65,6 +66,8 @@ class BookingSummaryViewBody extends StatelessWidget {
                     onPressed: state is AppointmentLoading
                         ? null
                         : () {
+                            BlocProvider.of<BookingCubit>(context)
+                                .bookAppointment();
                             String formattedDay = appointDay!;
                             String formattedTime = appointTime!;
 

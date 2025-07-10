@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/core/utils/styles.dart';
+import 'package:healr/features/home/presentation/managers/booking/booking_cubit.dart';
 
 void showLogoutSheet(
   BuildContext context,
@@ -82,7 +84,8 @@ void showLogoutSheet(
                       SharedPrefCache.removeCache(key: 'date');
                       SharedPrefCache.removeCache(key: 'blood');
                       SharedPrefCache.removeCache(key: 'notes');
-
+                      BlocProvider.of<BookingCubit>(context)
+                          .clearAllBookingState();
                       print('Logout successful');
 
                       GoRouter.of(context).pushReplacement(

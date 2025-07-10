@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/features/chatbot/presentation/views/chatbot_view.dart';
+import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
+import 'package:healr/features/home/data/models/appoint_details_model/appoint_details_model.dart';
 import 'package:healr/features/home/presentation/views/appoint_details_view.dart';
 import 'package:healr/features/home/presentation/views/approvals_view.dart';
 import 'package:healr/features/home/presentation/views/book_appoint2_view.dart';
@@ -89,11 +91,20 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kHomeView,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          key: state.pageKey,
-          child: const HomeView(),
-          transitionsBuilder: customNavigateAnimation,
-        ),
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          final Datum? data = extra?['data'];
+          final AppointDetailsModel? appointDetails = extra?['appointDetails'];
+
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: HomeView(
+              data: data,
+              appointDetails: appointDetails,
+            ),
+            transitionsBuilder: customNavigateAnimation,
+          );
+        },
       ),
       GoRoute(
         path: kLoginView,

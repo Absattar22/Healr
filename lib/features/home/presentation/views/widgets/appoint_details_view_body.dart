@@ -25,6 +25,10 @@ class AppointDetailsViewBody extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pushReplacement(
               AppRouter.kHomeView,
+              extra: {
+                'data': data,
+                'appointDetails': appointDetails,
+              },
             );
           },
           padding: 0,
