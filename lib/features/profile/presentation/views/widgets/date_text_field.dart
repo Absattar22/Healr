@@ -98,7 +98,7 @@ class _DateTextFieldState extends State<DateTextField> {
                 size: 24,
               ),
             ),
-            border: _outlineInputBorder(Colors.grey[600]!),
+            border: _outlineInputBorder(const Color(0xffCCCCCC)),
             focusedBorder: _outlineInputBorder(kSecondaryColor),
             errorBorder: _outlineInputBorder(kErrorColor),
             focusedErrorBorder: _outlineInputBorder(kErrorColor),

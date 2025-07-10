@@ -5,8 +5,8 @@ import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/features/notification/ui/views/widgets/local_notification.dart';
-import 'package:healr/features/profile/data/repo/profile_repo_imp.dart';
-import 'package:healr/features/profile/presentation/manager/cubit/profile_cubit.dart';
+import 'package:healr/features/profile/data/repo/profile_repo/profile_repo_imp.dart';
+import 'package:healr/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

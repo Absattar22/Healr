@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/core/utils/styles.dart';
-import 'package:healr/features/profile/presentation/manager/cubit/profile_cubit.dart';
+import 'package:healr/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:healr/features/profile/presentation/views/widgets/profile_image_picker.dart';
 
 class ProfileHeaderSection extends StatefulWidget {
@@ -34,7 +34,9 @@ class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
         imagePath = cachedImage;
         loadedFromCache = true;
       });
-      cubit.fetchProfileImage();
+      setState(() {
+        cubit.fetchProfileImage();
+      });
     } else {
       cubit.getProfile();
       cubit.fetchProfileImage();

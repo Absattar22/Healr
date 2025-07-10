@@ -39,7 +39,7 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
   final int maxLines;
-  final int maxLength;
+  final int? maxLength;
   final bool readOnly;
   final FocusNode? focusNode;
   @override
@@ -87,6 +87,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           SizedBox(height: 8.h),
           TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             textInputAction: TextInputAction.next,
             focusNode: widget.focusNode,
             readOnly: widget.readOnly,
@@ -106,8 +107,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   Styles.textStyle12.copyWith(
                     color: Colors.grey[600],
                   ),
-              border: _outlineInputBorder(Colors.grey[600]!),
-              focusedBorder: _outlineInputBorder(kSecondaryColor),
+              border: _outlineInputBorder(const Color(0xffCCCCCC)),
+              enabledBorder: _outlineInputBorder(const Color(0xffCCCCCC)),
+              focusedBorder: widget.readOnly
+                  ? _outlineInputBorder(const Color(0xffCCCCCC))
+                  : _outlineInputBorder(kSecondaryColor),
               errorBorder: _outlineInputBorder(kErrorColor),
               focusedErrorBorder: _outlineInputBorder(kErrorColor),
               suffixIcon: widget.obscureText

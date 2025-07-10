@@ -4,7 +4,7 @@ import 'package:healr/core/utils/api_service.dart';
 import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/features/login/data/model/user_model.dart';
-import 'package:healr/features/profile/data/repo/profile_repo_imp.dart';
+import 'package:healr/features/profile/data/repo/profile_repo/profile_repo_imp.dart';
 import 'package:healr/features/sign_up/data/repos/sign_up_repo.dart';
 
 class SignUpRepoImp implements SignUpRepo {

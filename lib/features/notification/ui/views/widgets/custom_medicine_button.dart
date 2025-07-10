@@ -5,42 +5,49 @@ import 'package:hugeicons/hugeicons.dart';
 class CustomMedicineButton extends StatelessWidget {
   const CustomMedicineButton({
     super.key,
-    required this.buttonStyle,
+    required this.decoration,
     required this.onPressed,
     required this.color,
     required this.icon,
-    required this.text,
+    required this.text1,
+    required this.text2,
     required this.textStyle,
+    this.isAdded = false,
   });
 
-  final ButtonStyle? buttonStyle;
+  final BoxDecoration? decoration;
   final void Function()? onPressed;
   final Color color;
   final IconData icon;
-  final String text;
+  final String text1;
+  final String text2;
   final TextStyle? textStyle;
+  final bool isAdded;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: buttonStyle,
-      onPressed: onPressed,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 8.h,
-        ),
-        child: Row(
-          children: [
-            HugeIcon(
-              icon: icon,
-              color: color,
-              size: 28.w,
-            ),
-            SizedBox(
-              width: 8.w,
-            ),
-            Text(text, style: textStyle),
-          ],
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        decoration: decoration,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 8.h,
+            horizontal: 16.w,
+          ),
+          child: Row(
+            children: [
+              HugeIcon(
+                icon: icon,
+                color: color,
+                size: 24.w,
+              ),
+              SizedBox(
+                width: 4.w,
+              ),
+              Text(isAdded ? text1 : text2, style: textStyle),
+            ],
+          ),
         ),
       ),
     );

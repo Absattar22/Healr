@@ -8,7 +8,7 @@ import 'package:healr/core/utils/service_locator.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/features/login/data/repos/login_repo_imp.dart';
-import 'package:healr/features/login/presentation/manager/cubit/login_cubit.dart';
+import 'package:healr/features/login/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:healr/core/widgets/custom_text_field.dart';
 import 'package:healr/core/widgets/custom_text_rich.dart';
 import 'package:healr/features/login/presentation/views/widgets/custom_sign_in_with_email_button.dart';
@@ -48,22 +48,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     }
   }
 
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) return 'Password is required';
-    if (value.length < 8) return 'Password must be at least 8 characters';
-    if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter';
-    }
-    if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number';
-    }
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character';
-    }
-    if (value.length > 15) return 'Password must be at most 15 characters';
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -74,13 +58,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             listener: (context, state) {
               if (state is LoginSuccess) {
                 GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Login successful ✅'),
-                    duration: Duration(milliseconds: 400),
-                    backgroundColor: Color.fromARGB(255, 13, 79, 127),
-                  ),
-                );
               } else if (state is LoginFailure) {
                 setState(() {
                   errorMessage = state.errMessage;
@@ -109,15 +86,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           labelText: 'National Number',
                           hintText: 'Enter your 14-digit national number',
                           obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'National number is required';
-                            }
-                            if (value.length != 14) {
-                              return 'National number must be 14 digits';
-                            }
-                            return null;
-                          },
                           maxLength: 14,
                         ),
                         SizedBox(height: 16.h),
@@ -131,7 +99,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           labelText: 'Password',
                           hintText: '•••••••••••••••',
                           obscureText: true,
-                          validator: validatePassword,
                           errorText: errorMessage,
                           maxLength: 15,
                         ),

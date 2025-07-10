@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/core/utils/styles.dart';
-import 'package:healr/features/profile/presentation/manager/cubit/profile_cubit.dart';
+import 'package:healr/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
 
 class HomeHeaderSection extends StatefulWidget {
   const HomeHeaderSection({super.key});
@@ -23,9 +23,7 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
       setState(() {
         name = cachedName;
       });
-      print('Loaded cached profile data: name=$name');
     } else {
-      print('No cached profile data, fetching from API...');
       context.read<ProfileCubit>().getProfile();
     }
   }
