@@ -16,7 +16,7 @@ import 'package:healr/features/home/presentation/views/doctor_profile_view.dart'
 import 'package:healr/features/home/presentation/views/home_view.dart';
 import 'package:healr/features/home/presentation/views/our_doctors_view.dart';
 import 'package:healr/features/home/presentation/views/test_results_view.dart';
-import 'package:healr/features/home/presentation/views/widgets/map_view.dart';
+import 'package:healr/features/home/presentation/views/map_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';

@@ -104,10 +104,6 @@ class LocalNotification {
       payload: payload,
     );
 
-    debugPrint(
-        "تم جدولة إشعار يومي: ID $id في ${timeOfDay.hourOfPeriod}:${timeOfDay.minute.toString().padLeft(2, '0')} ${timeOfDay.period == DayPeriod.am ? 'AM' : 'PM'}");
-    debugPrint(
-        "تم جدولة إشعار تحضيري: ID ${id + 1000} في ${prepScheduledDate.hour}:${prepScheduledDate.minute}");
   }
 
 /// جدولة إشعارات متكررة بفاصل زمني مع إشعار تحضيري

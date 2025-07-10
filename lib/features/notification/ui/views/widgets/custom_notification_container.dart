@@ -57,13 +57,6 @@ class _CustomNotificationContainerState
             cubit.toggleSelection(widget.id!);
             isClicked = false;
           });
-        } else {
-          setState(() {
-            cubit.markAllAsRead(context);
-            isClicked = !isClicked;
-            GoRouter.of(context)
-                .push(AppRouter.kMedicineView, extra: widget.medicinesList);
-          });
         }
       },
       child: Container(

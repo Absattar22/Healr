@@ -108,96 +108,112 @@ class _MapViewBodyState extends State<MapViewBody> {
               ),
             ),
           );
-        } else if (state is PlacesError) {
-          return const Center(child: Text('Error loading hospitals'));
-        } else if (state is PlacesLoaded) {
+        }
+
+        if (state is PlacesLoaded) {
           _hospitals = state.hospitals;
           _updateHospitalMarkers(_hospitals);
           if (_markers.isNotEmpty) {
             _initialPosition = _markers.first.position;
           }
-        }
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('خريطة المستشفيات'),
-            backgroundColor: Colors.transparent,
-            elevation: 1,
-            centerTitle: true,
-            foregroundColor: Colors.black,
-          ),
-          body: Stack(
-            children: [
-              GoogleMap(
-                padding: EdgeInsets.only(top: 56.h),
-                initialCameraPosition:
-                    CameraPosition(target: _initialPosition, zoom: 18),
-                markers: _markers,
-                mapType: MapType.terrain,
-                tiltGesturesEnabled: false,
-                rotateGesturesEnabled: false,
-                zoomControlsEnabled: true,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                compassEnabled: true,
-                onMapCreated: (c) => mapController = c,
-              ),
-              Positioned(
-                top: 12.h,
-                left: 12.w,
-                right: 12.w,
-                child: TypeAheadField<PlacesModel>(
-                  onSelected: (hospital) {
-                    _goToHospital(hospital);
-                  },
-                  builder: (context, controller, focusNode) {
-                    return TextField(
-                        controller: controller,
-                        focusNode: focusNode,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(HugeIcons.strokeRoundedCancel01,
-                                size: 20.h, color: Colors.grey[600]),
-                            onPressed: () {
-                              controller.clear();
-                              focusNode.unfocus();
-                            },
-                          ),
-                          prefixIcon:
-                              Icon(Icons.search, color: Colors.grey[600]),
-                          hintText: 'ابحث عن مستشفى...',
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(vertical: 12.h),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                            borderSide: BorderSide.none,
-                          ),
-                        ));
-                  },
-                  suggestionsCallback: (pattern) {
-                    return _hospitals.where((hospital) {
-                      return hospital.title
-                              .toLowerCase()
-                              .contains(pattern.toLowerCase()) ||
-                          hospital.label
-                              .toLowerCase()
-                              .contains(pattern.toLowerCase());
-                    }).toList();
-                  },
-                  itemBuilder: (context, hospital) {
-                    return ListTile(
-                      title: Text(hospital.title),
-                      subtitle: Text(hospital.label,
-                          maxLines: 1, overflow: TextOverflow.ellipsis),
-                    );
-                  },
+
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('خريطة المستشفيات'),
+              backgroundColor: Colors.transparent,
+              elevation: 1,
+              centerTitle: true,
+              foregroundColor: Colors.black,
+            ),
+            body: Stack(
+              children: [
+                GoogleMap(
+                  
+                  padding: EdgeInsets.only(top: 70.h),
+                  initialCameraPosition:
+                      CameraPosition(target: _initialPosition, zoom: 18),
+                  markers: _markers,
+                  mapType: MapType.terrain,
+                  tiltGesturesEnabled: false,
+                  rotateGesturesEnabled: false,
+                  zoomControlsEnabled: true,
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  compassEnabled: true,
+                  onMapCreated: (c) => mapController = c,
                 ),
-              ),
-            ],
-          ),
-        );
+                Positioned(
+                  top: 12.h,
+                  left: 12.w,
+                  right: 12.w,
+                  child: _buildSearchBar(),
+                ),
+              ],
+            ),
+          );
+        }
+
+        if (state is PlacesError) {
+          return const Center(child: Text('حدث خطأ أثناء تحميل البيانات'));
+        }
+
+        return const SizedBox.shrink(); 
       },
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(12.r),
+      child: TypeAheadField<PlacesModel>(
+        suggestionsCallback: (pattern) {
+          return _hospitals.where((hospital) {
+            return hospital.title
+                    .toLowerCase()
+                    .contains(pattern.toLowerCase()) ||
+                hospital.label.toLowerCase().contains(pattern.toLowerCase());
+          }).toList();
+        },
+        itemBuilder: (context, suggestion) {
+          return ListTile(
+            title: Text(suggestion.title),
+            subtitle: Text(
+              suggestion.label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          );
+        },
+        onSelected: (suggestion) {
+          _goToHospital(suggestion);
+          FocusScope.of(context).unfocus();
+        },
+        builder: (context, controller, focusNode) {
+          return TextField(
+            controller: controller,
+            focusNode: focusNode,
+            decoration: InputDecoration(
+              hintText: 'ابحث عن مستشفى...',
+              filled: true,
+              fillColor: Colors.white,
+              prefixIcon: Icon(Icons.search, color: Colors.grey[600]),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.clear, color: Colors.grey[600]),
+                onPressed: () {
+                  controller.clear();
+                  focusNode.unfocus();
+                },
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 12.h),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12.r),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 

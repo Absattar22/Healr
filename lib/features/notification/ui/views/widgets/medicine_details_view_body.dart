@@ -35,12 +35,15 @@ class _MedicineDetailsViewBodyState extends State<MedicineDetailsViewBody> {
       if (times == null) continue;
 
       for (int j = 0; j < times.length; j++) {
-        LocalNotification.scheduleDailyNotification(
+        LocalNotification.scheduleIntervalNotification(
           id: i * 100 + j,
-          title: 'موعد الدواء: ${widget.meds[i].name}',
-          body: 'الجرعة ${j + 1}: ${widget.meds[i].dosage}',
-          payload: 'dose_${j + 1}',
-          timeOfDay: times[j],
+          title: widget.meds[i].name,
+          body: 'Time to take your medicine: ${widget.meds[i].dosage}',
+          payload: '${widget.meds[i].name}_$j',
+          interval: Duration(hours: widget.meds[i].numberOfTimes),
+          prepTitle: 'Prepare for ${widget.meds[i].name}',
+          prepBody: 'Get ready to take your ${widget.meds[i].name} soon!',
+          prepPayload: 'prep_${widget.meds[i].name}_$j',
         );
       }
     }
