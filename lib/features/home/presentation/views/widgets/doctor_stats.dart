@@ -13,22 +13,22 @@ class DoctorStats extends StatelessWidget {
       children: [
         const DoctorStatsItem(
           icon: "assets/images/persons.svg",
-          count: "1,200+",
+          count: "500+",
           label: "Patients",
         ),
         DoctorStatsItem(
           icon: "assets/images/experince.svg",
-          count: data?.exp.toString() ?? "2",
+          count: (data?.exp ?? 2).toString(),
           label: "Years Exp.",
         ),
         DoctorStatsItem(
           icon: "assets/images/rate.svg",
-          count: data?.rate.toString() ?? "1",
+          count: (data?.rate ?? 1).toString(),
           label: "Rating",
         ),
-        const DoctorStatsItem(
+        DoctorStatsItem(
           icon: "assets/images/reviews.svg",
-          count: "421",
+          count: (data?.reviews?.length ?? 0).toString(),
           label: "Review",
         ),
       ],

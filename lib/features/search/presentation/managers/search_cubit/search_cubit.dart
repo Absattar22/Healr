@@ -15,7 +15,14 @@ class SearchCubit extends Cubit<SearchState> {
     var result = await searchRepo.specializationSearch(specialization);
     result.fold(
       (failure) {
-        emit(SearchFailure(failure.errMessage));
+        // Check if it's a 404 error (no doctors found)
+        if (failure.errMessage.contains('Resource not found.') ||
+            failure.errMessage.contains('404')) {
+          emit(const SearchFailure(
+              'No doctors found with this specialization. Try searching for a different specialty.'));
+        } else {
+          emit(SearchFailure(failure.errMessage));
+        }
       },
       (user) {
         emit(SearchSuccessSpecial(user));
@@ -29,7 +36,14 @@ class SearchCubit extends Cubit<SearchState> {
     var result = await searchRepo.nameSearch(name);
     result.fold(
       (failure) {
-        emit(SearchFailure(failure.errMessage));
+        // Check if it's a 404 error (no doctors found)
+        if (failure.errMessage.contains('Resource not found.') ||
+            failure.errMessage.contains('404')) {
+          emit(const SearchFailure(
+              'No doctors found with that name. Please check the spelling or try a different search.'));
+        } else {
+          emit(SearchFailure(failure.errMessage));
+        }
       },
       (user) {
         emit(SearchSuccessName(user));

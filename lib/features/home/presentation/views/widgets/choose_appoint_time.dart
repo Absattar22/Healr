@@ -27,42 +27,49 @@ class ChooseAppointTime extends StatelessWidget {
             children: [
               const AppointTimeItem(
                 index: 0,
-                text: "10:00 AM",
+                text: "09:00 AM",
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const AppointTimeItem(
+                index: 12,
+                text: "09:30 AM",
               ),
               SizedBox(
                 width: 8.w,
               ),
               const AppointTimeItem(
                 index: 1,
-                text: "10:30 AM",
+                text: "10:00 AM",
               ),
               SizedBox(
                 width: 8.w,
               ),
               const AppointTimeItem(
                 index: 2,
-                text: "11:00 AM",
+                text: "10:30 AM",
               ),
               SizedBox(
                 width: 8.w,
               ),
               const AppointTimeItem(
                 index: 3,
-                text: "11:30 AM",
+                text: "11:00 AM",
               ),
               SizedBox(
                 width: 8.w,
               ),
               const AppointTimeItem(
                 index: 4,
-                text: "12:00 PM",
+                text: "11:30 AM",
               ),
               SizedBox(
                 width: 8.w,
               ),
               const AppointTimeItem(
                 index: 5,
-                text: "12:30 PM",
+                text: "12:00 PM",
               ),
               SizedBox(
                 width: 8.w,
@@ -77,6 +84,20 @@ class ChooseAppointTime extends StatelessWidget {
               const AppointTimeItem(
                 index: 7,
                 text: "01:30 PM",
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const AppointTimeItem(
+                index: 8,
+                text: "02:30 PM",
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const AppointTimeItem(
+                index: 9,
+                text: "03:00 PM",
               ),
             ],
           ),

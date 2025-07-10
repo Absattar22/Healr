@@ -13,7 +13,6 @@ class CustomNavBar extends StatelessWidget {
           curve: Curves.easeInOut,
           duration: Duration(milliseconds: 10),
         ),
-        controller: persistentController,
         gestureNavigationEnabled: true,
         backgroundColor: kPrimaryColor,
         tabs: tabs(),

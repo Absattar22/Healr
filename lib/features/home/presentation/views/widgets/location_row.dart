@@ -15,10 +15,10 @@ class LocationRow extends StatelessWidget {
       children: [
         SvgPicture.asset("assets/images/location-06.svg"),
         SizedBox(
-          width: 8.w,
+          width: 6.w,
         ),
         Expanded(
-          child: Text("Ismailia, Suez Canal University  Hospital",
+          child: Text("Ismailia Medical Complex",
               maxLines: 2,
               softWrap: true,
               overflow: TextOverflow.ellipsis,

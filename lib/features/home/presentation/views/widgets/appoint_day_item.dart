@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/constants.dart';
+import 'package:healr/core/global.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/home/presentation/managers/selected_day/selected_day_cubit.dart';
 
@@ -25,6 +26,7 @@ class AppointDayItem extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             BlocProvider.of<SelectedDayCubit>(context).selectDay(index);
+            appointDay = text2;
           },
           child: Container(
             width: 92.w,
@@ -45,34 +47,44 @@ class AppointDayItem extends StatelessWidget {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    text1 ?? "",
-                    overflow: TextOverflow.ellipsis,
-                    style: Styles.textStyle14.copyWith(
-                      fontWeight: FontWeight.w400,
-                      color:
-                          context.watch<SelectedDayCubit>().selectedIndexDay ==
-                                  index
-                              ? const Color(0xffF2F2F2)
-                              : const Color(0xffB3B3B3),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      text1 ?? "",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: Styles.textStyle14.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: context
+                                    .watch<SelectedDayCubit>()
+                                    .selectedIndexDay ==
+                                index
+                            ? const Color(0xffF2F2F2)
+                            : const Color(0xffB3B3B3),
+                      ),
                     ),
                   ),
                 ),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    text2 ?? "",
-                    overflow: TextOverflow.ellipsis,
-                    style: Styles.textStyle16.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color:
-                          context.watch<SelectedDayCubit>().selectedIndexDay ==
-                                  index
-                              ? const Color(0xffF8F8F8)
-                              : Colors.black,
+                SizedBox(height: 2.h),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      text2 ?? "",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: Styles.textStyle16.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: context
+                                    .watch<SelectedDayCubit>()
+                                    .selectedIndexDay ==
+                                index
+                            ? const Color(0xffF8F8F8)
+                            : Colors.black,
+                      ),
                     ),
                   ),
                 ),

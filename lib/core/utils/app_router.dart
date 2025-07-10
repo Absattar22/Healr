@@ -6,6 +6,7 @@ import 'package:healr/features/chatbot/presentation/views/chatbot_view.dart';
 import 'package:healr/features/home/data/repos/places_repo.dart';
 import 'package:healr/features/home/presentation/managers/places_cubit/cubit/places_cubit.dart';
 import 'package:healr/features/home/presentation/views/appoint_details_view.dart';
+import 'package:healr/features/home/presentation/views/approvals_view.dart';
 import 'package:healr/features/home/presentation/views/book_appoint2_view.dart';
 import 'package:healr/features/home/presentation/views/book_appoint3_view.dart';
 import 'package:healr/features/home/presentation/views/book_appoint_view.dart';
@@ -35,6 +36,7 @@ import 'package:healr/features/profile/presentation/views/no_health_insurance_vi
 import 'package:healr/features/profile/presentation/views/privacy_policy_view.dart';
 import 'package:healr/features/profile/presentation/views/profile_view.dart';
 import 'package:healr/features/profile/presentation/views/your_profile_view.dart';
+import 'package:healr/features/search/presentation/views/search_view.dart';
 import 'package:healr/features/sign_up/presentation/views/sign_up_view.dart';
 
 abstract class AppRouter {
@@ -70,6 +72,8 @@ abstract class AppRouter {
   static const kHealthInsuranceFormView = '/HealthInsuranceFormView';
   static const kHealthInsuranceFormDoneView = '/HealthInsuranceFormDoneView';
   static const kMapView = '/MapView';
+  static const kApprovalsView = '/ApprovalsView';
+  static const kSearchview = '/SearchView';
   static final router = GoRouter(
     initialLocation: kSplashView,
     routes: [
@@ -331,6 +335,22 @@ abstract class AppRouter {
             ),
             child: const MapView(),
           ),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kApprovalsView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const ApprovalsView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kSearchview,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const SearchView(),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),

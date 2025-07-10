@@ -18,9 +18,10 @@ class CustomAvailable extends StatelessWidget {
         color: const Color(0xffD5E9F6),
       ),
       child: Text(
-        "Available today at 1:00pm",
+        "Available",
         textAlign: TextAlign.center,
-        style: Styles.textStyle12.copyWith(
+        overflow: TextOverflow.ellipsis,
+        style: Styles.textStyle14.copyWith(
           fontWeight: FontWeight.w600,
           color: const Color(0xff666666),
         ),

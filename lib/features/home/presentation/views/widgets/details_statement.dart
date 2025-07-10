@@ -21,6 +21,7 @@ class DetailsStatement extends StatelessWidget {
             )),
         const Spacer(),
         Text(detail,
+            overflow: TextOverflow.ellipsis,
             style: Styles.textStyle14.copyWith(
               fontWeight: FontWeight.w600,
             )),

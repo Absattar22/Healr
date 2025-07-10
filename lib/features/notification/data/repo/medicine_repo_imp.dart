@@ -3,7 +3,6 @@ import 'package:healr/core/errors/failure.dart';
 import 'package:healr/core/utils/api_service.dart';
 import 'package:healr/features/notification/data/models/medicine_model.dart';
 import 'package:healr/features/notification/data/repo/medicine_repo.dart';
-import 'package:healr/features/notification/ui/views/widgets/local_notification.dart';
 
 class MedicineRepoImp implements MedicineRepo {
   final ApiService apiService;
@@ -35,7 +34,7 @@ class MedicineRepoImp implements MedicineRepo {
   @override
   Future<Either<Failure, void>> deleteMedicine(String medicineId) async {
     try {
-      final response = await apiService.delete(
+      final response = await apiService.deletee(
         endPoint: 'medicine/delete/$medicineId',
       );
 

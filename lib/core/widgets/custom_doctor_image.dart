@@ -12,16 +12,19 @@ class CustomDoctorImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 66.w,
-      height: 95.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.r),
-        color: const Color(0xffD5E9F6).withAlpha(70),
-        image: DecorationImage(
-          image: NetworkImage("$doctorImg"),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
+        width: 66.w,
+        height: 95.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.r),
+          color: const Color(0xffD5E9F6).withAlpha(70),
+          image: doctorImg != null && doctorImg!.isNotEmpty
+              ? DecorationImage(
+                  image: NetworkImage("$doctorImg"),
+                  fit: BoxFit.cover,
+                )
+              : const DecorationImage(
+                  image: AssetImage("assets/images/doctor_prof_image.png"),
+                  fit: BoxFit.cover),
+        ));
   }
 }

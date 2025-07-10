@@ -6,6 +6,7 @@ part 'selected_day_state.dart';
 class SelectedDayCubit extends Cubit<SelectedDayState> {
   SelectedDayCubit() : super(const SelectedDay());
   int? selectedIndexDay;
+
   selectDay(int? index) {
     emit(SelectedLoadingDay());
     selectedIndexDay = index;

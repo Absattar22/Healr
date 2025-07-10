@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
-import 'package:healr/features/home/data/models/get_all_reviews_model/user_review.dart';
-import 'package:healr/features/home/presentation/managers/reviews_cubit/reviews_cubit.dart';
+import 'package:healr/features/home/data/models/all_doctors_model/review.dart';
+import 'package:healr/features/home/presentation/managers/get_doctors/get_doctors_cubit.dart';
 import 'package:healr/features/home/presentation/views/widgets/review_card.dart';
+import 'package:healr/features/home/presentation/views/widgets/reviews_skeletonizer.dart';
 
 class DoctorReviews extends StatefulWidget {
-  final UserReview? review;
-  const DoctorReviews({super.key, required this.review});
+  final List<Review>? review;
+  final String? doctorId;
+  const DoctorReviews({super.key, required this.review, this.doctorId});
 
   @override
   State<DoctorReviews> createState() => _DoctorReviewsState();
@@ -18,7 +19,7 @@ class DoctorReviews extends StatefulWidget {
 class _DoctorReviewsState extends State<DoctorReviews> {
   @override
   void initState() {
-    BlocProvider.of<ReviewsCubit>(context).getAllReviews();
+    BlocProvider.of<GetDoctorsCubit>(context).allDoctors();
     super.initState();
   }
 
@@ -43,39 +44,85 @@ class _DoctorReviewsState extends State<DoctorReviews> {
         SizedBox(
           height: 4.h,
         ),
-        BlocBuilder<ReviewsCubit, ReviewsState>(
+        BlocBuilder<GetDoctorsCubit, GetDoctorsState>(
           builder: (context, state) {
-            if (state is ReviewsLoading) {
+            if (state is GetDoctorsLoading) {
               return Center(
-                  child: Column(
-                children: [
-                  SizedBox(height: 32.h),
-                  CircularProgressIndicator(
-                    color: kSecondaryColor,
-                  ),
-                  SizedBox(height: 32.h),
-                ],
-              ));
-            } else if (state is ReviewsSuccess) {
-              if (state.reviews.data != null &&
-                  state.reviews.data!.isNotEmpty) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.reviews.data!.length,
-                  itemBuilder: (context, index) {
-                    return ReviewCard(review: state.reviews.data![index]);
-                  },
-                );
-              } else {
-                return const Text("No reviews available");
+                child: Column(
+                  children: [
+                    ReviewsSkeletonizer(
+                      review: widget.review?.firstOrNull,
+                    )
+                  ],
+                ),
+              );
+            } else if (state is GetDoctorsFailure) {
+              return Center(
+                child: Column(
+                  children: [
+                    SizedBox(height: 6.h),
+                    Text(
+                      "Failed to load reviews",
+                      style: Styles.textStyle16.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                  ],
+                ),
+              );
+            } else if (state is GetDoctorsSuccess) {
+              // Get the current reviews from the state - find the specific doctor's reviews
+              List<Review>? currentReviews;
+
+              // If we have a doctor ID, find the doctor's reviews from the updated state
+              if (widget.doctorId != null && state.user.data != null) {
+                final doctor = state.user.data!
+                    .where((doc) => doc.id == widget.doctorId)
+                    .firstOrNull;
+                if (doctor != null) {
+                  currentReviews = doctor.reviews;
+                }
               }
-            } else if (state is ReviewsFailure) {
-              return Text(state.errorMessage);
+
+              // Fallback to widget.review if no doctor ID or doctor not found
+              currentReviews ??= widget.review;
+
+              // Check if reviews are available
+              if (currentReviews == null || currentReviews.isEmpty) {
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 6.h),
+                      Text(
+                        "No reviews available",
+                        style: Styles.textStyle16.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: 12.h),
+                    ],
+                  ),
+                );
+              }
+
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: currentReviews.length,
+                itemBuilder: (context, index) {
+                  return ReviewCard(
+                    review: currentReviews![index],
+                  );
+                },
+              );
             }
-            return const SizedBox.shrink();
+
+            return SizedBox();
           },
-        ),
+        )
       ],
     );
   }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:healr/core/constants.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/features/home/presentation/views/widgets/custom_container.dart';
 
 class CustomRow extends StatelessWidget {
@@ -9,36 +12,54 @@ class CustomRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> data = [
       {
-        'img': 'assets/images/ent.svg',
-        'title': 'ENT Care',
+        'img': 'assets/images/bone.svg',
+        'title': 'Orthopedics',
         'onTap': () {
-          // دا هيكون فيه Navigation لصفحة ال ENT Care
+          // Set the search query in constants
+          pendingSearchQuery = "Orthopedics";
+          // Navigate directly to search view
+          GoRouter.of(context).push(AppRouter.kSearchview);
         },
       },
       {
         'img': 'assets/images/Pulmonology.svg',
         'title': 'Pulmonology',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "Pulmonology";
+          GoRouter.of(context).push(AppRouter.kSearchview);
+        },
       },
       {
         'img': 'assets/images/Dermatology.svg',
         'title': 'Dermatology',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "Dermatology";
+          GoRouter.of(context).push(AppRouter.kSearchview);
+        },
       },
       {
         'img': 'assets/images/dental.svg',
         'title': 'Dental Care',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "dental";
+          GoRouter.of(context).push(AppRouter.kSearchview);
+        },
       },
       {
         'img': 'assets/images/mental.svg',
         'title': 'Mental Health',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "Psychiatry";
+          GoRouter.of(context).push(AppRouter.kSearchview);
+        },
       },
       {
         'img': 'assets/images/eye.svg',
         'title': 'Eye Care',
-        'onTap': () {},
+        'onTap': () {
+          pendingSearchQuery = "Ophthalmology";
+          GoRouter.of(context).push(AppRouter.kSearchview);
+        },
       },
     ];
 

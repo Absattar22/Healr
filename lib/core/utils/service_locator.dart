@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:healr/core/utils/api_service.dart';
 import 'package:healr/features/chatbot/data/chatbot_repo_imp.dart';
+import 'package:healr/features/home/data/repos/appoint_repo_imp.dart';
 import 'package:healr/features/home/data/repos/get_doctors_repo_imp.dart';
 import 'package:healr/features/home/data/repos/reviews_repo_imp.dart';
 import 'package:healr/features/login/data/repos/forget_pass_repo_imp.dart';
@@ -66,6 +67,21 @@ void setupServiceLocator() {
   );
   getIt.registerSingleton<HealthInsuranceRepoImp>(
     HealthInsuranceRepoImp(
+      getIt.get<ApiService>(),
+    ),
+  );
+  getIt.registerSingleton<AppointRepoImp>(
+    AppointRepoImp(
+      getIt.get<ApiService>(),
+    ),
+  );
+  getIt.registerSingleton<ChatbotRepoImp>(
+    ChatbotRepoImp(
+      getIt.get<ApiService>(),
+    ),
+  );
+  getIt.registerSingleton<ReviewsRepoImp>(
+    ReviewsRepoImp(
       getIt.get<ApiService>(),
     ),
   );
