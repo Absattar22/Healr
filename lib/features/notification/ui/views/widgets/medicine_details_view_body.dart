@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/features/notification/data/models/medicine_model.dart';
@@ -29,31 +31,40 @@ class _MedicineDetailsViewBodyState extends State<MedicineDetailsViewBody> {
     );
   }
 
-  void _saveAllNotifications() {
+  void saveAllNotifications() {
     for (int i = 0; i < keys.length; i++) {
       final times = keys[i].currentState?.getTimes;
       if (times == null) continue;
 
+      final medicine = widget.meds[i];
+
       for (int j = 0; j < times.length; j++) {
-        LocalNotification.scheduleIntervalNotification(
+        final time = times[j];
+
+        // احسب أول إشعار مقارنة بالوقت الحالي
+        final now = TimeOfDay.now();
+        final delayInMinutes =
+            ((time.hour - now.hour) * 60 + (time.minute - now.minute)) % 1440;
+        final delay = Duration(minutes: delayInMinutes);
+
+        LocalNotification.scheduleCustomRepeatingNotification(
           id: i * 100 + j,
-          title: widget.meds[i].name,
-          body: 'Time to take your medicine: ${widget.meds[i].dosage}',
-          payload: '${widget.meds[i].name}_$j',
-          interval: Duration(hours: widget.meds[i].numberOfTimes),
-          prepTitle: 'Prepare for ${widget.meds[i].name}',
-          prepBody: 'Get ready to take your ${widget.meds[i].name} soon!',
-          prepPayload: 'prep_${widget.meds[i].name}_$j',
+          title: 'موعد الدواء: ${medicine.name}',
+          body: 'الجرعة: ${medicine.dosage}',
+          payload: 'med:${medicine.name}',
+          initialDelay: delay,
+          interval: const Duration(hours: 24),
+          totalDays: medicine.durationInDays,
         );
       }
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-          content: Text('All notifications saved successfully'),
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
-        ),
+        content: Text('تم جدولة كل الإشعارات بنجاح'),
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 1),
+      ),
     );
   }
 
@@ -105,7 +116,7 @@ class _MedicineDetailsViewBodyState extends State<MedicineDetailsViewBody> {
                 padding: EdgeInsets.symmetric(vertical: 16.h),
                 child: CustomButton(
                   text: 'Save',
-                  onPressed: _saveAllNotifications,
+                  onPressed: saveAllNotifications,
                 ),
               ),
             ),

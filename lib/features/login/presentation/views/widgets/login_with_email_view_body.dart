@@ -13,15 +13,15 @@ import 'package:healr/core/widgets/custom_text_field.dart';
 import 'package:healr/core/widgets/custom_text_rich.dart';
 import 'package:healr/features/login/presentation/views/widgets/custom_sign_in_with_email_button.dart';
 
-class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key});
+class LoginWithEmailViewBody extends StatefulWidget {
+  const LoginWithEmailViewBody({super.key});
 
   @override
-  State<LoginViewBody> createState() => _LoginViewBodyState();
+  State<LoginWithEmailViewBody> createState() => _LoginWithEmailViewBodyState();
 }
 
-class _LoginViewBodyState extends State<LoginViewBody> {
-  final TextEditingController nationalController = TextEditingController();
+class _LoginWithEmailViewBodyState extends State<LoginWithEmailViewBody> {
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -29,7 +29,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
   @override
   void dispose() {
-    nationalController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -37,14 +37,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   void login(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     if (formKey.currentState!.validate()) {
-      final nationalId = nationalController.text;
+      final email = emailController.text;
       final password = passwordController.text;
 
       setState(() {
         errorMessage = null;
       });
 
-      BlocProvider.of<LoginCubit>(context).loginUser(nationalId, password);
+      context.read<LoginCubit>().loginUserWithEmail(email, password);
     }
   }
 
@@ -82,11 +82,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         ),
                         SizedBox(height: 60.h),
                         CustomTextField(
-                          controller: nationalController,
-                          labelText: 'National Number',
-                          hintText: 'Enter your 14-digit national number',
+                          controller: emailController,
+                          labelText: 'Email',
+                          hintText: 'Enter your Email address',
                           obscureText: false,
-                          maxLength: 14,
                         ),
                         SizedBox(height: 16.h),
                         CustomTextField(
@@ -118,9 +117,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         ),
                         SizedBox(height: 16.h),
                         CustomSignInWithEmailButton(
+                          text: 'Sign in with National ID',
                           onTap: () {
-                            GoRouter.of(context)
-                                .push(AppRouter.kLoginWithEmailView);
+                            GoRouter.of(context).pop();
                           },
                         ),
                         SizedBox(height: 16.h),

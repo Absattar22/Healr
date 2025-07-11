@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +9,7 @@ import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/core/widgets/custom_text_field.dart';
 import 'package:healr/features/notification/data/models/medicine_model.dart';
 import 'package:healr/features/notification/ui/views/widgets/custom_medicine_container.dart';
+import 'package:healr/features/notification/ui/views/widgets/local_notification.dart';
 import 'package:healr/features/profile/presentation/views/widgets/custom_app_bar.dart';
 import 'package:hugeicons/hugeicons.dart';
 
@@ -17,6 +19,47 @@ class MedicineViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void saveMedicineNotifications(BuildContext context) {
+      for (int i = 0; i < med.length; i++) {
+        final medicine = med[i];
+
+        final times = medicine.times.map((time) {
+          final parts = time.split(':');
+          return TimeOfDay(
+            hour: int.parse(parts[0]),
+            minute: int.parse(parts[1]),
+          );
+        }).toList();
+
+        for (int j = 0; j < times.length; j++) {
+          final time = times[j];
+
+          final now = TimeOfDay.now();
+          final delayInMinutes =
+              ((time.hour - now.hour) * 60 + (time.minute - now.minute)) % 1440;
+          final delay = Duration(minutes: delayInMinutes);
+
+          LocalNotification.scheduleCustomRepeatingNotification(
+            id: i * 100 + j,
+            title: 'موعد الدواء: ${medicine.name}',
+            body: 'الجرعة: ${medicine.dosage}',
+            payload: 'med:${medicine.name}',
+            initialDelay: delay,
+            interval: const Duration(hours: 24),
+            totalDays: medicine.durationInDays,
+          );
+        }
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('All notifications saved successfully!'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
+        ),
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         body: CustomScrollView(
@@ -41,9 +84,19 @@ class MedicineViewBody extends StatelessWidget {
                           radius: 30.r,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(30.r),
-                            child: Image.asset(
-                              'assets/images/female.png',
+                            child: CachedNetworkImage(
+                              imageUrl: med[0].image,
                               fit: BoxFit.cover,
+                              width: 60.w,
+                              height: 60.h,
+                              placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(
+                                  color: kSecondaryColor,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Image.asset(
+                                'assets/images/female.png',
+                              ),
                             ),
                           ),
                         ),
@@ -134,11 +187,14 @@ class MedicineViewBody extends StatelessWidget {
                 ),
               ),
             ),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: CustomTextField(
+                hintStyle: Styles.textStyle16.copyWith(
+                  color: const Color(0xff666666),
+                ),
                 maxLength: 200,
                 maxLines: 5,
-                hintText: 'Add Prescription Notes ',
+                hintText: med[0].notes,
                 labelText: 'Prescription Notes',
                 readOnly: true,
               ),
@@ -151,6 +207,7 @@ class MedicineViewBody extends StatelessWidget {
                 child: CustomButton(
                   text: 'Save',
                   onPressed: () {
+                    saveMedicineNotifications(context);
                     GoRouter.of(context).pop();
                   },
                 ),

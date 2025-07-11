@@ -220,5 +220,63 @@ static Future<void> scheduleIntervalNotification({
 
   debugPrint("📢 Instant notification shown: $title");
 }
+static Future<void> scheduleCustomRepeatingNotification({
+  required int id,
+  required String title,
+  required String body,
+  required String payload,
+  required Duration initialDelay, // مثلاً Duration(minutes: 2)
+  required Duration interval, // كل قد إيه يتكرر
+  required int totalDays, // هيستمر كام يوم
+  String prepTitle = "استعد للدواء",
+  String prepBody = "حان وقت تناول الطعام أو الاستعداد للدواء!",
+  String prepPayload = "prep_notification",
+}) async {
+  final now = tz.TZDateTime.now(tz.local);
+  final firstNotificationTime = now.add(initialDelay);
+
+  const androidDetails = AndroidNotificationDetails(
+    'medication_channel_id',
+    'تذكيرات الدواء',
+    channelDescription: 'إشعارات لتذكير بمواعيد الدواء',
+    importance: Importance.max,
+    priority: Priority.high,
+  );
+
+  const notificationDetails = NotificationDetails(android: androidDetails);
+
+  // حساب عدد مرات التكرار
+  final totalIterations = (Duration(days: totalDays).inMinutes ~/ interval.inMinutes);
+
+  for (int i = 0; i < totalIterations; i++) {
+    final scheduledTime = firstNotificationTime.add(interval * i);
+    final prepTime = scheduledTime.subtract(const Duration(minutes: 30));
+
+    // جدولة التحضيري
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id + 1000 + i,
+      prepTitle,
+      prepBody,
+      prepTime,
+      notificationDetails,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      payload: prepPayload,
+    );
+
+    // جدولة إشعار الدواء
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id + i,
+      title,
+      body,
+      scheduledTime,
+      notificationDetails,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      payload: payload,
+    );
+  }
+
+  debugPrint("📅 تم جدولة $totalIterations إشعار لمدة $totalDays يوم");
+}
+
 
 }
