@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:healr/core/global.dart';
+import 'package:healr/core/utils/appoint_cache.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/core/widgets/custom_button.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
 import 'package:healr/features/home/data/models/appoint_details_model/appointment.dart';
 import 'package:healr/features/home/presentation/managers/Appointment/appointment_cubit.dart';
+import 'package:healr/features/home/presentation/managers/booking/booking_cubit.dart';
 import 'package:healr/features/home/presentation/views/widgets/book2_header.dart';
 import 'package:healr/features/home/presentation/views/widgets/details_statement.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_info.dart';
@@ -64,7 +65,9 @@ class BookingSummaryViewBody extends StatelessWidget {
                         : "Confirm Booking",
                     onPressed: state is AppointmentLoading
                         ? null
-                        : () {
+                        : () async {
+                            await BlocProvider.of<BookingCubit>(context)
+                                .bookAppointment();
                             String formattedDay = appointDay!;
                             String formattedTime = appointTime!;
 
@@ -121,9 +124,9 @@ class BookingSummaryViewBody extends StatelessWidget {
               SizedBox(height: 16.h),
               DetailsStatement(
                   label: "Amount", detail: "${data?.price ?? "300"} L.E."),
-              SizedBox(height: 16.h),
-              const DetailsStatement(
-                  label: "Health Insurance discount", detail: "- 40 L.E."),
+              // SizedBox(height: 16.h),
+              // const DetailsStatement(
+              //     label: "Health Insurance discount", detail: "- 40 L.E."),
               SizedBox(height: 20.h),
               const Divider(
                 thickness: 1,
@@ -131,7 +134,7 @@ class BookingSummaryViewBody extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               DetailsStatement(
-                  label: "Total", detail: "${(data?.price ?? 300) - 40} L.E."),
+                  label: "Total", detail: "${(data?.price ?? 300)} L.E."),
               SizedBox(height: 16.h),
               const Divider(
                 thickness: 1,

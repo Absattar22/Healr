@@ -33,13 +33,6 @@ class ChooseAppointTime extends StatelessWidget {
                 width: 8.w,
               ),
               const AppointTimeItem(
-                index: 12,
-                text: "09:30 AM",
-              ),
-              SizedBox(
-                width: 8.w,
-              ),
-              const AppointTimeItem(
                 index: 1,
                 text: "10:00 AM",
               ),
@@ -47,22 +40,8 @@ class ChooseAppointTime extends StatelessWidget {
                 width: 8.w,
               ),
               const AppointTimeItem(
-                index: 2,
-                text: "10:30 AM",
-              ),
-              SizedBox(
-                width: 8.w,
-              ),
-              const AppointTimeItem(
                 index: 3,
                 text: "11:00 AM",
-              ),
-              SizedBox(
-                width: 8.w,
-              ),
-              const AppointTimeItem(
-                index: 4,
-                text: "11:30 AM",
               ),
               SizedBox(
                 width: 8.w,
@@ -82,15 +61,8 @@ class ChooseAppointTime extends StatelessWidget {
                 width: 8.w,
               ),
               const AppointTimeItem(
-                index: 7,
-                text: "01:30 PM",
-              ),
-              SizedBox(
-                width: 8.w,
-              ),
-              const AppointTimeItem(
                 index: 8,
-                text: "02:30 PM",
+                text: "02:00 PM",
               ),
               SizedBox(
                 width: 8.w,

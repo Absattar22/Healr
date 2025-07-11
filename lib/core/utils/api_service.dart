@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/errors/failure.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -31,12 +30,17 @@ class ApiService {
     Map<String, dynamic>? body,
   }) async {
     try {
+      // Get the latest token from SharedPreferences
+      String currentToken = SharedPrefCache.getCache(key: 'token');
+
+      // Debug prints
+
       var response = await dio.post(
         '$baseUrl$endPoint',
         data: body,
         options: Options(headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer $kToken",
+          "Authorization": "Bearer $currentToken",
         }),
       );
 

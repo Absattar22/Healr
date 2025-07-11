@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/shared_pref_cache.dart';
 import 'package:healr/core/utils/styles.dart';
+import 'package:healr/features/home/presentation/managers/booking/booking_cubit.dart';
 
 void showLogoutSheet(
   BuildContext context,
@@ -71,7 +73,7 @@ void showLogoutSheet(
                     right: 36.w,
                   ),
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       SharedPrefCache.removeCache(key: 'token');
                       SharedPrefCache.removeCache(key: 'name');
                       SharedPrefCache.removeCache(key: 'nationalID');
@@ -83,7 +85,10 @@ void showLogoutSheet(
                       SharedPrefCache.removeCache(key: 'blood');
                       SharedPrefCache.removeCache(key: 'notes');
 
-                      print('Logout successful');
+                      // Clear ALL booking data on logout
+                      await BlocProvider.of<BookingCubit>(context)
+                          .clearUserBookingState();
+                      print('Logout successful - All booking data cleared');
 
                       GoRouter.of(context).pushReplacement(
                         AppRouter.kLoginView,
