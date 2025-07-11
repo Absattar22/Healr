@@ -36,11 +36,4 @@ class NotificationActionsCubit extends Cubit<NotificationActionsState> {
   selectedIds.remove(id);
   emit(DeletingNotifications());
 }
-
-
-  void markAllAsRead(BuildContext context) {
-    final medicineCubit = context.read<MedicineCubit>();
-    medicineCubit.markAllAsRead();
-    emit(MarkAllNotificationsAsReading());
-  }
 }

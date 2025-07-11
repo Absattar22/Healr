@@ -98,7 +98,6 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
                                     isButtonClicked: isSelectMode,
                                     ispopCLicked: isSelectMode,
                                     id: med.id,
-                                    isRead: med.isRead,
                                   );
                                 },
                                 childCount: entry.value.length,
@@ -128,9 +127,13 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
 
                     if (state is MedicineFailure) {
                       return Center(
-                          child: Text(state.message,
-                              style: Styles.textStyle16
-                                  .copyWith(color: Colors.red)));
+                        child: Text(
+                          state.message,
+                          style: Styles.textStyle16.copyWith(
+                            color: Colors.red,
+                          ),
+                        ),
+                      );
                     }
 
                     return const Center(child: Text("No data yet"));

@@ -8,7 +8,6 @@ class MedicineModel {
   final String? doctorName;
   final String timeOfCreation;
   final String? id;
-  final bool isRead;
 
   MedicineModel({
     required this.name,
@@ -18,7 +17,6 @@ class MedicineModel {
     required this.doctorName,
     required this.timeOfCreation,
     required this.id,
-    this.isRead = false,
   });
 
   factory MedicineModel.fromJson(Map<String, dynamic> json) {
@@ -40,9 +38,7 @@ class MedicineModel {
     String? doctorName,
     String? timeOfCreation,
     String? id,
-    bool? isRead,
   }) {
-    print('copyWith called, isRead: $isRead');
     return MedicineModel(
       name: name ?? this.name,
       dosage: dosage ?? this.dosage,
@@ -51,7 +47,6 @@ class MedicineModel {
       doctorName: doctorName ?? this.doctorName,
       timeOfCreation: timeOfCreation ?? this.timeOfCreation,
       id: id ?? this.id,
-      isRead: isRead ?? this.isRead,
     );
   }
 

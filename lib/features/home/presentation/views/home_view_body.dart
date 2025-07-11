@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healr/core/utils/location_service.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
 import 'package:healr/features/home/data/models/appoint_details_model/appoint_details_model.dart';
 import 'package:healr/features/home/presentation/views/widgets/bottom_nav_bar.dart';
@@ -14,6 +15,12 @@ class HomeViewBody extends StatefulWidget {
 }
 
 class _HomeViewBodyState extends State<HomeViewBody> {
+  @override
+  void initState() {
+    LocationService.getCurrentLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

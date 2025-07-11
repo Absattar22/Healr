@@ -34,16 +34,7 @@ class _CustomNotificationAppBarState extends State<CustomNotificationAppBar> {
           ),
           widget.isNotificationfound
               ? PullDownButton(
-                  itemBuilder: (context) => [
-                    PullDownMenuItem(
-                      onTap: () {
-                        context
-                            .read<NotificationActionsCubit>()
-                            .markAllAsRead(context);
-                      },
-                      title: 'Mark All as Read',
-                      icon: HugeIcons.strokeRoundedTickDouble02,
-                    ),
+                  itemBuilder: (context) => [                  
                     PullDownMenuItem(
                       title: 'Select',
                       subtitle: 'Select any notifications',

@@ -55,11 +55,14 @@ class ServicesSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
+             Expanded(
               child: CustomCard(
                 imgUrl: 'assets/images/map.svg',
                 title: 'Find a clinic',
                 subtitle: 'Find clinics near you and book an appointment.',
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kMapView);
+                },
               ),
             ),
             SizedBox(width: 8.w),
