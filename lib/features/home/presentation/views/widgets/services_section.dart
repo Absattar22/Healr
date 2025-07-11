@@ -55,7 +55,7 @@ class ServicesSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
+             Expanded(
               child: CustomCard(
                 imgUrl: 'assets/images/map.svg',
                 title: 'Find a clinic',
