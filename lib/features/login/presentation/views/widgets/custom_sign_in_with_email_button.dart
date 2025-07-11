@@ -5,9 +5,10 @@ import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/styles.dart';
 
 class CustomSignInWithEmailButton extends StatelessWidget {
-  const CustomSignInWithEmailButton({super.key, this.onTap});
+  const CustomSignInWithEmailButton({super.key, this.onTap , this.text = 'Sign in with Email'});
 
   final void Function()? onTap;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class CustomSignInWithEmailButton extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'sign in with email',
+                text,
                 style: Styles.textStyle20.copyWith(
                   color: kSecondaryColor,
                   fontWeight: FontWeight.w600,

@@ -40,4 +40,34 @@ class LoginRepoImp implements LoginRepo {
       return Left(ServerFailure('⚠️ Unexpected error occurred: $e'));
     }
   }
+  
+  @override
+  Future<Either<Failure, UserModel>> loginWithEmail(String email, String password) async{
+    try {
+      final response = await apiService.post(
+        endPoint: 'loginWithEmail',
+        body: {
+          'email': email,
+          'password': password,
+        },
+      );
+
+      if (response.containsKey('status') && response['status'] == 'error') {
+        return Left(ServerFailure(response['message']));
+      }
+
+      final user = UserModel.fromJson(response);
+      if (response.containsKey('token')) {
+        await SharedPrefCache.saveCache(key: 'token', value: response['token']);
+      }
+      
+
+      return Right(user);
+    } on ServerFailure catch (e) {
+      return Left(e);
+    } catch (e) {
+      return Left(ServerFailure('⚠️ Unexpected error occurred: $e'));
+    }
+  }
+  
 }
