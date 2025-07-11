@@ -15,7 +15,6 @@ void main() async {
   await LocalNotification.init();
   setupServiceLocator();
 
-  // Load booking statuses from SharedPreferences
   await loadAllBookingStatuses();
 
   runApp(
