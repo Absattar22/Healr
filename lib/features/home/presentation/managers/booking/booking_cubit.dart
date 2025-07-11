@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/appoint_cache.dart';
+import 'package:healr/features/notification/ui/views/widgets/local_notification.dart';
 
 part 'booking_state.dart';
 
@@ -37,6 +38,11 @@ class BookingCubit extends Cubit<BookingState> {
 
   // Method to cancel appointment for current user
   Future<void> cancelAppointment() async {
+    LocalNotification.showInstantNotification(
+      id: 3,
+      title: 'Appointment Cancelled',
+      body: 'Your appointment has been successfully cancelled.',
+    );
     String currentToken = kToken ?? "default_user";
     await setUserBookingStatus(currentToken, false);
     await book(); // Refresh the UI

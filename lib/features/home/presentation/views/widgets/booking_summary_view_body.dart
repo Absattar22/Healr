@@ -13,12 +13,27 @@ import 'package:healr/features/home/presentation/managers/booking/booking_cubit.
 import 'package:healr/features/home/presentation/views/widgets/book2_header.dart';
 import 'package:healr/features/home/presentation/views/widgets/details_statement.dart';
 import 'package:healr/features/home/presentation/views/widgets/doctor_info.dart';
+import 'package:healr/features/home/presentation/views/widgets/health_insurance_discount_skeleton.dart';
 import 'package:healr/features/home/presentation/views/widgets/icon_statement.dart';
+import 'package:healr/features/profile/presentation/manager/health_insurance_cubit/cubit/health_insurance_cubit.dart';
 
-class BookingSummaryViewBody extends StatelessWidget {
+class BookingSummaryViewBody extends StatefulWidget {
   const BookingSummaryViewBody({super.key, this.data, this.appointDetails});
   final Datum? data;
   final Appointment? appointDetails;
+
+  @override
+  State<BookingSummaryViewBody> createState() => _BookingSummaryViewBodyState();
+}
+
+class _BookingSummaryViewBodyState extends State<BookingSummaryViewBody> {
+  @override
+  void initState() {
+    BlocProvider.of<HealthInsuranceCubit>(context).getHealthInsurance();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,7 +50,7 @@ class BookingSummaryViewBody extends StatelessWidget {
           GoRouter.of(context).pushReplacement(
             AppRouter.kBookingConfirmationView,
             extra: {
-              'data': data,
+              'data': widget.data,
               'appointDetails': state.appointDetails,
             },
           );
@@ -73,7 +88,10 @@ class BookingSummaryViewBody extends StatelessWidget {
 
                             BlocProvider.of<AppointmentCubit>(context)
                                 .createAppointment(
-                                    data!.id!, formattedDay, formattedTime);
+                                    widget.data!.id!,
+                                    formattedDay,
+                                    formattedTime,
+                                    widget.data!.name!);
                           },
                     padding: 0,
                   );
@@ -99,7 +117,7 @@ class BookingSummaryViewBody extends StatelessWidget {
             children: [
               const Book2Header(title: "Review Summary"),
               SizedBox(height: 24.h),
-              DoctorInfo(data: data),
+              DoctorInfo(data: widget.data),
               SizedBox(
                 height: 28.h,
               ),
@@ -123,18 +141,60 @@ class BookingSummaryViewBody extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               DetailsStatement(
-                  label: "Amount", detail: "${data?.price ?? "300"} L.E."),
-              // SizedBox(height: 16.h),
-              // const DetailsStatement(
-              //     label: "Health Insurance discount", detail: "- 40 L.E."),
+                  label: "Amount",
+                  detail: "${widget.data?.price ?? "300"} L.E."),
+              SizedBox(height: 16.h),
+              BlocBuilder<HealthInsuranceCubit, HealthInsuranceState>(
+                builder: (context, state) {
+                  if (state is HealthInsuranceLoading) {
+                    return const HealthInsuranceDiscountSkeleton();
+                  } else if (state is HealthInsuranceFetched) {
+                    return const DetailsStatement(
+                      label: "Health Insurance discount",
+                      detail: "-50 L.E.",
+                    );
+                  } else if (state is HealthInsuranceEmpty) {
+                    return const DetailsStatement(
+                      label: "Health Insurance discount",
+                      detail: "-0 L.E.",
+                    );
+                  } else if (state is HealthInsuranceError) {
+                    return const DetailsStatement(
+                      label: "Health Insurance discount",
+                      detail: "-0 L.E.",
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
               SizedBox(height: 20.h),
               const Divider(
                 thickness: 1,
                 color: Color(0xffCCCCCC),
               ),
               SizedBox(height: 16.h),
-              DetailsStatement(
-                  label: "Total", detail: "${(data?.price ?? 300)} L.E."),
+              BlocBuilder<HealthInsuranceCubit, HealthInsuranceState>(
+                  builder: (context, state) {
+                if (state is HealthInsuranceLoading) {
+                  return const HealthInsuranceDiscountSkeleton();
+                } else if (state is HealthInsuranceFetched) {
+                  return DetailsStatement(
+                    label: "Total",
+                    detail: "${(widget.data?.price ?? 300) - 50} L.E.",
+                  );
+                } else if (state is HealthInsuranceEmpty) {
+                  return DetailsStatement(
+                    label: "Total",
+                    detail: "${widget.data?.price ?? 300} L.E.",
+                  );
+                } else if (state is HealthInsuranceError) {
+                  return DetailsStatement(
+                    label: "Total",
+                    detail: "${widget.data?.price ?? 300} L.E.",
+                  );
+                }
+                return const SizedBox();
+              }),
               SizedBox(height: 16.h),
               const Divider(
                 thickness: 1,

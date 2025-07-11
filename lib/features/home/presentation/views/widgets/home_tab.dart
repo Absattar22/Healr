@@ -100,19 +100,15 @@ class _HomeTabContentState extends State<HomeTabContent> {
               ),
               BlocBuilder<BookingCubit, BookingState>(
                 builder: (context, state) {
-                  print("Current BookingState: $state"); // Debug print
                   if (state is BookingLoading) {
                     return const SliverToBoxAdapter(
                       child: WaitingpeopleSkeletonizer(),
                     );
                   } else if (state is BookingFailure) {
-                    print("BookingFailure - showing SizedBox"); // Debug print
                     return const SliverToBoxAdapter(
                       child: SizedBox(),
                     );
                   } else if (state is BookingSuccess) {
-                    print(
-                        "BookingSuccess - showing WaitingPeopleSection"); // Debug print
                     final waitingPeopleCount = state.waitingPeopleCount;
 
                     return SliverToBoxAdapter(

@@ -15,7 +15,8 @@ class VerificationRepoImp implements VerificationRepo {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('Resettoken') ?? '';
-      final response = await apiService.post(
+      print(code);
+      final response = await apiService.postt(
         endPoint: 'verifycode',
         body: {
           'resetCode': code,
