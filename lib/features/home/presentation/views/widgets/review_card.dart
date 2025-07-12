@@ -31,7 +31,7 @@ class ReviewCard extends StatelessWidget {
                     : const AssetImage('assets/images/doctor_prof_image.png')
                         as ImageProvider,
               ),
-              SizedBox(width: 4.w),
+              SizedBox(width: 8.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

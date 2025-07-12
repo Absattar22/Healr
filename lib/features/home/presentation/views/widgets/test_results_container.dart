@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:healr/features/home/data/models/test_results_model.dart';
 import 'package:healr/features/home/presentation/views/widgets/view_pdf.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -67,11 +66,11 @@ class TestResultsContainer extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset(
-              'assets/images/test.svg',
-              height: 32.h,
-              width: 32.w,
-            ),
+            // SvgPicture.asset(
+            //   'assets/images/test.svg',
+            //   height: 32.h,
+            //   width: 32.w,
+            // ),
             SizedBox(width: 8.w),
             Expanded(
               child: Column(

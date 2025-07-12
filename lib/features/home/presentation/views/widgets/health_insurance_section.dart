@@ -34,8 +34,8 @@ class _HealthInsuranceSectionState extends State<HealthInsuranceSection> {
         }
         if (state is HealthInsuranceFetched) {
           return GestureDetector(
-              onTap: () {
-                GoRouter.of(context).push(AppRouter.kHealthInsuranceView);
+              onTap: () async {
+                await GoRouter.of(context).push(AppRouter.kHealthInsuranceView);
               },
               child: Container(
                 height: 100.h,

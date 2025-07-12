@@ -68,124 +68,127 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
                   topRight: Radius.circular(50.r),
                 ),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 16.h, left: 10.h),
-                      child: SvgPicture.asset(
-                        "assets/images/arrow_back_icon.svg",
-                        width: 20.w,
-                        height: 20.h,
-                        color: const Color(0xff1a1a1a),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 16.h, left: 10.h),
+                        child: SvgPicture.asset(
+                          "assets/images/arrow_back_icon.svg",
+                          width: 20.w,
+                          height: 20.h,
+                          color: const Color(0xff1a1a1a),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 22.h),
-                  Text(
-                    "Rate Your Visit!",
-                    style: Styles.textStyle16.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Center(
-                    child: RatingBar.builder(
-                      initialRating: 0,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: false,
-                      itemCount: 5,
-                      itemSize: 35.r,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
+                    SizedBox(height: 22.h),
+                    Text(
+                      "Rate Your Visit!",
+                      style: Styles.textStyle16.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
-                      onRatingUpdate: (value) {
-                        rating = value;
+                    ),
+                    SizedBox(height: 16.h),
+                    Center(
+                      child: RatingBar.builder(
+                        initialRating: 0,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: false,
+                        itemCount: 5,
+                        itemSize: 35.r,
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 2.0),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (value) {
+                          rating = value;
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    Text(
+                      "Tell Us What Went Well (Optional).",
+                      style: Styles.textStyle16.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    SizedBox(
+                      height: 200.h,
+                      child: TextField(
+                        maxLines: null,
+                        expands: true,
+                        controller: reviewTextController,
+                        textAlignVertical: TextAlignVertical.top,
+                        decoration: InputDecoration(
+                          hintText: "Share your thoughts...",
+                          hintStyle: Styles.textStyle14.copyWith(
+                            color: Colors.grey[500],
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: BorderSide(
+                                color: const Color(0xffcccccc), width: 1.w),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: BorderSide(
+                                color: const Color(0xffcccccc), width: 1.w),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide:
+                                BorderSide(color: kSecondaryColor, width: 1.w),
+                          ),
+                          contentPadding: EdgeInsets.all(16.w),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    BlocBuilder<ReviewsCubit, ReviewsState>(
+                      bloc: widget.reviewsCubit,
+                      builder: (context, state) {
+                        return CustomButton(
+                          padding: 0,
+                          text: state is ReviewsCreating
+                              ? "Submitting..."
+                              : "Submit Review",
+                          onPressed: state is ReviewsCreating
+                              ? null
+                              : () {
+                                  if (rating == 0) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            "Please select a rating before submitting."),
+                                        backgroundColor: Colors.red,
+                                        duration: Duration(seconds: 2),
+                                      ),
+                                    );
+                                    return;
+                                  }
+                                  widget.reviewsCubit.createReview(
+                                      reviewTextController.text,
+                                      rating.toInt(),
+                                      widget.doctorId!);
+                                },
+                        );
                       },
                     ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Text(
-                    "Tell Us What Went Well (Optional).",
-                    style: Styles.textStyle16.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  SizedBox(
-                    height: 200.h,
-                    child: TextField(
-                      maxLines: null,
-                      expands: true,
-                      controller: reviewTextController,
-                      textAlignVertical: TextAlignVertical.top,
-                      decoration: InputDecoration(
-                        hintText: "Share your thoughts...",
-                        hintStyle: Styles.textStyle14.copyWith(
-                          color: Colors.grey[500],
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: BorderSide(
-                              color: const Color(0xffcccccc), width: 1.w),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: BorderSide(
-                              color: const Color(0xffcccccc), width: 1.w),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide:
-                              BorderSide(color: kSecondaryColor, width: 1.w),
-                        ),
-                        contentPadding: EdgeInsets.all(16.w),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-                  BlocBuilder<ReviewsCubit, ReviewsState>(
-                    bloc: widget.reviewsCubit,
-                    builder: (context, state) {
-                      return CustomButton(
-                        padding: 0,
-                        text: state is ReviewsCreating
-                            ? "Submitting..."
-                            : "Submit Review",
-                        onPressed: state is ReviewsCreating
-                            ? null
-                            : () {
-                                if (rating == 0) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          "Please select a rating before submitting."),
-                                      backgroundColor: Colors.red,
-                                      duration: Duration(seconds: 2),
-                                    ),
-                                  );
-                                  return;
-                                }
-                                widget.reviewsCubit.createReview(
-                                    reviewTextController.text,
-                                    rating.toInt(),
-                                    widget.doctorId!);
-                              },
-                      );
-                    },
-                  ),
-                  SizedBox(height: 16.h),
-                ],
+                    SizedBox(height: 16.h),
+                  ],
+                ),
               ),
             ),
           ),

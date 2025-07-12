@@ -19,40 +19,44 @@ import 'package:skeletonizer/skeletonizer.dart';
 class HealthInsuranceViewBody extends StatelessWidget {
   const HealthInsuranceViewBody({super.key});
 
- @override
-Widget build(BuildContext context) {
-  return BlocProvider(
-    create: (context) => HealthInsuranceCubit(getIt.get<HealthInsuranceRepoImp>())..getHealthInsurance(),
-    child: BlocListener<HealthInsuranceCubit, HealthInsuranceState>(
-      listener: (context, state) {
-        if (state is HealthInsuranceAdded || state is HealthInsuranceDeleted) {
-          context.read<HealthInsuranceCubit>().getHealthInsurance();
-        }
-      },
-      child: BlocBuilder<HealthInsuranceCubit, HealthInsuranceState>(
-        builder: (context, state) {
-          if (state is HealthInsuranceLoading) {
-            return Skeletonizer(child: buildInsuranceCardPlaceHolder());
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          HealthInsuranceCubit(getIt.get<HealthInsuranceRepoImp>())
+            ..getHealthInsurance(),
+      child: BlocListener<HealthInsuranceCubit, HealthInsuranceState>(
+        listener: (context, state) {
+          if (state is HealthInsuranceAdded ||
+              state is HealthInsuranceDeleted) {
+            context.read<HealthInsuranceCubit>().getHealthInsurance();
           }
-
-          if (state is HealthInsuranceFetched) {
-            return buildInsuranceCard(state.healthInsurance! , context);
-          }
-
-          if (state is HealthInsuranceEmpty) {
-            return const NoHealthInsuranceView();
-          }
-
-          if (state is HealthInsuranceError || state is HealthInsuranceDeleteError) {
-            return const NoHealthInsuranceView();
-          }
-
-          return const SizedBox.shrink();
         },
+        child: BlocBuilder<HealthInsuranceCubit, HealthInsuranceState>(
+          builder: (context, state) {
+            if (state is HealthInsuranceLoading) {
+              return Skeletonizer(child: buildInsuranceCardPlaceHolder());
+            }
+
+            if (state is HealthInsuranceFetched) {
+              return buildInsuranceCard(state.healthInsurance!, context);
+            }
+
+            if (state is HealthInsuranceEmpty) {
+              return const NoHealthInsuranceView();
+            }
+
+            if (state is HealthInsuranceError ||
+                state is HealthInsuranceDeleteError) {
+              return const NoHealthInsuranceView();
+            }
+
+            return const SizedBox.shrink();
+          },
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }
 
 Widget buildInsuranceCard(
@@ -144,9 +148,13 @@ Widget buildInsuranceCard(
                 borderColor: const Color(0xFFEF4444),
                 borderRadius: 16.r,
                 padding: 0,
-                onPressed: () {
-                  context.read<HealthInsuranceCubit>().deleteHealthInsurance();
-                  GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+                onPressed: () async {
+                  await context
+                      .read<HealthInsuranceCubit>()
+                      .deleteHealthInsurance();
+                  await Future.delayed(const Duration(seconds: 2));
+                  await GoRouter.of(context)
+                      .pushReplacement(AppRouter.kHomeView);
                 },
               ),
               SizedBox(height: 32.h),

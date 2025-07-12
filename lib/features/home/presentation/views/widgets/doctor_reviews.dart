@@ -120,7 +120,7 @@ class _DoctorReviewsState extends State<DoctorReviews> {
               );
             }
 
-            return SizedBox();
+            return const SizedBox();
           },
         )
       ],

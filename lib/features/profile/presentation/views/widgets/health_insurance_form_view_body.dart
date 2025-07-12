@@ -26,6 +26,14 @@ class _HealthInsuranceFormViewBodyState
   final TextEditingController fileNumberController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String? errorMessage;
+  @override
+  void dispose() {
+    headFamilyController.dispose();
+    beneficiaryNameController.dispose();
+    healthUnitController.dispose();
+    fileNumberController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
