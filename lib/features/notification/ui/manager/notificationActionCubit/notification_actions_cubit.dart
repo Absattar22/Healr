@@ -21,6 +21,11 @@ class NotificationActionsCubit extends Cubit<NotificationActionsState> {
     emit(SelectingNotification());
   }
 
+  void deselecting() {
+    selectedIds.clear(); // Clear all selected items
+    emit(IdleNotification());
+  }
+
   void toggleSelection(String id) {
     if (selectedIds.contains(id)) {
       selectedIds.remove(id);

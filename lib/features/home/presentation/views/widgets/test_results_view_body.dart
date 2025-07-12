@@ -60,7 +60,9 @@ class _TestResultsViewBodyState extends State<TestResultsViewBody> {
                           "assets/images/Blood-test-bro.svg",
                         ),
                         Text("No test results available",
-                            style: Styles.textStyle18),
+                            style: Styles.textStyle20.copyWith(
+                              fontWeight: FontWeight.w500,
+                            )),
                       ],
                     );
                   }

@@ -8,8 +8,13 @@ sealed class NotificationActionsState extends Equatable {
 }
 
 final class NotificationActionsInitial extends NotificationActionsState {}
-final class IdleNotification extends NotificationActionsState {}
-final class SelectingNotification extends NotificationActionsState {}
-final class DeletingNotifications extends NotificationActionsState {}
-final class MarkAllNotificationsAsReading extends NotificationActionsState {}
 
+final class IdleNotification extends NotificationActionsState {}
+
+final class SelectingNotification extends NotificationActionsState {}
+
+final class DeSelectingNotification extends NotificationActionsState {}
+
+final class DeletingNotifications extends NotificationActionsState {}
+
+final class MarkAllNotificationsAsReading extends NotificationActionsState {}
