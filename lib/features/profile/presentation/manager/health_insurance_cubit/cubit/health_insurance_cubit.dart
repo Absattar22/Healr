@@ -48,4 +48,15 @@ class HealthInsuranceCubit extends Cubit<HealthInsuranceState> {
       },
     );
   }
+
+  Future<void> deleteHealthInsurance() async {
+    emit(HealthInsuranceLoading());
+
+    final result = await healthInsuranceRepo.deleteHealthInsurance();
+
+    result.fold(
+      (failure) => emit(HealthInsuranceDeleteError(failure.errMessage)),
+      (message) => emit(HealthInsuranceDeleted(message)),
+    );
+  }
 }

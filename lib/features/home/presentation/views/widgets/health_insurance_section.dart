@@ -5,8 +5,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
+import 'package:healr/features/home/presentation/views/widgets/inusrance_home_skeleton.dart';
 import 'package:healr/features/profile/presentation/manager/health_insurance_cubit/cubit/health_insurance_cubit.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HealthInsuranceSection extends StatefulWidget {
   const HealthInsuranceSection({super.key});
@@ -20,6 +22,16 @@ class _HealthInsuranceSectionState extends State<HealthInsuranceSection> {
   Widget build(BuildContext context) {
     return BlocBuilder<HealthInsuranceCubit, HealthInsuranceState>(
       builder: (context, state) {
+        if (state is HealthInsuranceLoading) {
+          return Skeletonizer(
+              effect: ShimmerEffect(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade100,
+              ),
+              enabled: true,
+              containersColor: const Color(0xff1C567D),
+              child: const InusranceHomeSkeleton());
+        }
         if (state is HealthInsuranceFetched) {
           return GestureDetector(
               onTap: () {
@@ -67,44 +79,50 @@ class _HealthInsuranceSectionState extends State<HealthInsuranceSection> {
                   ],
                 ),
               ));
-        } else if (state is HealthInsuranceEmpty) {
-          return Container(
-            height: 78.h,
-            padding: EdgeInsets.symmetric(
-              horizontal: 12.h,
-              vertical: 8.h,
-            ),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: const Color(0xff1C567D),
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Add your health insurance',
-                      style: Styles.textStyle16.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xffF8F8F8),
+        } else if (state is HealthInsuranceEmpty ||
+            state is HealthInsuranceError) {
+          return GestureDetector(
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.kHealthInsuranceView);
+            },
+            child: Container(
+              height: 78.h,
+              padding: EdgeInsets.symmetric(
+                horizontal: 12.h,
+                vertical: 8.h,
+              ),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: const Color(0xff1C567D),
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Add your health insurance',
+                        style: Styles.textStyle16.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xffF8F8F8),
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Book a doctor and save consultation fees with\n insurance.',
-                      style: Styles.textStyle12.copyWith(
-                        fontWeight: FontWeight.w300,
-                        color: const Color(0xffE6E6E6),
+                      Text(
+                        'Book a doctor and save consultation fees with\n insurance.',
+                        style: Styles.textStyle12.copyWith(
+                          fontWeight: FontWeight.w300,
+                          color: const Color(0xffE6E6E6),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SvgPicture.asset(
-                  'assets/images/add-circle.svg',
-                ),
-              ],
+                    ],
+                  ),
+                  SvgPicture.asset(
+                    'assets/images/add-circle.svg',
+                  ),
+                ],
+              ),
             ),
           );
         }

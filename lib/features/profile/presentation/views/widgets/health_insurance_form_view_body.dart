@@ -174,7 +174,7 @@ class _HealthInsuranceFormViewBodyState
                       ),
                     ),
                     CustomButton(
-                      text: isLoading ? 'Submitting...' : 'Sign in',
+                      text: isLoading ? 'Submitting...' : 'Submit',
                       onPressed: isLoading
                           ? null
                           : () {

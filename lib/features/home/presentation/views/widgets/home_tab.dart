@@ -15,6 +15,7 @@ import 'package:healr/features/home/presentation/views/widgets/home_header_secti
 import 'package:healr/features/home/presentation/views/widgets/services_section.dart';
 import 'package:healr/features/home/presentation/views/widgets/waiting_people_section.dart';
 import 'package:healr/features/home/presentation/views/widgets/waitingpeople_skeletonizer.dart';
+import 'package:healr/features/profile/presentation/manager/health_insurance_cubit/cubit/health_insurance_cubit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
@@ -69,7 +70,7 @@ class _HomeTabContentState extends State<HomeTabContent> {
     return SafeArea(
       child: LiquidPullToRefresh(
         onRefresh: () async {
-          // Only refresh if not already in BookingSuccess state
+          BlocProvider.of<HealthInsuranceCubit>(context).getHealthInsurance();
           if (BlocProvider.of<BookingCubit>(context).state is BookingSuccess) {
             return;
           }
