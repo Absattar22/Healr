@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:healr/core/constants.dart';
@@ -23,7 +21,7 @@ class BookingCubit extends Cubit<BookingState> {
     bool currentUserBooked = await getUserBookingStatus(currentToken);
 
     if (currentUserBooked == true) {
-      emit(BookingSuccess(waitingPeopleCount: Random().nextInt(4)));
+      emit(BookingSuccess());
     } else {
       emit(BookingFailure());
     }

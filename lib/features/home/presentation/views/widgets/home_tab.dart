@@ -110,11 +110,8 @@ class _HomeTabContentState extends State<HomeTabContent> {
                       child: SizedBox(),
                     );
                   } else if (state is BookingSuccess) {
-                    final waitingPeopleCount = state.waitingPeopleCount;
-
                     return SliverToBoxAdapter(
                       child: WaitingPeopleSection(
-                        waitingPeopleCount: waitingPeopleCount,
                         appointDetails: widget.appointDetails,
                         data: widget.data,
                       ),

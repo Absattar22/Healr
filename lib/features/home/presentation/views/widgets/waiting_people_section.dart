@@ -14,11 +14,9 @@ import 'package:healr/features/home/presentation/managers/booking/booking_cubit.
 import 'package:healr/features/home/presentation/views/widgets/view_appoint_details_button.dart';
 
 class WaitingPeopleSection extends StatelessWidget {
-  final int? waitingPeopleCount;
   final Datum? data;
   final AppointDetailsModel? appointDetails;
-  const WaitingPeopleSection(
-      {super.key, this.waitingPeopleCount, this.data, this.appointDetails});
+  const WaitingPeopleSection({super.key, this.data, this.appointDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +40,9 @@ class WaitingPeopleSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ahead of you in line:',
+                    'Max number of appointment in one hour is 4',
                     style: Styles.textStyle16.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    '$waitingPeopleCount people waiting',
-                    style: Styles.textStyle16.copyWith(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(height: 8.h),
