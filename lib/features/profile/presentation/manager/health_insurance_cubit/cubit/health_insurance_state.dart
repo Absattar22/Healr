@@ -36,11 +36,7 @@ final class HealthInsuranceFetched extends HealthInsuranceState {
 final class HealthInsuranceEmpty extends HealthInsuranceState {}
 
 final class HealthInsuranceDeleted extends HealthInsuranceState {
-  final String message;
-  const HealthInsuranceDeleted(this.message);
-
-  @override
-  List<Object> get props => [message];
+  const HealthInsuranceDeleted();
 }
 
 final class HealthInsuranceDeleteError extends HealthInsuranceState {

@@ -56,7 +56,7 @@ class HealthInsuranceCubit extends Cubit<HealthInsuranceState> {
 
     result.fold(
       (failure) => emit(HealthInsuranceDeleteError(failure.errMessage)),
-      (message) => emit(HealthInsuranceDeleted(message)),
+      (message) => emit(const HealthInsuranceDeleted()),
     );
   }
 }
