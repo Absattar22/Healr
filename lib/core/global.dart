@@ -1,2 +1,0 @@
-String? appointDay = "";
-String? appointTime = "";

@@ -54,4 +54,20 @@ class HealthInsuranceRepoImp implements HealthInsuranceRepo {
       return Left(ServerFailure('⚠️ Unexpected error occurred: $e'));
     }
   }
+
+  @override
+  Future<Either<Failure, dynamic>> deleteHealthInsurance() async {
+    try {
+      final response = await apiService.deletee(
+          endPoint: 'healthInsurance/deleteHealthInsurance');
+      if (response.containsKey('status') && response['status'] == 'error') {
+        return Left(ServerFailure(response['message']));
+      }
+      return Right(response['message']);
+    } on ServerFailure catch (e) {
+      return Left(e);
+    } catch (e) {
+      return Left(ServerFailure('⚠️ Unexpected error occurred: $e'));
+    }
+  }
 }

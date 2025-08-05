@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:healr/core/constants.dart';
 import 'package:healr/core/utils/app_router.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/notification/data/models/medicine_model.dart';
@@ -19,8 +18,7 @@ class CustomNotificationContainer extends StatefulWidget {
     this.isButtonClicked = false,
     this.ispopCLicked = false,
     required this.id,
-    required this.medicinesList,
-    this.isRead = false,
+    this.medicinesList,
   });
   final String img;
   final String notificationTitle;
@@ -29,8 +27,7 @@ class CustomNotificationContainer extends StatefulWidget {
   final bool ispopCLicked;
   final bool isButtonClicked;
   final String? id;
-  final List<MedicineModel> medicinesList;
-  final bool isRead;
+  final List<MedicineModel>? medicinesList;
 
   @override
   State<CustomNotificationContainer> createState() =>
@@ -57,21 +54,23 @@ class _CustomNotificationContainerState
             cubit.toggleSelection(widget.id!);
             isClicked = false;
           });
+        } else {
+          if (widget.medicinesList != null) {
+            // التنقل فقط لو فيه قائمة أدوية
+            GoRouter.of(context)
+                .push(AppRouter.kMedicineView, extra: widget.medicinesList);
+          }
         }
       },
       child: Container(
-        decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                color: Color.fromARGB(255, 216, 216, 216),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: Offset(0, 1),
-              ),
-            ],
-            color: widget.isRead
-                ? kPrimaryColor
-                : const Color.fromARGB(255, 228, 236, 255)),
+        decoration: const BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(255, 216, 216, 216),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: Offset(0, 1),
+          ),
+        ], color: Color.fromARGB(255, 228, 236, 255)),
         child: Column(
           children: [
             Padding(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:healr/core/utils/app_router.dart';
+import 'package:healr/features/home/presentation/managers/booking/booking_cubit.dart';
 import 'package:healr/features/home/presentation/views/widgets/custom_card.dart';
 
 class ServicesSection extends StatelessWidget {
@@ -20,6 +22,18 @@ class ServicesSection extends StatelessWidget {
                 title: 'Book appointment',
                 subtitle: 'Just a few taps to book your next appointment.',
                 onTap: () {
+                  bool hasActiveBooking = BlocProvider.of<BookingCubit>(context)
+                      .isAppointmentBookedForCurrentUserSync();
+                  if (hasActiveBooking) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        backgroundColor: Colors.red,
+                        duration: Duration(seconds: 2),
+                        content: Text('You already have an active booking.'),
+                      ),
+                    );
+                    return;
+                  }
                   GoRouter.of(context).push(AppRouter.kBookAppointView);
                 },
               ),
@@ -41,7 +55,7 @@ class ServicesSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
+             Expanded(
               child: CustomCard(
                 imgUrl: 'assets/images/map.svg',
                 title: 'Find a clinic',

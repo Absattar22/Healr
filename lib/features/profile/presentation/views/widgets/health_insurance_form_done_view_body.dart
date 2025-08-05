@@ -58,10 +58,10 @@ class HealthInsuranceFormDoneViewBody extends StatelessWidget {
                       color: const Color(0xff3A95D2),
                       fontWeight: FontWeight.w700,
                     ),
-                    text: 'Go to Profile',
+                    text: 'Go to Home',
                     onPressed: () {
                       GoRouter.of(context).push(
-                        AppRouter.kProfileView,
+                        AppRouter.kHomeView,
                       );
                     },
                     color: kPrimaryColor,

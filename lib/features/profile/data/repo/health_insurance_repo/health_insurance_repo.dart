@@ -10,4 +10,5 @@ abstract class HealthInsuranceRepo {
     String fileNumber,
   );
   Future<Either<Failure, HealthInsuranceModel?>> getHealthInsurance();
+  Future<Either<Failure, dynamic>> deleteHealthInsurance();
 }

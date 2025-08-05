@@ -18,16 +18,6 @@ class CustomRating extends StatelessWidget {
             style: Styles.textStyle14.copyWith(
               fontWeight: FontWeight.w500,
             )),
-        SizedBox(
-          width: 4.w,
-        ),
-        Text(
-          "(174)",
-          style: Styles.textStyle14.copyWith(
-            fontWeight: FontWeight.w400,
-            color: const Color(0xffB3B3B3),
-          ),
-        ),
       ],
     );
   }

@@ -16,8 +16,8 @@ final class HealthInsuranceAdded extends HealthInsuranceState {
   const HealthInsuranceAdded({
     required this.healthInsurance,
   });
-
 }
+
 final class HealthInsuranceError extends HealthInsuranceState {
   final String message;
   const HealthInsuranceError(this.message);
@@ -25,11 +25,24 @@ final class HealthInsuranceError extends HealthInsuranceState {
   @override
   List<Object> get props => [message];
 }
+
 final class HealthInsuranceFetched extends HealthInsuranceState {
   final HealthInsuranceModel? healthInsurance;
   const HealthInsuranceFetched({
     required this.healthInsurance,
   });
-
 }
+
 final class HealthInsuranceEmpty extends HealthInsuranceState {}
+
+final class HealthInsuranceDeleted extends HealthInsuranceState {
+  const HealthInsuranceDeleted();
+}
+
+final class HealthInsuranceDeleteError extends HealthInsuranceState {
+  final String message;
+  const HealthInsuranceDeleteError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

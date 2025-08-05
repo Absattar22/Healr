@@ -118,7 +118,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         ),
                         SizedBox(height: 16.h),
                         CustomSignInWithEmailButton(
-                          onTap: () {},
+                          onTap: () {
+                            GoRouter.of(context)
+                                .push(AppRouter.kLoginWithEmailView);
+                          },
                         ),
                         SizedBox(height: 16.h),
                         Center(

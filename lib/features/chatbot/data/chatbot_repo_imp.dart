@@ -13,8 +13,8 @@ class ChatbotRepoImp implements ChatbotRepo {
   ChatbotRepoImp(ApiService apiService);
   @override
   Future<Either<Failure, ChatBotResponse>> sendSymptoms(String symptoms) async {
-    final url =
-        Uri.parse('https://web-production-00c71.up.railway.app/chatbot');
+    final url = Uri.parse(
+        'https://diagnose-e6d4c0abf8d5hqhj.uaenorth-01.azurewebsites.net/diagnose');
     final headers = {
       'Content-Type': 'application/json',
     };
@@ -28,10 +28,10 @@ class ChatbotRepoImp implements ChatbotRepo {
         return Right(chatBotResponse);
       } else {
         return Left(
-            ServerFailure('❌ خطأ في الاتصال بالسيرفر: ${response.statusCode}'));
+            ServerFailure('❌ Server connection error: ${response.statusCode}'));
       }
     } catch (e) {
-      return Left(ServerFailure('❌ حدث خطأ غير متوقع: $e'));
+      return Left(ServerFailure('⚠️ Unexpected error occurred: $e'));
     }
   }
 }

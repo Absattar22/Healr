@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healr/core/constants.dart';
-import 'package:healr/core/global.dart';
+import 'package:healr/core/utils/appoint_cache.dart';
 import 'package:healr/core/utils/styles.dart';
 import 'package:healr/features/home/presentation/managers/selected_day/selected_day_cubit.dart';
 

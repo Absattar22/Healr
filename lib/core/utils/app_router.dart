@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:healr/features/chatbot/presentation/views/chatbot_view.dart';
 import 'package:healr/features/home/data/repos/places_repo.dart';
 import 'package:healr/features/home/presentation/managers/places_cubit/cubit/places_cubit.dart';
+import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
+import 'package:healr/features/home/data/models/appoint_details_model/appoint_details_model.dart';
 import 'package:healr/features/home/presentation/views/appoint_details_view.dart';
 import 'package:healr/features/home/presentation/views/approvals_view.dart';
 import 'package:healr/features/home/presentation/views/book_appoint2_view.dart';
@@ -19,12 +21,14 @@ import 'package:healr/features/home/presentation/views/test_results_view.dart';
 import 'package:healr/features/home/presentation/views/map_view.dart';
 import 'package:healr/features/login/presentation/views/forget_password_view.dart';
 import 'package:healr/features/login/presentation/views/login_view.dart';
+import 'package:healr/features/login/presentation/views/login_with_email_view.dart';
 import 'package:healr/features/login/presentation/views/new_password_view.dart';
 import 'package:healr/features/login/presentation/views/password_changed_view.dart';
 import 'package:healr/features/login/presentation/views/verification_code_view.dart';
 import 'package:healr/features/notification/data/models/medicine_model.dart';
 import 'package:healr/features/notification/ui/views/medicine_details_view.dart';
 import 'package:healr/features/notification/ui/views/medicine_view.dart';
+import 'package:healr/features/notification/ui/views/notification_view.dart';
 import 'package:healr/features/onborading/presentation/views/onboarding_view.dart';
 import 'package:healr/features/onborading/splash_view.dart';
 import 'package:healr/features/profile/presentation/views/health_insurance_form_done_view.dart';
@@ -43,6 +47,7 @@ abstract class AppRouter {
   static const kSplashView = '/';
   static const kOnboardingView = '/OnboardingView';
   static const kLoginView = '/LoginView';
+  static const kLoginWithEmailView = '/LoginWithEmailView';
   static const kSignUpView = '/SignUpView';
   static const kHomeView = '/HomeView';
   static const kForgetPasswordView = '/ForgetPasswordView';
@@ -56,7 +61,7 @@ abstract class AppRouter {
   static const kHelpCenterView = '/HelpCenterView';
   static const kHealthInsuranceView = '/HealthInsuranceView';
   static const kMedicalHistoryView = '/MedicalHistoryView';
-  static const notificationView = '/NotificationView';
+  static const kNotificationView = '/NotificationView';
   static const kBookAppointView = '/BookAppointView';
   static const kBookAppoint2View = '/BookAppoint2View';
   static const kBookAppoint3View = '/BookAppoint3View';
@@ -95,17 +100,34 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kHomeView,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          key: state.pageKey,
-          child: const HomeView(),
-          transitionsBuilder: customNavigateAnimation,
-        ),
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          final Datum? data = extra?['data'];
+          final AppointDetailsModel? appointDetails = extra?['appointDetails'];
+
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: HomeView(
+              data: data,
+              appointDetails: appointDetails,
+            ),
+            transitionsBuilder: customNavigateAnimation,
+          );
+        },
       ),
       GoRoute(
         path: kLoginView,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const LoginView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kLoginWithEmailView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const LoginWithEmailView(),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),
@@ -146,6 +168,14 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const PasswordChangedView(),
+          transitionsBuilder: customNavigateAnimation,
+        ),
+      ),
+      GoRoute(
+        path: kNotificationView,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const NotificationView(),
           transitionsBuilder: customNavigateAnimation,
         ),
       ),
@@ -330,8 +360,9 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: BlocProvider(
-            create: (context) =>PlacesCubit(
-              PlacesRepo(dio: Dio())..getNearbyHospitals(lat: 30.6140389, lng: 32.2937089), 
+            create: (context) => PlacesCubit(
+              PlacesRepo(dio: Dio())
+                ..getNearbyHospitals(lat: 30.6140389, lng: 32.2937089),
             ),
             child: const MapView(),
           ),

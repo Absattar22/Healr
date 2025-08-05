@@ -9,7 +9,7 @@ class ChatBotResponse {
   factory ChatBotResponse.fromJson(Map<String, dynamic> json) {
     return ChatBotResponse(
       message: json['message'] as String?,
-      response: json['response'] as String?,
+      response: json['result'] as String?,
     );
   }
 

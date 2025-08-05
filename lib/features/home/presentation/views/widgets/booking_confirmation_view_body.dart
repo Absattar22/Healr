@@ -10,7 +10,9 @@ import 'package:healr/core/widgets/custom_back_button.dart';
 import 'package:healr/features/home/data/models/all_doctors_model/datum.dart';
 import 'package:healr/features/home/data/models/appoint_details_model/appoint_details_model.dart';
 import 'package:healr/features/home/presentation/managers/Appointment/appointment_cubit.dart';
+import 'package:healr/features/home/presentation/managers/booking/booking_cubit.dart';
 import 'package:healr/features/home/presentation/views/widgets/appoint_details_container.dart';
+import 'package:healr/features/home/presentation/views/widgets/view_appoint_details_button.dart';
 
 class BookingConfirmationViewBody extends StatelessWidget {
   const BookingConfirmationViewBody(
@@ -22,7 +24,13 @@ class BookingConfirmationViewBody extends StatelessWidget {
     return SafeArea(
         child: WillPopScope(
       onWillPop: () {
-        GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+        GoRouter.of(context).pushReplacement(
+          AppRouter.kHomeView,
+          extra: {
+            'data': data,
+            'appointDetails': appointDetails,
+          },
+        );
         return Future.value(false);
       },
       child: BlocListener<AppointmentCubit, AppointmentState>(
@@ -57,7 +65,13 @@ class BookingConfirmationViewBody extends StatelessWidget {
             leading: CustomBackButton(
               marginLeft: 10.w,
               onTap: () {
-                GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+                GoRouter.of(context).pushReplacement(
+                  AppRouter.kHomeView,
+                  extra: {
+                    'data': data,
+                    'appointDetails': appointDetails,
+                  },
+                );
               },
             ),
             title: Text(
@@ -114,7 +128,9 @@ class BookingConfirmationViewBody extends StatelessWidget {
                         return ElevatedButton(
                           onPressed: state is AppointmentCancelLoading
                               ? null
-                              : () {
+                              : () async {
+                                  await BlocProvider.of<BookingCubit>(context)
+                                      .cancelAppointment();
                                   String formattedAppointID =
                                       appointDetails!.data!.appointment!.id!;
                                   BlocProvider.of<AppointmentCubit>(context)
@@ -147,7 +163,8 @@ class BookingConfirmationViewBody extends StatelessWidget {
                     SizedBox(
                       width: 12.w,
                     ),
-                    ElevatedButton(
+                    ViewAppointDetailsButton(
+                      text: "View Appointment Details",
                       onPressed: () {
                         GoRouter.of(context).push(
                           AppRouter.kAppointDetailsView,
@@ -157,21 +174,6 @@ class BookingConfirmationViewBody extends StatelessWidget {
                           },
                         );
                       },
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        fixedSize: Size(239.w, 40.h),
-                        backgroundColor: kSecondaryColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                            side: BorderSide.none),
-                      ),
-                      child: Text(
-                        "View Appointment Details",
-                        style: Styles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
                     ),
                   ],
                 )
